@@ -27,6 +27,11 @@
 \graphicspath{{figures/}{../figures/}}
 \usepackage[section]{placeins}
 
+% remove section numbering
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
 % Bibliography
 \usepackage[backend=biber,
 style=numeric,

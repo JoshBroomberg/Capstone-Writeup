@@ -9,7 +9,7 @@ I will proceed in three steps. First, I will provide a brief overview of the lan
 \section{The Sensitivity of Causal Estimators to Properties of the Observed Data}
 
 \vspace{\baselineskip}
-In the previous chapter, I arrived at an expression for the average causal effect estimands in terms of  \( E \left[ Y  \vert  X, Z \right]  \)  and referenced this as the ‘response surface’. I also asserted that it was possible to find expressions for the same estimands using meaningfully different, but purely statistical/predictive, estimators. An intuitive explanation for this statement is that causal processes are made up of different \textit{causal} \textit{mechanisms} that relate the various variables\footnote{ Mathematically, these mechanisms take the form of functions which take as inputs some subset of the variables for some unit and output the value of some other variable for that unit. These functions represent some real generative process which relates the measured quantities in the real world. In order to represent real stochastic processes the functions may themselves be stochastic and take the form of distributions parameterized by the input variables. }. And, in order to recover the unbiased effect, it is sufficient to accurately model only one of these mechanisms. Hill (2011) echos this explanation and refers to two mechanisms: the \textit{treatment assignment} \textit{mechanism} - which relates the covariates  \( X \) to the treatment status  \( Z \)  - and the \textit{response} \textit{mechanism} - which relates the covariates  \( X \)  and the treatment status  \( Z \)  to the observed outcome  \( Y \) . The authors point out that an accurate model of either mechanism is sufficient to recover average treatment effects. Kunzel et al (2019 $\#$ ref) further divide the \textit{response }mechanism into an \textit{outcome mechanism} which relates the covariates  \( X \) to the outcome without treatment  \( Y_{0} \) and the \textit{treatment effect mechanism} which relates  \( X \) and  \( Z \) to  \(  \tau \) which, in this framing, is the change in outcome (from  \( Y_{0} \) to  \( Y_{1}_{} \) ) as a result of treatment \footnote{ The covariates appear in the treatment effect mechanism because the treatment effect may be non-homogeneous/non-constant in which case it will depend on the covariate values of the exposed unit. }.\  Hypothetically, accurate specification of any of the now three mechanisms is sufficient to recover causal effects. But, given that it is impossible to directly model the treatment effect mechanism without a model of one of the other two mechanisms, it is only useful in so far as it clarifies a potential source of heterogeneity in the combined (outcome and treatment effect) response mechanism as defined by Hill (2011). With this idea of causal mechanisms in mind, different causal estimators can be understood as arising from the targeting of either, or both, the treatment assignment and response mechanisms. The targeted mechanism also explains the sensitivity of different estimators to different properties of the observed data distribution. With this established, I proceed to the brief overview of different estimators in order to make the points above more tangible.\par
+In the previous chapter, I arrived at an expression for the average causal effect estimands in terms of  \( E \left[ Y  \vert  X, Z \right]  \)  and referenced this as the ‘response surface’. I also asserted that it was possible to find expressions for the same estimands using meaningfully different, but purely statistical/predictive, estimators. An intuitive explanation for this statement is that causal processes are made up of different \textit{causal} \textit{mechanisms} that relate the various variables\footnote{ Mathematically, these mechanisms take the form of functions which take as inputs some subset of the variables for some unit and output the value of some other variable for that unit. These functions represent some real generative process which relates the measured quantities in the real world. In order to represent real stochastic processes the functions may themselves be stochastic and take the form of distributions parameterized by the input variables. }. And, in order to recover the unbiased effect, it is sufficient to accurately model only one of these mechanisms. Hill (2011) echos this explanation and refers to two mechanisms: the \textit{treatment assignment} \textit{mechanism} - which relates the covariates  \( X \) to the treatment status  \( Z \)  - and the \textit{response} \textit{mechanism} - which relates the covariates  \( X \)  and the treatment status  \( Z \)  to the observed outcome  \( Y \) . The authors point out that an accurate model of either mechanism is sufficient to recover average treatment effects. Kunzel et al (2019 $\#$ ref) further divide the \textit{response }mechanism into an \textit{outcome mechanism} which relates the covariates  \( X \) to the outcome without treatment  \( Y_{0} \) and the \textit{treatment effect mechanism} which relates  \( X \) and  \( Z \) to  \(  \tau \) which, in this framing, is the change in outcome (from  \( Y_{0} \) to  \( Y_{1} \) ) as a result of treatment \footnote{ The covariates appear in the treatment effect mechanism because the treatment effect may be non-homogeneous/non-constant in which case it will depend on the covariate values of the exposed unit. }.\  Hypothetically, accurate specification of any of the now three mechanisms is sufficient to recover causal effects. But, given that it is impossible to directly model the treatment effect mechanism without a model of one of the other two mechanisms, it is only useful in so far as it clarifies a potential source of heterogeneity in the combined (outcome and treatment effect) response mechanism as defined by Hill (2011). With this idea of causal mechanisms in mind, different causal estimators can be understood as arising from the targeting of either, or both, the treatment assignment and response mechanisms. The targeted mechanism also explains the sensitivity of different estimators to different properties of the observed data distribution. With this established, I proceed to the brief overview of different estimators in order to make the points above more tangible.\par
 
 
 \vspace{\baselineskip}
@@ -111,7 +111,7 @@ With this joint distribution and its factorization in hand, the next conceptual 
 
 \vspace{\baselineskip}
 \begin{adjustwidth}{0.5in}{0.0in}
- \( P \left( X  \vert  Z \right)  \proptoP \left( Z  \vert  X \right) P \left( X \right)  \) \par
+ \( P \left( X  \vert  Z \right)  \propto P \left( Z  \vert  X \right) P \left( X \right)  \) \par
 \end{adjustwidth}
 
 \vspace{\baselineskip}
@@ -146,7 +146,7 @@ Without further ado, I present the proposed axes of the causal inference problem
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item \textbf{The Nonlinearity/Complexity of the Outcome Mechanism }which defines the distribution over the value of  \( Y_{0}  \left(  \) the outcome without treatment) based on a unit’s covariates. This corresponds to the functional form of the distribution  \( P \left( Y_{0}  \vert  X \right)  \) .\par
+	\item \textbf{The Nonlinearity/Complexity of the Outcome Mechanism }which defines the distribution over the value of  \( Y_{0} \)  (the outcome without treatment) based on a unit’s covariates. This corresponds to the functional form of the distribution  \( P \left( Y_{0}  \vert  X \right)  \). \par
 
 
 \vspace{\baselineskip}
@@ -200,7 +200,7 @@ The example below demonstrates the impact of a treatment effect which is small r
 
 
 \vspace{\baselineskip}
- \( X\simN \left( 30, 25 \right)  \) \par
+ \( X\sim N \left( 30, 25 \right)  \) \par
 
  \( Y_{0}~\sim N \left( 2 \times X, 3 \right)  \) \par
 
@@ -325,5 +325,4 @@ This chapter laid the theoretical groundwork necessary for the robust evaluation
 
 \vspace{\baselineskip}
 
-\printbibliography
 \end{document}
