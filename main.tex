@@ -1,0 +1,43 @@
+\documentclass[oneside]{book}
+
+% Import Preamble Code
+\usepackage{preamble}
+
+\begin{document}
+ 
+\frontmatter
+
+% Title
+\subfile{chapters/0-title}
+\clearpage
+\thispagestyle{empty}
+
+% Table of Contents
+\tableofcontents
+ 
+\mainmatter
+%% Part 1
+\part{Introduction}
+\chapter{New Approaches, New Challenges}
+\subfile{chapters/1-intro}
+
+
+%% Part 2  
+\part{Causal Inference Theory}
+\chapter{A Framework for Causal Inference}
+\subfile{chapters/2-framework-and-notation}
+
+\chapter{The Causal Inference Problem Space}
+\subfile{chapters/3-problem-space}
+
+
+%% Part 3
+\part{Benchmarking Causal Inference Methods}
+\chapter{Literature Review}
+\chapter{Synthesized Hybrid Benchmarking Design}
+
+ 
+\backmatter
+% \import{./}{bibliography.tex}
+ 
+\end{document}
