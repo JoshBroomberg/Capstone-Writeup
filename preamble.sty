@@ -1,33 +1,31 @@
 \ProvidesPackage{preamble}
- 
+
+%  Block xcolor
+\usepackage{scrlfile}
+\PreventPackageFromLoading{xcolor}
+
+%  Load packages
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, english]{babel}
-\usepackage{graphicx}
 \usepackage{blindtext}
 \usepackage{textcomp}
-\usepackage{pgfplots}
-
-%%%%%%%%%%%%  Generated using docx2latex.com  %%%%%%%%%%%%%%
-
-\usepackage{amsmath}
+% \usepackage{pgfplots}
 \usepackage{latexsym}
-\usepackage{amsfonts}
 \usepackage[normalem]{ulem}
 \usepackage{soul}
 \usepackage{array}
 \usepackage{amssymb}
 \usepackage{extarrows}
-
 % Graphics
 \usepackage{graphicx}
 \graphicspath{{figures/}{../figures/}}
 \usepackage[section]{placeins}
 
-% remove section numbering
+% remove section numbering from tables and figures.
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
@@ -49,7 +47,7 @@ url=false,
 \usepackage{adjustbox}
 \usepackage{ragged2e}
 \usepackage{longtable}
-\usepackage[svgnames,table]{xcolor}
+\usepackage{tabularx}
 \usepackage{changepage}
 \usepackage{setspace}
 \usepackage{hhline}
@@ -72,6 +70,9 @@ url=false,
     top=1.5in,
     bottom=1.5in,
     headheight=1in]{geometry}
+
+\ResetPreventPackageFromLoading
+\usepackage[svgnames, table, xcdraw, usenames,dvipsnames]{xcolor}
 
 %% Subfile system
 \usepackage{subfiles}

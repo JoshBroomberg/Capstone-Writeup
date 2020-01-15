@@ -235,7 +235,7 @@ Synthetic designs rely on hand crafted functions to specify the four degrees of 
 
 
 \vspace{\baselineskip}
-The top left panel of Figure 2 below represents the synthetic design using the function labels and generic DGP defined above. All four degrees of freedom are specified to be synthetic functions and the consequence is a DGP devoid of empirical grounding. The bottom left panel expresses the Khang and Schafer (2007) DGP design as an assignment of the four base functions.\par
+The top left panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the synthetic design using the function labels and generic DGP defined above. All four degrees of freedom are specified to be synthetic functions and the consequence is a DGP devoid of empirical grounding. The bottom left panel expresses the Khang and Schafer (2007) DGP design as an assignment of the four base functions.\par
 
 
 \vspace{\baselineskip}
@@ -251,7 +251,7 @@ There are three things about this design worth noting. First, the empirical spec
 
 
 \vspace{\baselineskip}
-The top right panel of Figure 2 below represents the empirical design using the function labels and generic DGP defined above. All four degrees of freedom are specified to empirical functions (although some of these are unknown). The consequence is a DGP grounded in empirical data but with an unknown joint distribution over  \( \text{X, T,} \) and  \( Y \) and an unknown values for the true treatment effect and potential outcomes. The bottom left panel expresses the Lalonde (1986) DGP design as an assignment of the four base functions.\par
+The top right panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the empirical design using the function labels and generic DGP defined above. All four degrees of freedom are specified to empirical functions (although some of these are unknown). The consequence is a DGP grounded in empirical data but with an unknown joint distribution over  \( \text{X, T,} \) and  \( Y \) and an unknown values for the true treatment effect and potential outcomes. The bottom left panel expresses the Lalonde (1986) DGP design as an assignment of the four base functions.\par
 
 
 \vspace{\baselineskip}
@@ -261,7 +261,8 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
 
 
 \begin{table}[H]
-\begin{tabular}{|p{1in}|p{2in}|p{2.2in}|}
+\centering
+\begin{tabular}{|p{1in}|p{2in}|p{2in}|}
 \hline
  & \textbf{Synthetic Monte Carlo} & \textbf{Empirical Monte Carlo} \\ \hline
  
@@ -277,10 +278,10 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    \end{flalign*}}
    \parbox{2in} & 
    \parbox{2in}{\begin{flalign*}
-   & \rho _{empirical} \leftarrow f_{empirical}=X_{empirical}   \\
-   & \Omega _{empirical} \leftarrow f_{empirical~}= T_{empirical}   \\
-   & \Phi _{empirical} \leftarrow f_{empirical}= ?   \\
-   & \tau_{empirical} \leftarrow f_{empirical} = ?   \\
+   & \rho _{empirical} \leftarrow f_{emp}=X_{empirical}   \\
+   & \Omega _{empirical} \leftarrow f_{emp}= T_{empirical}   \\
+   & \Phi _{empirical} \leftarrow f_{emp}= ?   \\
+   & \tau_{empirical} \leftarrow f_{emp} = ?   \\
    & X \leftarrow X_{empirical}   \\
    & T \leftarrow T_{empirical}~   \\
    & Y_{0} \leftarrow ?   \\
@@ -325,47 +326,11 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    
    
 \end{tabular}
-\caption{XXX}
+\caption{Synthetic vs Empirical Monte Carlo Designs expressed as concretized versions of the generic DGP along with examples framed in terms of assignments to the four functional degrees of freedom.}
 \label{tbl:synth-vs-emp-dgp}
 \end{table}
 
-\begin{table}[H]
- 			\centering
-\begin{tabular}{p{0.91in}p{2.7in}p{2.24in}}
-\hline
-%row no:1
-\multicolumn{1}{|p{0.91in}}{} & 
-\multicolumn{1}{|p{2.7in}}{\textbf{Synthetic Monte Carlo}} & 
-\multicolumn{1}{|p{2.24in}|}{\textbf{Empirical Monte Carlo}} \\
-\hhline{---}
-%row no:2
-\multicolumn{1}{|p{0.91in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Concretized DGP}}} & 
-\multicolumn{1}{|p{2.7in}}{ \(  \rho _{synthetic} \leftarrow f_{synthetic}~ \)  \par  \(  \Omega _{synthetic} \leftarrow f_{synthetic} \)  \par  \(  \Phi _{synthetic} \leftarrow f_{synthetic} \)  \par  \(  \tau_{synthetic} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow  \rho _{synthetic} \left(  \right)  \)  \par  \( T \leftarrow  \Omega _{synthetic} \left( X \right)  \)  \par  \( Y_{0} \leftarrow  \Phi _{synthetic} \left( X \right)  \)  \par  \( TE \leftarrow  \tau_{synthetic} \left( X \right)  \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } & 
-\multicolumn{1}{|p{2.24in}|}{ \(  \rho _{empirical} \leftarrow f_{empirical}=X_{empirical} \)  \par  \(  \Omega _{empirical} \leftarrow f_{empirical~}= T_{empirical} \)  \par  \(  \Phi _{empirical} \leftarrow f_{empirical}= ? \)  \par  \(  \tau_{empirical} \leftarrow f_{empirical} = ? \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow T_{empirical}~ \)  \par  \( Y_{0} \leftarrow ? \)  \par  \( TE \leftarrow ~? \)  \par  \( Y_{1}~ \leftarrow ? \)  \par  \( Y = Y_{empirical} \)  \par } \\
-\hhline{---}
-%row no:3
-\multicolumn{1}{|p{0.91in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Example Concretization}}} & 
-\multicolumn{1}{|p{2.7in}}{{\fontsize{9pt}{10.8pt}\selectfont \uline{Khang and Schafer (2007)}} \par  \(  \rho _{}~ \leftarrow  N \left( X  \vert  0, 1 \right)  \)  \par  \(  \Omega _{}~ \leftarrow expit \left( -X_{1} + 0.5X_{2} - 0.25X_{3} - 0.1X_{4} \right)  \)  \par  \(  \Phi _{} \leftarrow N \left( Y  \vert  210 + 27.4X_{1} + 13.7 \left( X_{2}+X_{3}+_{}X_{4} \right) , 1 \right)  \)  \par  \(  \tau_{}~ \leftarrow ~C~ \in R \)  \par } & 
-\multicolumn{1}{|p{2.24in}|}{{\fontsize{9pt}{10.8pt}\selectfont \uline{Lalonde (1986)}} \par  \(  \rho _{} \leftarrow  \{ X_{experiment},~X_{survey} \}  \sim~? \)  \par  \(  \Omega _{} \leftarrow ~T_{empirical}~\sim~? \)  \par  \(  \Phi _{} \leftarrow ~? \)  \par  \(  \tau_{} \leftarrow ~? \)  \par } \\
-\hhline{---}
-%row no:4
-\multicolumn{1}{|p{0.91in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Joint Distribution over Observables}}} & 
-\multicolumn{1}{|p{2.7in}}{ \( P \left( X, Y, T \right)  \sim \rho  \times  \Omega  \times  \Phi  \) } & 
-\multicolumn{1}{|p{2.24in}|}{ \( P \left( X, Y, T \right)  \sim~? \) } \\
-\hhline{---}
 
-\end{tabular}
- \end{table}
-
-
-%%%%%%%%%%%%%%%%%%%% Table No: 1 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Figure 2: Synthetic vs Empirical Monte Carlo Designs expressed as concretized versions of the generic DGP along with examples framed in terms of assignments to the four functional degrees of freedom.\par
-
-
-\vspace{\baselineskip}
 \paragraph*{Comparing the Designs}\par
 
 
@@ -432,95 +397,26 @@ Moving on to consider general validity, synthetic designs have two properties wh
 
 
 \vspace{\baselineskip}
-Table 2 provides a summary of the eight properties outlined above, which of the two validity axes they affect, and the functional degrees of freedom from the generic DGP which affect each one, and whether each of the two pure designs possesses the (positive) property.\par
-
-
-\vspace{\baselineskip}
-
-
-%%%%%%%%%%%%%%%%%%%% Table No: 2 starts here %%%%%%%%%%%%%%%%%%%%
-
+Table \ref{tbl:synth-vs-emp-props} provides a summary of the eight properties outlined above, which of the two validity axes they affect, the functional degrees of freedom from the generic DGP that affect the possession of the property, and whether each of the two pure designs possesses the (positive) property.\par
 
 \begin{table}[H]
- 			\centering
-\begin{tabular}{p{2.31in}p{0.58in}p{0.76in}p{0.64in}p{0.68in}}
+\centering
+\begin{tabular}{|p{2in}|p{0.5in}|p{0.7in}|p{0.6in}|p{0.6in}|}
 \hline
-%row no:1
-\multicolumn{1}{|p{2.31in}}{\textbf{Property}} & 
-\multicolumn{1}{|p{0.58in}}{\textbf{Validity Axis }} & 
-\multicolumn{1}{|p{0.76in}}{\textbf{Relevant functional degrees of freedom}} & 
-\multicolumn{1}{|p{0.64in}}{\textbf{Synthetic Designs}} & 
-\multicolumn{1}{|p{0.68in}|}{\textbf{Empirical Designs}} \\
-\hhline{-----}
-%row no:2
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Covariate Distribution}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \rho  \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
-\hhline{-----}
-%row no:3
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Treatment/Outcome Functions}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
-\hhline{-----}
-%row no:4
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
-\hhline{-----}
-%row no:5
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Access to Ground Truth}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} \\
-\hhline{-----}
-%row no:6
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed to Obey Causal Assumptions}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} \\
-\hhline{-----}
-%row no:7
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Allows Repeat Sampling}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont Specific}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} \\
-\hhline{-----}
-%row no:8
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Known Distributional Setting}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont General}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} \\
-\hhline{-----}
-%row no:9
-\multicolumn{1}{|p{2.31in}}{{\fontsize{9pt}{10.8pt}\selectfont Controllable Distributional Setting}} & 
-\multicolumn{1}{|p{0.58in}}{{\fontsize{9pt}{10.8pt}\selectfont General}} & 
-\multicolumn{1}{|p{0.76in}}{ \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) } & 
-\multicolumn{1}{|p{0.64in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.68in}|}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} \\
-\hhline{-----}
-
+\textbf{Property} & \textbf{Validity Axis} & \textbf{Relevant functional degrees of freedom} & \textbf{Synthetic Designs} & \textbf{Empirical Designs} \\ \hline
+Realistic Covariate Distribution      & Specific      & $\rho$                                       & \cellcolor[HTML]{F4CCCC} & \cellcolor[HTML]{D9EAD3} \\ \hline
+Realistic Treatment/Outcome Functions & Specific      &   $\Omega, ~\Phi, \tau$                                      & \cellcolor[HTML]{F4CCCC} & \cellcolor[HTML]{D9EAD3} \\ \hline
+Guaranteed Unbiased Specification     & Specific      &    $\rho, ~\Omega, ~\Phi, \tau$                                     & \cellcolor[HTML]{F4CCCC} & \cellcolor[HTML]{D9EAD3} \\ \hline
+Access to Ground Truth                & Specific      &    $\Phi, \tau$                                     & \cellcolor[HTML]{D9EAD3} & \cellcolor[HTML]{F4CCCC} \\ \hline
+Guaranteed to Obey Causal Assumptions & Specific      &    $\Omega, ~\Phi, \tau$                                     & \cellcolor[HTML]{D9EAD3} & \cellcolor[HTML]{F4CCCC} \\ \hline
+Allows Repeat Sampling                & Specific      &    $\rho, ~\Omega, ~\Phi, \tau$                                     & \cellcolor[HTML]{D9EAD3} & \cellcolor[HTML]{F4CCCC} \\ \hline
+Known Distributional Setting          & General       &   $\rho, ~\Omega, ~\Phi, \tau$                                      & \cellcolor[HTML]{D9EAD3} & \cellcolor[HTML]{F4CCCC} \\ \hline
+Controllable Distributional Setting   & General       &   $\rho, ~\Omega, ~\Phi, \tau$                                      & \cellcolor[HTML]{D9EAD3} & \cellcolor[HTML]{F4CCCC} \\ \hline
 \end{tabular}
- \end{table}
+\caption{The eight properties of Monte Carlo designs which affect specific and general validity of evaluation along with the functional degrees of freedom which impact this property}
+\label{tbl:synth-vs-emp-props}
+\end{table}
 
-
-%%%%%%%%%%%%%%%%%%%% Table No: 2 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Table 2: the eight properties of Monte Carlo designs which affect specific and general validity of evaluation along with the functional degrees of freedom which impact this property.\par
-
-
-\vspace{\baselineskip}
 The analysis above establishes a more granular understanding of the properties of the two pure designs which produce the differences in their specific and general validity. It is clear that these two designs are polar opposites but this does not necessarily mean that they are suboptimal in terms of the trade-off between specific and general validity. If one could not do better in one without sacrificing the other, then these two designs would represent a (discrete) optimal frontier with researchers being forced to choose one or the other depending on their needs. Fortunately, this is not the case.
 
 \subsubsection{Hybrid Designs for Monte Carlo Evaluation}
@@ -551,7 +447,7 @@ Huber et al (2013) formalize this idea and introduce what they call \textit{Empi
 
 
 \vspace{\baselineskip}
-Figure 3 expresses this design using the generic DGP and functional building blocks from above.\par
+Table \ref{tbl:huber-hybrid} expresses this design using the generic DGP and functional building blocks from above.\par
 
 
 \vspace{\baselineskip}
@@ -569,18 +465,13 @@ Figure 3 expresses this design using the generic DGP and functional building blo
 \hhline{-}
 
 \end{tabular}
- \end{table}
-
-
-%%%%%%%%%%%%%%%%%%%% Table No: 3 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Figure 3: Concretization of the generic DGP under the design of Huber et al (2013)\par
+\caption{Concretization of the generic DGP under the design of Huber et al (2013)}
+\label{tbl:huber-hybrid}
+\end{table}
 
 
 \vspace{\baselineskip}
-Analyzing the assignment of the functional degrees of freedom from Figure 3 in light of Table 2 makes analyzing the validity properties of this design relatively straightforward. These are listed below with a summary given in Table 3. It is clear from these properties that hybrid designs are promising - the use of data provides realism while the simulated components of the treatment and outcome provide access to ground truth and ensure assumptions are obeyed. However, as is evident from the analysis below, the EMC design provides only partial conformance to some of the desirable properties of validity.\par
+Analyzing the assignment of the functional degrees of freedom from Table \ref{tbl:huber-hybrid} in light of Table \ref{tbl:synth-vs-emp-props} makes analyzing the validity properties of this design relatively straightforward. These are listed below with a summary given in Table \ref{tbl:hybrid-prop-comparison}. It is clear from these properties that hybrid designs are promising - the use of data provides realism while the simulated components of the treatment and outcome provide access to ground truth and ensure assumptions are obeyed. However, as is evident from the analysis below, the EMC design provides only partial conformance to some of the desirable properties of validity.\par
 
 
 \vspace{\baselineskip}
@@ -636,20 +527,12 @@ Knaus et al (2018) build on EMC. They use a very similar dataset as Huber et al 
 %row no:1
 \multicolumn{1}{|p{3.14in}|}{\textbf{Knaus et al (2018)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{estimate} \)  \par  \(  \Phi _{} \leftarrow f_{empirical} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow LogisticFit \left(  T_{empirical}\simX_{empirical} \right)  \)  \par  \( Y_{0} \leftarrow Y_{empirical} \)  \par  \( TE \leftarrow f_{synthetic} \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
 \hhline{-}
-
 \end{tabular}
- \end{table}
+\caption{Concretization of the generic DGP under the design of Knaus et al (2018)}
+\label{tbl:knaus-hybrid}
+\end{table}
 
-
-%%%%%%%%%%%%%%%%%%%% Table No: 4 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Figure 4: Concretization of the generic DGP under the design of Huber et al (2013)\par
-
-
-\vspace{\baselineskip}
-The concretized DGP is given in Figure 4. This figure makes the similarity with Huber et al obvious. But the changes do represent a moderate improvement over EMC when examining the validity properties. The outcome mechanism is arguably more realistic as a result of the complex synthetic treatment effect function combined with the empirical control outcome. But, the synthetic component of the specification opens this design to the same criticisms of realism and potential bias as any other synthetic design. The primary contribution of these authors is the parameterization of the functions to generate datasets with different, well-defined distributional settings. This allows the evaluation of estimators over a partial subspace of all possible distributional settings. These changes are reflected in the 5th column of Table 3 which upgrades the known and controllable distributional setting properties from weak under EMC to partial under Knaus et al.\par
+The concretized DGP is given in Table \ref{tbl:knaus-hybrid}. The makes the similarity with Huber et al obvious. But the changes do represent a moderate improvement over EMC when examining the validity properties. The outcome mechanism is arguably more realistic as a result of the complex synthetic treatment effect function combined with the empirical control outcome. But, the synthetic component of the specification opens this design to the same criticisms of realism and potential bias as any other synthetic design. The primary contribution of these authors is the parameterization of the functions to generate datasets with different, well-defined distributional settings. This allows the evaluation of estimators over a partial subspace of all possible distributional settings. These changes are reflected in the 5th column of Table \ref{tbl:hybrid-prop-comparison} which upgrades the known and controllable distributional setting properties from weak under EMC to partial under Knaus et al.\par
 
 
 \vspace{\baselineskip}
@@ -657,14 +540,7 @@ The two approaches analyzed above use an empirical covariate population and empi
 
 
 \vspace{\baselineskip}
-The concretization of the generic DGP proposed by hill is summarized in Figure 5. Ultimately, as a result of the parallel between simulating outcome and treatment, this method has very similar validity properties to those analyzed above. Unlike the methods in Huber et al (2013) and Knaus et al (2018), the simulated non-treatment outcome provides greater control over the distribution of outcomes and the experimental datasets allows for the easy control of balance (although a similar censoring method could be applied to non-experimental data). This means the method has arguably better definition and control of the distributional setting but this control is still worse than under purely synthetic treatment assignment and outcome mechanisms.\par
-
-
-\vspace{\baselineskip}
-
-
-%%%%%%%%%%%%%%%%%%%% Table No: 5 starts here %%%%%%%%%%%%%%%%%%%%
-
+The concretization of the generic DGP proposed by Hill (2011) is summarized in Tbale \ref{tbl:hill-hybrid}. Ultimately, as a result of the parallel between simulating outcome and treatment, this method has very similar validity properties to those analyzed above. Unlike the methods in Huber et al (2013) and Knaus et al (2018), the simulated non-treatment outcome provides greater control over the distribution of outcomes and the experimental datasets allows for the easy control of balance (although a similar censoring method could be applied to non-experimental data). This means the method has arguably better definition and control of the distributional setting but this control is still worse than under purely synthetic treatment assignment and outcome mechanisms.\par
 
 \begin{table}[H]
  			\centering
@@ -675,22 +551,18 @@ The concretization of the generic DGP proposed by hill is summarized in Figure 5
 \hhline{-}
 
 \end{tabular}
- \end{table}
+\caption{Concretization of the generic DGP under the design of Hill (2011)}
+\label{tbl:hill-hybrid}
+\end{table}
 
-
-%%%%%%%%%%%%%%%%%%%% Table No: 5 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Figure 5: Concretization of the generic DGP under the design of Hill (2011)\par
 
 
 \vspace{\baselineskip}
-Two papers iterate on the design proposed by Hill (2011) but change the specification of the outcome and treatment effect functions in order to improve the realism of the synthetic outcome and reduce the potential for bias. Wendling (2019 $\#$ ref) uses four experimental datasets from the medical field but, instead of manually specifying the outcome and treatment effect functions, estimates these using neural networks. This technically avoids the need to specify a functional form because neural networks can represent an arbitrary set of functional forms. This is a move back toward the estimation used in EMC with  \(  \Phi _{} \leftarrow f_{estimated} \)  and  \(  \tau_{} \leftarrow f_{estimated}~ \) . While this may more accurately model the true outcome function, the estimation method could still favor specific estimators - for example those based on neural networks which will more naturally recover the same estimated function from the same data. It also gives up on control over the outcome aspect of the distributional setting because it is not clear what level of interaction/non-linearity is represented by the estimated functions nor how to change these functions to change the level of these aspects of the distribution. The first point results in improved realism of the outcome/treatment but no change to the Guaranteed Unbiased Specification property. The second point results in worsened scores on Known and Controllable distributional setting - see Table 3.\par
+Two papers iterate on the design proposed by Hill (2011) but change the specification of the outcome and treatment effect functions in order to improve the realism of the synthetic outcome and reduce the potential for bias. Wendling (2019 $\#$ ref) uses four experimental datasets from the medical field but, instead of manually specifying the outcome and treatment effect functions, estimates these using neural networks. This technically avoids the need to specify a functional form because neural networks can represent an arbitrary set of functional forms. This is a move back toward the estimation used in EMC with  \(  \Phi _{} \leftarrow f_{estimated} \)  and  \(  \tau_{} \leftarrow f_{estimated}~ \) . While this may more accurately model the true outcome function, the estimation method could still favor specific estimators - for example those based on neural networks which will more naturally recover the same estimated function from the same data. It also gives up on control over the outcome aspect of the distributional setting because it is not clear what level of interaction/non-linearity is represented by the estimated functions nor how to change these functions to change the level of these aspects of the distribution. The first point results in improved realism of the outcome/treatment but no change to the Guaranteed Unbiased Specification property. The second point results in worsened scores on Known and Controllable distributional setting - see Table \ref{tbl:hybrid-prop-comparison}.\par
 
 
 \vspace{\baselineskip}
-Kern et al (2016 $\#$ ref) pursue a different approach - they specify the outcome and treatment effect functions manually but use a $``$saturated parametric model$"$  with some desired level of nonlinearity and interaction. This means that, for example, all covariates may appear in both linear and quadratic form as well as in every possible (pairwise) interaction with lower/higher powers and interaction levels possible. The motivation for this is to create a principled approach for building complex functions with desired properties but without allowing the function to be hand crafted with arbitrary form and/or modified to produce desired results. This moves towards a design that allows for control over the outcome mechanism while also partially mitigating specification bias. Note that the the full saturation is itself fairly arbitrary (although it is closed to respecification in order to achieve desired results). On balance, the result of this change is a design which appears to have some degree of positive across-the-board ‘performance’ when assessed on the properties of validity - see Table 3. This is not a claim to formal superiority but rather an indication of a promising design direction.\par
+Kern et al (2016 $\#$ ref) pursue a different approach - they specify the outcome and treatment effect functions manually but use a $``$saturated parametric model$"$  with some desired level of nonlinearity and interaction. This means that, for example, all covariates may appear in both linear and quadratic form as well as in every possible (pairwise) interaction with lower/higher powers and interaction levels possible. The motivation for this is to create a principled approach for building complex functions with desired properties but without allowing the function to be hand crafted with arbitrary form and/or modified to produce desired results. This moves towards a design that allows for control over the outcome mechanism while also partially mitigating specification bias. Note that the the full saturation is itself fairly arbitrary (although it is closed to respecification in order to achieve desired results). On balance, the result of this change is a design which appears to have some degree of positive across-the-board ‘performance’ when assessed on the properties of validity - see Table \ref{tbl:hybrid-prop-comparison}. This is not a claim to formal superiority but rather an indication of a promising design direction.\par
 
 
 \vspace{\baselineskip}
@@ -698,9 +570,8 @@ Kern et al (2016 $\#$ ref) pursue a different approach - they specify the outcom
 
 %%%%%%%%%%%%%%%%%%%% Table No: 6 starts here %%%%%%%%%%%%%%%%%%%%
 
-
 \begin{table}[H]
- 			\centering
+\makebox[\textwidth][c]{
 \begin{tabular}{p{0.78in}p{0.57in}p{0.52in}p{-0.02in}p{0.51in}p{0.53in}p{0.51in}p{0.54in}p{0.52in}}
 \hline
 %row no:1
@@ -739,7 +610,7 @@ Kern et al (2016 $\#$ ref) pursue a different approach - they specify the outcom
 \multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
 \multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
 \multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial but strong\footnote{ Due to non-parametric neural network estimation of outcome function and empirical treatment assignment. }}} & 
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial \footnotemark}} & 
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 %row no:5
@@ -809,16 +680,12 @@ Kern et al (2016 $\#$ ref) pursue a different approach - they specify the outcom
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 
-\end{tabular}
- \end{table}
+\end{tabular}}
+\caption{Comparison of validity properties across hybrid designs in the literature.}
+\label{tbl:hybrid-prop-comparison}
+\end{table}
 
-
-%%%%%%%%%%%%%%%%%%%% Table No: 6 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Table 3: Comparison of validity properties across designs.\par
-
+\footnotetext{Due to non-parametric neural network estimation of outcome function and empirical treatment assignment.}
 
 \vspace{\baselineskip}
 The methods explored up until this point share a few key properties. They all use empirical covariate data from which samples are drawn. In all cases, either the treatment assignment or outcome mechanism is simulated to provide access to ground truth and allow for control over the distributional setting. Some methods, like EMC, trade off control for realism but newer approaches propose designs which allow for some degree of realism and control - either by approximation with non-parametric functions (Wendling, 2019) or by the principled specification of functions from simpler components (Kern et al, 2016). The ideal method would improve on the methods above by improving the realism of the treatment assignment/outcome function while also increasing control over the distributional setting.\par
@@ -851,7 +718,7 @@ The six knobs are:\par
 \vspace{\baselineskip}
 
 \vspace{\baselineskip}
-The design of the evaluation method is presented in Figure 6 below. Note that there are effectively two Monte Carlo processes happening in this design. The first is a sample of DGPs from the space of DGPs defined by the function sampling parameters. The second is a sample of the data defined by the sampled DGP. The authors do not run repeat sampling at the data level, instead conflating both sampling processes into a single sample run repeatedly. As pointed out by the authors, this should have no effect on the convergence of the results to the true sampling distribution of the targeted estimand.\par
+The design of the evaluation method is presented in Table \ref{tbl:dorie-hybrid} below. Note that there are effectively two Monte Carlo processes happening in this design. The first is a sample of DGPs from the space of DGPs defined by the function sampling parameters. The second is a sample of the data defined by the sampled DGP. The authors do not run repeat sampling at the data level, instead conflating both sampling processes into a single sample run repeatedly. As pointed out by the authors, this should have no effect on the convergence of the results to the true sampling distribution of the targeted estimand.\par
 
 
 \vspace{\baselineskip}
@@ -869,6 +736,8 @@ The design of the evaluation method is presented in Figure 6 below. Note that th
 \hhline{-}
 
 \end{tabular}
+\caption{Concretization of the generic DGP under the design of Dorie et al (2019)}
+\label{tbl:dorie-hybrid}
  \end{table}
 
 
@@ -876,11 +745,7 @@ The design of the evaluation method is presented in Figure 6 below. Note that th
 
 
 \vspace{\baselineskip}
-Figure 6: Concretization of the generic DGP under the design of Dorie et al (2019)\par
-
-
-\vspace{\baselineskip}
-Based on the properties above, it appears that the design proposed by Dorie et al (2019) has all of the desired validity properties - although the degree of validity may be contingent on design details like the size of the function space. Table 4 compares the validity properties of the three methods based on experimental data and principled function construction.
+Based on the properties above, it appears that the design proposed by Dorie et al (2019) has all of the desired validity properties - although the degree of validity may be contingent on design details like the size of the function space. Table \ref{tbl:comparison-pure-vs-hybrid-prop} compares the validity properties of the three methods based on experimental data and principled function construction.
 
 
 \vspace{\baselineskip}
@@ -925,7 +790,7 @@ Based on the properties above, it appears that the design proposed by Dorie et a
 \multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
 \multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
 \multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes\footnote{ Provided the space of functions which can be sampled is large enough to contain realistic functions and enough samples are taken to allow for effective averaging. }}} \\
+\multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes \footnotemark}} \\
 \hhline{-------}
 %row no:5
 \multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} & 
@@ -983,14 +848,11 @@ Based on the properties above, it appears that the design proposed by Dorie et a
 \hhline{-------}
 
 \end{tabular}
- \end{table}
+\caption{Comparison of validity properties across designs based on experimental data and principled function construction.}
+\label{tbl:comparison-pure-vs-hybrid-prop}
+\end{table}
 
-
-%%%%%%%%%%%%%%%%%%%% Table No: 8 ends here %%%%%%%%%%%%%%%%%%%%
-
-
-\vspace{\baselineskip}
-Table 4: Comparison of validity properties across designs based on experimental data and principled function construction.\par
+\footnotetext{Provided the space of functions which can be sampled is large enough to contain realistic functions and enough samples are taken to allow for effective averaging.}
 
 \section{Conclusion}
 
