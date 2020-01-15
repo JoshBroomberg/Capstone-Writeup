@@ -97,8 +97,9 @@ The analysis in this section divides Monte Carlo evaluation methods into two cat
 
 \subsubsection{A Generic DGP for the Monte Carlo Evaluation of Causal Inference Estimators}
 
-First, Table \ref{tbl:var-definitions} below briefly recapitulates the variables over which a causal inference problem-instance is defined and their associated definitions. Full explanations for these variables are presented in the theory chapter above.\par
+This sections builds towards a formal specification scheme for the DGPs which underpin Monte Carlo evaluation of causal inference estimators. The scheme is defined in terms of a generic DGP, the functional components of which can then be defined/instantiated to describe a specific, concrete DGP design.\par
 
+First, Table \ref{tbl:var-definitions} below recapitulates the variables over which a causal inference problem-instance is defined and provides the associated dimensionality and  definition. Full explanations for these variables are presented in Chapter \ref{chap:framework} above.\par
 
 \vspace{\baselineskip}
 
@@ -125,40 +126,56 @@ $Y \in R^n$ & $Y$ is the observed outcome \\ \hline
 
 \vspace{\baselineskip}
 
-A Monte Carlo evaluation design is specified by the selection of four functions which produce and relate these variables:\par
+The variables in Table \ref{tbl:var-definitions} are related through four generic functions given in Table \ref{tbl:func-definitions}. A concrete Monte Carlo evaluation design can, thus, be fully specified by the concrete instantiation of these four functions.\par
 
 
-\vspace{\baselineskip}
-\begin{itemize}
-	\item  \(  \rho :  \left(  \right)   \rightarrow R^{ \left( n, d \right) } \) \  - the \textbf{covariate population sampler} which represents the joint distribution over the  \( d \)  covariates and produces samples of the covariate matrix  \( X. \) Strictly speaking,  \( X \) contains sampled covariate observations for  \( n \) individuals such that a ‘sampled’  \( X \) is constructed by repeatedly sampling the underlying joint distribution over the covariates.\par
+\begin{table}[H]
+\begin{tabular}{|p{1.25in}|p{3.75in}|}
+\hline
 
-	\item  \(  \Omega :~R^{ \left( n, d \right) }~ \rightarrow R^{n} \) \  - the \textbf{treatment assignment sampler} which assigns a treatment status  \( T \) to the individuals in  \( X \) .\par
+$\rho :  \left(  \right)   \rightarrow R^{ \left( n, d \right) }$ & The \textbf{covariate population sampler} which represents the joint distribution over the  \( d \)  covariates and produces samples of the covariate matrix  \( X. \) Strictly speaking,  \( X \) contains sampled covariate observations for  \( n \) individuals such that a ‘sampled’  \( X \) is constructed by repeatedly sampling the underlying joint distribution over the covariates \\ \hline
 
-	\item  \(  \Phi :~R^{ \left( n, d \right) }~ \rightarrow R^{n} \) \  - the \textbf{outcome} \textbf{sampler} which assigns an outcome under control ( \( Y_{0} \) ) to the individuals in  \( X \) .\par
+$ \Omega :~R^{ \left( n, d \right) }~ \rightarrow R^{n}$ & The \textbf{treatment assignment sampler} which assigns a treatment status  \( T \) to the individuals in  \( X \)  \\ \hline
 
-	\item  \(  \tau:~R^{ \left( n, d \right) }~ \rightarrow R^{n} \) \  - the \textbf{treatment effect} \textbf{sampler} which assigns a treatment effect ( \(  \tau \) ) to the individuals in  \( X \) .
-\end{itemize}\par
+$\Phi :~R^{ \left( n, d \right) }~ \rightarrow R^{n}$ & The \textbf{outcome sampler} which assigns an outcome under control ( \( Y_{0} \) ) to the individuals in  \( X \) \\ \hline
 
+$ \tau:~R^{ \left( n, d \right) }~ \rightarrow R^{n}$ & The \textbf{treatment effect} \textbf{sampler} which assigns a treatment effect ( \(  \tau \) ) to the individuals in  \( X \) \\ \hline
 
-\vspace{\baselineskip}
-The full DGP is then given by the following procedure defined over the variables and functions above:\par
+\end{tabular}
 
-
-\vspace{\baselineskip}
- \( X \leftarrow  \rho  \left(  \right)  \) \par
-
- \( T \leftarrow  \Omega  \left( X \right)  \) \par
-
- \( Y_{0} \leftarrow  \Phi  \left( X \right)  \) \par
-
- \( TE \leftarrow  \tau \left( X \right)  \) \par
-
- \( Y_{1}~ \leftarrow Y_{0}+ TE \) \par
-
- \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \) \par
-
+\caption{Functions which generate and relate the variables in a causal inference problem instance}
+\label{tbl:func-definitions}
+\end{table}
 
 \vspace{\baselineskip}
+
+The complete DGP is then given by the procedure presented in Table \ref{tbl:generic-dgp-definition}. This procedure relates the variables defined in Table \ref{tbl:var-definitions} using the functions defined in Table \ref{tbl:func-definitions}.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|}
+\hline
+\textbf{Generic DGP Procedure} \\ \hline
+
+ \( X \leftarrow  \rho  \left(  \right)  \) \\
+
+ \( T \leftarrow  \Omega  \left( X \right)  \) \\
+
+ \( Y_{0} \leftarrow  \Phi  \left( X \right)  \) \\
+
+ \( TE \leftarrow  \tau \left( X \right)  \) \\
+
+ \( Y_{1}~ \leftarrow Y_{0}+ TE \) \\
+
+ \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \) \\
+ \hline
+\end{tabular}
+\caption{The procedure for a Monte Carlo evaluation DGP defined in terms of the variables from Table \ref{tbl:var-definitions} and functions from Table \ref{tbl:func-definitions}}
+\end{table}
+\label{tbl:generic-dgp-definition}
+\vspace{\baselineskip}
+
 Note three facts about this generic DGP:\par
 
 \vspace{\baselineskip}
@@ -171,7 +188,7 @@ Note three facts about this generic DGP:\par
 
 
 \vspace{\baselineskip}
-	\item This DGP is constructed to ensure ignorability. Following Dorie et al (2019): Assume  \(  \Phi ,~ \Omega  \)  and  \(  \tau \) are probability distributions, then we have the following factorization as a result of the DGP form above (and specifically as a result of the absence of  \( T \) as an argument to  \(  \Phi ,~ \tau \) ):  \( p \left( Y_{0},~Y_{1}, T  \vert  X \right)  = p \left( Y_{0},~Y_{1} \vert  X \right)  \times p \left( T \vert X \right)  \)  which implies  \(  p \left( Y_{0},~Y_{1} \vert  T, X \right)  = p \left( Y_{0},~Y_{1} \vert ~ X \right)  \)  or  \( Y_{0},~Y_{1} \) ⫫  \( T  \vert  X \) . Non-ignorability can be induced by dropping some of the  \( d \)  covariates in  \( X \)  but, by default, it is guaranteed.
+	\item This DGP is constructed to ensure ignorability. Following Dorie et al (2019): Assume  \(  \Phi ,~ \Omega  \)  and  \(  \tau \) are probability distributions, then we have the following factorization as a result of the DGP form above (and specifically as a result of the absence of  \( T \) as an argument to  \(  \Phi ,~ \tau \) ):  \( p \left( Y_{0},~Y_{1}, T  \vert  X \right)  = p \left( Y_{0},~Y_{1} \vert  X \right)  \times p \left( T \vert X \right)  \)  which implies  \(  p \left( Y_{0},~Y_{1} \vert  T, X \right)  = p \left( Y_{0},~Y_{1} \vert ~ X \right)  \)  or  \( Y_{0},~Y_{1} \bigCI T  \vert  X \) . Non-ignorability can be induced by dropping some of the  \( d \)  covariates in  \( X \)  but, by default, it is guaranteed.
 \end{itemize}\par
 
 
@@ -240,12 +257,77 @@ The top right panel of Figure 2 below represents the empirical design using the 
 \vspace{\baselineskip}
 There is an obvious concern worth addressing in calling this a Monte Carlo design. The component functions are specified by data rather than sampling functions which means that the DGP cannot be used to generate multiple samples from the joint distribution over the variables. As a result, this method does not provide access to a sampling distribution for the estimand but rather only a single estimate. I believe the Monte Carlo classification is justified for two reasons despite this concern. Firstly, we can conceive of the empirical design as a single sample from some latent DGP which could - in theory - be used produce more samples. This design might be weakened by the small (single) sample size but this doesn’t change the fundamental principle behind its operation. Second, the analysis below will introduce hybrid designs which share common components with the pure empirical design but do allow sampling. In this sense, the pure empirical design can be thought of the extreme (and somewhat degenerate) end of a Monte Carlo design spectrum.\par
 
-
 \vspace{\baselineskip}
 
 
-%%%%%%%%%%%%%%%%%%%% Table No: 1 starts here %%%%%%%%%%%%%%%%%%%%
-
+\begin{table}[H]
+\begin{tabular}{|p{1in}|p{2in}|p{2.2in}|}
+\hline
+ & \textbf{Synthetic Monte Carlo} & \textbf{Empirical Monte Carlo} \\ \hline
+ 
+   \textbf{Concretized DGP} & 
+   \parbox{2in}{\begin{flalign*}
+   &\rho_{synthetic} \leftarrow f_{synthetic}\\ &\Omega_{synthetic} \leftarrow f_{synthetic} \\  &\Phi_{synthetic} \leftarrow f_{synthetic} \\   &\tau_{synthetic} \leftarrow f_{synthetic} \\
+   &X \leftarrow  \rho_{synthetic} \left(  \right) \\ 
+   &T \leftarrow  \Omega _{synthetic} \left( X \right) \\
+   &Y_{0} \leftarrow  \Phi _{synthetic} \left( X \right)\\
+   &TE \leftarrow  \tau_{synthetic} \left( X \right) \\
+   &Y_{1}~ \leftarrow Y_{0}+ TE   \\
+   &Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0}
+   \end{flalign*}}
+   \parbox{2in} & 
+   \parbox{2in}{\begin{flalign*}
+   & \rho _{empirical} \leftarrow f_{empirical}=X_{empirical}   \\
+   & \Omega _{empirical} \leftarrow f_{empirical~}= T_{empirical}   \\
+   & \Phi _{empirical} \leftarrow f_{empirical}= ?   \\
+   & \tau_{empirical} \leftarrow f_{empirical} = ?   \\
+   & X \leftarrow X_{empirical}   \\
+   & T \leftarrow T_{empirical}~   \\
+   & Y_{0} \leftarrow ?   \\
+   & TE \leftarrow ~?   \\
+   & Y_{1}~ \leftarrow ?   \\
+   & Y = Y_{empirical} 
+   \end{flalign*}}
+   \parbox{2in} \\
+   \\ \hline
+   
+   \textbf{Example Concretization} &
+   \uline{Khang and Schafer (2007)}
+   \parbox{2in}{\begin{flalign*}
+     & \rho \leftarrow  N \left( X  \vert  0, 1 \right) \\
+     & \Omega _{}~ \leftarrow expit ( -X_{1} + 0.5X_{2}  \\
+     & ... - 0.25X_{3} - 0.1X_{4} )\\
+     & \Phi _{} \leftarrow N ( Y  \vert  210 + 27.4X_{1} \\
+     & ... + 13.7 \left( X_{2}+X_{3}+_{}X_{4} \right) , 1 ) \\
+     & \tau \leftarrow ~C~ \in R   \\ 
+   \end{flalign*}}
+   \parbox{2in} \\ &
+   \uline{Lalonde (1986)}
+   \parbox{2in}{\begin{flalign*}
+     & \rho _{} \leftarrow  \{ X_{experiment},~X_{survey} \}  \sim~? \\
+     & \Omega _{} \leftarrow ~T_{empirical}~\sim~?  \\
+     & \Phi _{} \leftarrow ~? \\
+     & \tau_{} \leftarrow ~? \\
+   \end{flalign*}}
+   \parbox{2in} \\
+   \\ \hline
+   \textbf{Joint Distribution over Observables} &
+   \parbox{2in}{\begin{flalign*}
+     & P \left( X, Y, T \right)  \sim \rho  \times  \Omega  \times  \Phi
+   \end{flalign*}}
+   \parbox{2in} \\ &
+   \parbox{2in}{\begin{flalign*}
+     & P \left( X, Y, T \right)  \sim~?
+   \end{flalign*}}
+   \parbox{2in} \\
+   \\ \hline
+   
+   
+   
+\end{tabular}
+\caption{XXX}
+\label{tbl:synth-vs-emp-dgp}
+\end{table}
 
 \begin{table}[H]
  			\centering
@@ -346,7 +428,7 @@ Moving on to consider general validity, synthetic designs have two properties wh
 
 
 \vspace{\baselineskip}
-\textbf{Empirical designs }are effectively polar opposite to synthetic designs when examined in terms of the eight properties above. In order of the points above: They possess inherently realistic covariate distributions and outcome/treatment functions and, by extension, unbiased specification (given that the researcher has no control). However, they do not guarantee that causal inference assumptions are met, do not allow repeat sampling and do not provide access to the ground truth of the average or individual treatment effect without estimation. Further, they use DGPs with an unknown distributional setting and do not allow for researcher control.\par
+\textbf{Empirical designs} are effectively polar opposite to synthetic designs when examined in terms of the eight properties above. In order of the points above: They possess inherently realistic covariate distributions and outcome/treatment functions and, by extension, unbiased specification (given that the researcher has no control). However, they do not guarantee that causal inference assumptions are met, do not allow repeat sampling and do not provide access to the ground truth of the average or individual treatment effect without estimation. Further, they use DGPs with an unknown distributional setting and do not allow for researcher control.\par
 
 
 \vspace{\baselineskip}
