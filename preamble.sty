@@ -1,8 +1,6 @@
 \ProvidesPackage{preamble}
 
-%  Block xcolor
-\usepackage{scrlfile}
-\PreventPackageFromLoading{xcolor}
+\PassOptionsToPackage{svgnames, table, xcdraw}{xcolor}
 
 %  Load packages
 \usepackage{amsmath}
@@ -13,7 +11,7 @@
 \usepackage[spanish, english]{babel}
 \usepackage{blindtext}
 \usepackage{textcomp}
-% \usepackage{pgfplots}
+\usepackage{pgfplots}
 \usepackage{latexsym}
 \usepackage[normalem]{ulem}
 \usepackage{soul}
@@ -70,9 +68,7 @@ url=false,
     top=1.5in,
     bottom=1.5in,
     headheight=1in]{geometry}
-
-\ResetPreventPackageFromLoading
-\usepackage[svgnames, table, xcdraw, usenames,dvipsnames]{xcolor}
+\usepackage{xcolor}
 
 %% Subfile system
 \usepackage{subfiles}

@@ -261,8 +261,8 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
 
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|p{1in}|p{2in}|p{2in}|}
+\makebox[\textwidth][c]{
+\begin{tabular}{|p{1.75in}|p{2in}|p{2in}|}
 \hline
  & \textbf{Synthetic Monte Carlo} & \textbf{Empirical Monte Carlo} \\ \hline
  
@@ -289,7 +289,7 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    & Y_{1}~ \leftarrow ?   \\
    & Y = Y_{empirical} 
    \end{flalign*}}
-   \parbox{2in} \\
+   \parbox{2in}\\
    \\ \hline
    
    \textbf{Example Concretization} &
@@ -325,7 +325,7 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    
    
    
-\end{tabular}
+\end{tabular}}
 \caption{Synthetic vs Empirical Monte Carlo Designs expressed as concretized versions of the generic DGP along with examples framed in terms of assignments to the four functional degrees of freedom.}
 \label{tbl:synth-vs-emp-dgp}
 \end{table}
@@ -461,7 +461,7 @@ Table \ref{tbl:huber-hybrid} expresses this design using the generic DGP and fun
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
-\multicolumn{1}{|p{3.14in}|}{\textbf{Empirical Monte Carlo - Huber et al (2013)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{estimate} \)  \par  \(  \Phi _{} \leftarrow f_{empirical} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow LogisticFit \left(  T_{empirical}\simX_{empirical} \right)  \)  \par  \( Y_{0} \leftarrow Y_{empirical} \)  \par  \( TE \leftarrow 0 \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
+\multicolumn{1}{|p{3.14in}|}{\textbf{Empirical Monte Carlo - Huber et al (2013)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{estimate} \)  \par  \(  \Phi _{} \leftarrow f_{empirical} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow \text{LogisticFit} \left(  T_{empirical} \sim X_{empirical} \right)  \)  \par  \( Y_{0} \leftarrow Y_{empirical} \)  \par  \( TE \leftarrow 0 \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
 \hhline{-}
 
 \end{tabular}
@@ -525,7 +525,7 @@ Knaus et al (2018) build on EMC. They use a very similar dataset as Huber et al 
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
-\multicolumn{1}{|p{3.14in}|}{\textbf{Knaus et al (2018)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{estimate} \)  \par  \(  \Phi _{} \leftarrow f_{empirical} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow LogisticFit \left(  T_{empirical}\simX_{empirical} \right)  \)  \par  \( Y_{0} \leftarrow Y_{empirical} \)  \par  \( TE \leftarrow f_{synthetic} \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
+\multicolumn{1}{|p{3.14in}|}{\textbf{Knaus et al (2018)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{estimate} \)  \par  \(  \Phi _{} \leftarrow f_{empirical} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow \text{LogisticFit} \left(  T_{empirical} \sim X_{empirical} \right)  \)  \par  \( Y_{0} \leftarrow Y_{empirical} \)  \par  \( TE \leftarrow f_{synthetic} \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
 \hhline{-}
 \end{tabular}
 \caption{Concretization of the generic DGP under the design of Knaus et al (2018)}
@@ -732,7 +732,7 @@ The design of the evaluation method is presented in Table \ref{tbl:dorie-hybrid}
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
-\multicolumn{1}{|p{3.14in}|}{\textbf{Dorie et al (2019)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{synthetic}~\simP \left( ... \right)  _{} \)  \par  \(  \Phi _{} \leftarrow f_{synthetic}~\simP \left( ... \right)  _{} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~~\simP \left( ... \right)  _{} \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow f_{synthetic} \)  \par  \( Y_{0} \leftarrow f_{synthetic} \)  \par  \( TE \leftarrow f_{synthetic} \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
+\multicolumn{1}{|p{3.14in}|}{\textbf{Dorie et al (2019)} \par  \(  \rho _{} \leftarrow f_{empirical}~ \)  \par  \(  \Omega _{} \leftarrow f_{synthetic}~\sim P \left( ... \right)  _{} \)  \par  \(  \Phi _{} \leftarrow f_{synthetic}~\sim P \left( ... \right)  _{} \)  \par  \(  \tau_{} \leftarrow f_{synthetic}~ \sim P \left( ... \right) \)  \par  \( X \leftarrow X_{empirical} \)  \par  \( T \leftarrow f_{synthetic} \)  \par  \( Y_{0} \leftarrow f_{synthetic} \)  \par  \( TE \leftarrow f_{synthetic} \)  \par  \( Y_{1}~ \leftarrow Y_{0}+ TE \)  \par  \( Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0} \)  \par } \\
 \hhline{-}
 
 \end{tabular}
