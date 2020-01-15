@@ -9,9 +9,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, english]{babel}
+\usepackage{csquotes}
 \usepackage{blindtext}
 \usepackage{textcomp}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
 \usepackage{latexsym}
 \usepackage[normalem]{ulem}
 \usepackage{soul}
@@ -30,13 +32,11 @@
 
 % Bibliography
 \usepackage[backend=biber,
-style=numeric,
-sorting=none,
-isbn=false,
-doi=false,
-url=false,
+style=apa,
+sorting=nyt,
+citestyle=apa
 ]{biblatex}
-\addbibresource{bibliography.bib}
+\addbibresource{references.bib}
 
 \usepackage{subfig}
 \usepackage{wrapfig}
