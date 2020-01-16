@@ -56,7 +56,15 @@ citestyle=apa
 \usepackage{makecell}
 \usepackage{fancyhdr}
 \usepackage[toc,page]{appendix}
-\usepackage[hidelinks]{hyperref}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!75!black},
+    citecolor={violet!75!black},
+    urlcolor={blue!85!black}
+}
+  
 \usetikzlibrary{shapes.symbols,shapes.geometric,shadows,arrows.meta}
 \tikzset{>={Latex[width=1.5mm,length=2mm]}}
 \usepackage{flowchart}
