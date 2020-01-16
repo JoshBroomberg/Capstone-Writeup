@@ -244,14 +244,14 @@ The top left panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the synt
 
 
 \vspace{\baselineskip}
-In\ contrast to synthetic designs, empirical designs specify the four functional degrees of freedom using real-world data. The challenge is how to do this in a way that still provides access to the treatment effect which is required to evaluate an estimator. Empirical designs overcome this challenge by using data randomized control trials, replacing the control group with non-randomized survey/administrative observations over the same covariates that were observed in the experiment \cite{Huber2013TheScore}. The average effect from the randomized control trial provides the ‘ground truth’ target for the average effect estimand. Examples of this design for evaluation include \cite{LaLondeEvaluatingData}, \cite{Fraker1987ThePrograms}, \cite{Friedlander1995EvaluatingMethods}, \cite{Heckman1998MatchingEstimator}, \cite{Dehejia1999CausalPrograms}, \cite{A.Smith2005DoesEstimators}, and \cite{Flores2009EvaluatingData}.\par
+In\ contrast to synthetic designs, empirical designs specify the four functional degrees of freedom using real-world data. The challenge is how to do this in a way that still provides access to the treatment effect which is required to evaluate an estimator. Empirical designs overcome this challenge by using data randomized control trials, replacing the control group with non-randomized survey/administrative observations over the same covariates that were observed in the experiment \cite{Huber2013TheScore}. The average effect from the randomized control trial provides the ‘ground truth’ target for the average effect estimand. Examples of this design for evaluation include \cite{Lalonde1986EvaluatingData}, \cite{Fraker1987ThePrograms}, \cite{Friedlander1995EvaluatingMethods}, \cite{Heckman1998MatchingEstimator}, \cite{Dehejia1999CausalPrograms}, \cite{A.Smith2005DoesEstimators}, and \cite{Flores2009EvaluatingData}.\par
 
 \vspace{\baselineskip}
 There are three things about this design worth noting. First, the empirical specification of the functional degrees of freedom means the true distributional setting is not known. Second, and related, the ground truth is itself an estimate rather than a known value. This produces additional uncertainty in the results which come from this evaluation method. Finally, this design can, by default, on evaluate estimators for the average treatment effect. The conditional average treatment effect must be estimated from the data using the very methods which we would like to evaluate using a Monte Carlo benchmark. This means the evaluation of conditional average treatment estimators is impossible under empirical designs of the kind described here.\par
 
 
 \vspace{\baselineskip}
-The top right panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the empirical design using the function labels and generic DGP defined above. All four degrees of freedom are specified to empirical functions (although some of these are unknown). The consequence is a DGP grounded in empirical data but with an unknown joint distribution over  \( \text{X, T,} \) and  \( Y \) and an unknown values for the true treatment effect and potential outcomes. The bottom left panel expresses the \cite{LaLondeEvaluatingData} DGP design as an assignment of the four base functions.\par
+The top right panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the empirical design using the function labels and generic DGP defined above. All four degrees of freedom are specified to empirical functions (although some of these are unknown). The consequence is a DGP grounded in empirical data but with an unknown joint distribution over  \( \text{X, T,} \) and  \( Y \) and an unknown values for the true treatment effect and potential outcomes. The bottom left panel expresses the \cite{Lalonde1986EvaluatingData} DGP design as an assignment of the four base functions.\par
 
 
 \vspace{\baselineskip}
@@ -265,18 +265,18 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
 \begin{tabular}{|p{1.75in}|p{2in}|p{2in}|}
 \hline
  & \textbf{Synthetic Monte Carlo} & \textbf{Empirical Monte Carlo} \\ \hline
- 
-   \textbf{Concretized DGP} & 
+
+   \textbf{Concretized DGP} &
    \parbox{2in}{\begin{flalign*}
    &\rho_{synthetic} \leftarrow f_{synthetic}\\ &\Omega_{synthetic} \leftarrow f_{synthetic} \\  &\Phi_{synthetic} \leftarrow f_{synthetic} \\   &\tau_{synthetic} \leftarrow f_{synthetic} \\
-   &X \leftarrow  \rho_{synthetic} \left(  \right) \\ 
+   &X \leftarrow  \rho_{synthetic} \left(  \right) \\
    &T \leftarrow  \Omega _{synthetic} \left( X \right) \\
    &Y_{0} \leftarrow  \Phi _{synthetic} \left( X \right)\\
    &TE \leftarrow  \tau_{synthetic} \left( X \right) \\
    &Y_{1}~ \leftarrow Y_{0}+ TE   \\
    &Y = T \times Y_{1}+  \left( 1-T \right)  \times Y_{0}
    \end{flalign*}}
-   \parbox{2in} & 
+   \parbox{2in} &
    \parbox{2in}{\begin{flalign*}
    & \rho _{empirical} \leftarrow f_{emp}=X_{empirical}   \\
    & \Omega _{empirical} \leftarrow f_{emp}= T_{empirical}   \\
@@ -287,11 +287,11 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    & Y_{0} \leftarrow ?   \\
    & TE \leftarrow ~?   \\
    & Y_{1}~ \leftarrow ?   \\
-   & Y = Y_{empirical} 
+   & Y = Y_{empirical}
    \end{flalign*}}
    \parbox{2in}\\
    \\ \hline
-   
+
    \textbf{Example Concretization} &
    \uline{Kang and Schafer (2007)}
    \parbox{2in}{\begin{flalign*}
@@ -300,7 +300,7 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
      & ... - 0.25X_{3} - 0.1X_{4} )\\
      & \Phi _{} \leftarrow N ( Y  \vert  210 + 27.4X_{1} \\
      & ... + 13.7 \left( X_{2}+X_{3}+_{}X_{4} \right) , 1 ) \\
-     & \tau \leftarrow ~C~ \in R   \\ 
+     & \tau \leftarrow ~C~ \in R   \\
    \end{flalign*}}
    \parbox{2in} \\ &
    \uline{Lalonde (1986)}
@@ -322,9 +322,9 @@ There is an obvious concern worth addressing in calling this a Monte Carlo desig
    \end{flalign*}}
    \parbox{2in} \\
    \\ \hline
-   
-   
-   
+
+
+
 \end{tabular}}
 \caption{Synthetic vs Empirical Monte Carlo Designs expressed as concretized versions of the generic DGP along with examples framed in terms of assignments to the four functional degrees of freedom.}
 \label{tbl:synth-vs-emp-dgp}
@@ -425,7 +425,7 @@ Hybrid designs combine the concretization strategies from synthetic and empirica
 
 
 \vspace{\baselineskip}
-The earliest examples of thought in the direction of blending synthetic and empirical designs appear in \cite{Abadie2002LargeEffects} and \cite{Diamond2012GeneticStudies}. Both papers use DGPs designed to mimic the data in \cite{LaLondeEvaluatingData} but both use synthetic, simplified covariate sampling and hand-crafted treatment/outcome functions which are ‘inspired’ by the data but not directly informed by it.\par
+The earliest examples of thought in the direction of blending synthetic and empirical designs appear in \cite{Abadie2002LargeEffects} and \cite{Diamond2012GeneticStudies}. Both papers use DGPs designed to mimic the data in \cite{Lalonde1986EvaluatingData} but both use synthetic, simplified covariate sampling and hand-crafted treatment/outcome functions which are ‘inspired’ by the data but not directly informed by it.\par
 
 
 \vspace{\baselineskip}
@@ -575,108 +575,108 @@ Two papers iterate on the design proposed by \cite{Hill2011BayesianInference} bu
 \begin{tabular}{p{0.78in}p{0.57in}p{0.52in}p{-0.02in}p{0.51in}p{0.53in}p{0.51in}p{0.54in}p{0.52in}}
 \hline
 %row no:1
-\multicolumn{1}{|p{0.78in}}{} & 
-\multicolumn{2}{|p{\dimexpr1.09in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Pure Designs}}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
+\multicolumn{1}{|p{0.78in}}{} &
+\multicolumn{2}{|p{\dimexpr1.09in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Pure Designs}}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
 \multicolumn{5}{|p{\dimexpr2.61in+8\tabcolsep\relax}|}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Hybrid Designs}}} \\
 \hhline{---------}
 %row no:2
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Property}}} & 
-\multicolumn{1}{|p{0.57in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Synthetic Designs}}} & 
-\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Empirical Designs}}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Huber et al (2013)}}} & 
-\multicolumn{1}{|p{0.53in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Knaus et al (2018)}}} & 
-\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Hill (2011)}}} & 
-\multicolumn{1}{|p{0.54in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Wendling (2019)}}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Property}}} &
+\multicolumn{1}{|p{0.57in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Synthetic Designs}}} &
+\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Empirical Designs}}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Huber et al (2013)}}} &
+\multicolumn{1}{|p{0.53in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Knaus et al (2018)}}} &
+\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Hill (2011)}}} &
+\multicolumn{1}{|p{0.54in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Wendling (2019)}}} &
 \multicolumn{1}{|p{0.52in}|}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Kern et al (2016)}}} \\
 \hhline{---------}
 %row no:3
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Covariate Distribution}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Covariate Distribution}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{---------}
 %row no:4
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Treatment/Outcome Functions}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial \footnotemark}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Treatment/Outcome Functions}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial \footnotemark}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 %row no:5
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 %row no:6
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Access to Ground Truth}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Access to Ground Truth}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{---------}
 %row no:7
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed to Obey Causal Assumptions}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed to Obey Causal Assumptions}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{---------}
 %row no:8
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Allows Repeat Sampling}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Allows Repeat Sampling}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{---------}
 %row no:9
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Known Distributional Setting}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Known Distributional Setting}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 %row no:10
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Controllable Distributional Setting}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} & 
-\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Controllable Distributional Setting}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} &
+\multicolumn{1}{|p{0.53in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.54in}}{\cellcolor[HTML]{F9CB9C}{\fontsize{9pt}{10.8pt}\selectfont Weak}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} \\
 \hhline{---------}
 
@@ -711,7 +711,7 @@ The six knobs are:\par
 
 	\item The degree of treat/control group covariate overlap\par
 
-	\item The degree of alignment between treatment and control mechanism 
+	\item The degree of alignment between treatment and control mechanism
 \end{enumerate}\par
 
 
@@ -759,91 +759,91 @@ Based on the properties above, it appears that the design proposed by \cite{Dori
 \begin{tabular}{p{0.78in}p{0.57in}p{0.52in}p{-0.02in}p{0.51in}p{0.52in}p{0.52in}}
 \hline
 %row no:1
-\multicolumn{1}{|p{0.78in}}{} & 
-\multicolumn{2}{|p{\dimexpr1.09in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Pure Designs}}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{2}{|p{\dimexpr1.03in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Hybrid Designs}}} & 
+\multicolumn{1}{|p{0.78in}}{} &
+\multicolumn{2}{|p{\dimexpr1.09in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Pure Designs}}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{2}{|p{\dimexpr1.03in+2\tabcolsep\relax}}{\Centering {\fontsize{9pt}{10.8pt}\selectfont \textbf{Hybrid Designs}}} &
 \multicolumn{1}{|p{0.52in}|}{} \\
 \hhline{-------}
 %row no:2
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Property}}} & 
-\multicolumn{1}{|p{0.57in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Synthetic Designs}}} & 
-\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Empirical Designs}}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Hill (2011)}}} & 
-\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Kern et al (2016)}}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Property}}} &
+\multicolumn{1}{|p{0.57in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Synthetic Designs}}} &
+\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Empirical Designs}}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Hill (2011)}}} &
+\multicolumn{1}{|p{0.52in}}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Kern et al (2016)}}} &
 \multicolumn{1}{|p{0.52in}|}{{\fontsize{9pt}{10.8pt}\selectfont \textbf{Dorie et al (2019)}}} \\
 \hhline{-------}
 %row no:3
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Covariate Distribution}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Covariate Distribution}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:4
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Treatment/Outcome Functions}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Realistic Treatment/Outcome Functions}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes \footnotemark}} \\
 \hhline{-------}
 %row no:5
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed Unbiased Specification}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:6
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Access to Ground Truth}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Access to Ground Truth}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:7
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed to Obey Causal Assumptions}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Guaranteed to Obey Causal Assumptions}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:8
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Allows Repeat Sampling}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Allows Repeat Sampling}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:9
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Known Distributional Setting}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Known Distributional Setting}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 %row no:10
-\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Controllable Distributional Setting}} & 
-\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} & 
-\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} & 
-\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
-\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} & 
+\multicolumn{1}{|p{0.78in}}{{\fontsize{9pt}{10.8pt}\selectfont Controllable Distributional Setting}} &
+\multicolumn{1}{|p{0.57in}}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{F4CCCC}{\fontsize{9pt}{10.8pt}\selectfont No}} &
+\multicolumn{1}{|p{-0.02in}}{\cellcolor[HTML]{000000}} &
+\multicolumn{1}{|p{0.51in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
+\multicolumn{1}{|p{0.52in}}{\cellcolor[HTML]{FFF2CC}{\fontsize{9pt}{10.8pt}\selectfont Partial}} &
 \multicolumn{1}{|p{0.52in}|}{\cellcolor[HTML]{D9EAD3}{\fontsize{9pt}{10.8pt}\selectfont Yes}} \\
 \hhline{-------}
 
