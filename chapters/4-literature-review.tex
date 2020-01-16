@@ -173,8 +173,9 @@ The complete DGP is then given by the procedure presented in Table \ref{tbl:gene
  \hline
 \end{tabular}
 \caption{The procedure for a Monte Carlo evaluation DGP defined in terms of the variables from Table \ref{tbl:var-definitions} and functions from Table \ref{tbl:func-definitions}}
-\end{table}
 \label{tbl:generic-dgp-definition}
+\end{table}
+
 \vspace{\baselineskip}
 
 Note three facts about this generic DGP:\par
@@ -685,7 +686,7 @@ Two papers iterate on the design proposed by \cite{Hill2011BayesianInference} bu
 \label{tbl:hybrid-prop-comparison}
 \end{table}
 
-\footnotetext{Due to non-parametric neural network estimation of outcome function and empirical treatment assignment.}
+\footnotetext{The non-parametric neural network estimation of outcome function and empirical treatment assignment does make this approach arguably more realistic.}
 
 \vspace{\baselineskip}
 The methods explored up until this point share a few key properties. They all use empirical covariate data from which samples are drawn. In all cases, either the treatment assignment or outcome mechanism is simulated to provide access to ground truth and allow for control over the distributional setting. Some methods, like EMC, trade off control for realism but newer approaches propose designs which allow for some degree of realism and control - either by approximation with non-parametric functions \cite{Wendling2018ComparingDatabases} or by the principled specification of functions from simpler components \cite{Kern2016AssessingPopulations}. The ideal method would improve on the methods above by improving the realism of the treatment assignment/outcome function while also increasing control over the distributional setting.\par
