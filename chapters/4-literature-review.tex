@@ -10,7 +10,7 @@ All statistical inference can be characterized in the following simple terms, du
 
 
 \vspace{\baselineskip}
-As summarized in \cite{Calder1953StatisticalInference}, estimators operationalize inference by providing a mathematical mapping between a sample of data from the true joint distribution and an estimate of a target parameter - an \textit{estimand} - that is (or is concretely related to) a parameter from true DGP. Given that a sample is inherently stochastic, estimators give rise to a \textit{sampling distribution }over the estimand rather than a single value. The quality of an estimator is defined by some quality metric that depends on this sampling distribution. Concretely defining the abstract notion of the ‘quality’ of an estimator is a non-trivial task, discussed below.\par
+As summarized in \cite{Calder1953StatisticalInference}, estimators operationalize inference by providing a mathematical mapping between a sample of data from the true joint distribution and an estimate of a target parameter - an \textit{estimand} - that is (or is concretely related to) a parameter from the true DGP. Given that a sample is inherently stochastic, estimators give rise to a \textit{sampling distribution }over the estimand rather than a single value. The quality of an estimator is defined by some quality metric that depends on this sampling distribution. Concretely defining the abstract notion of the ‘quality’ of an estimator is a non-trivial task, discussed below.\par
 
 \section{Evaluating the Performance of Statistical Estimators}
 
@@ -100,6 +100,8 @@ The analysis in this section divides Monte Carlo evaluation methods into two cat
 
 This sections builds towards a formal specification scheme for the DGPs which underpin Monte Carlo evaluation of causal inference estimators. The scheme is defined in terms of a generic DGP, the functional components of which can then be defined/instantiated to describe a specific, concrete DGP design.\par
 
+\vspace{\baselineskip}
+
 First, Table \ref{tbl:var-definitions} below recapitulates the variables over which a causal inference problem-instance is defined and provides the associated dimensionality and  definition. Full explanations for these variables are presented in Chapter \ref{chap:framework} above.\par
 
 \vspace{\baselineskip}
@@ -127,7 +129,7 @@ $Y \in R^n$ & $Y$ is the observed outcome \\ \hline
 
 \vspace{\baselineskip}
 
-The variables in Table \ref{tbl:var-definitions} are related through four generic functions given in Table \ref{tbl:func-definitions}. A concrete Monte Carlo evaluation design can, thus, be fully specified by the concrete instantiation of these four functions.\par
+The variables in Table \ref{tbl:var-definitions} are related through four generic functions given in Table \ref{tbl:func-definitions} \footnote{Note that the functions specified here may be stochastic functions, functions which do not necessarily produce the same output for the same input on every evaluation.}. A concrete Monte Carlo evaluation design can, thus, be fully specified by the concrete instantiation of these four functions.\par
 
 
 \begin{table}[H]
@@ -148,9 +150,7 @@ $ \tau:~R^{ \left( n, d \right) }~ \rightarrow R^{n}$ & The \textbf{treatment ef
 \label{tbl:func-definitions}
 \end{table}
 
-\vspace{\baselineskip}
-
-The complete DGP is then given by the procedure presented in Table \ref{tbl:generic-dgp-definition}. This procedure relates the variables defined in Table \ref{tbl:var-definitions} using the functions defined in Table \ref{tbl:func-definitions}.
+A complete (but generic) DGP is then captured by the procedure presented in Table \ref{tbl:generic-dgp-definition}. This procedure relates the variables defined in Table \ref{tbl:var-definitions} using the functions defined in Table \ref{tbl:func-definitions}.
 
 
 \begin{table}[H]
@@ -245,7 +245,7 @@ The top left panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the synt
 
 
 \vspace{\baselineskip}
-In\ contrast to synthetic designs, empirical designs specify the four functional degrees of freedom using real-world data. The challenge is how to do this in a way that still provides access to the treatment effect which is required to evaluate an estimator. Empirical designs overcome this challenge by using data randomized control trials, replacing the control group with non-randomized survey/administrative observations over the same covariates that were observed in the experiment \cite{Huber2013TheScore}. The average effect from the randomized control trial provides the ‘ground truth’ target for the average effect estimand. Examples of this design for evaluation include \cite{Lalonde1986EvaluatingData}, \cite{Fraker1987ThePrograms}, \cite{Friedlander1995EvaluatingMethods}, \cite{Heckman1998MatchingEstimator}, \cite{Dehejia1999CausalPrograms}, \cite{A.Smith2005DoesEstimators}, and \cite{Flores2009EvaluatingData}.\par
+In\ contrast to synthetic designs, empirical designs specify the four functional degrees of freedom using real-world data. The challenge is how to do this in a way that still provides access to the treatment effect which is required to evaluate an estimator. Empirical designs overcome this challenge by using data randomized control trials, replacing the control group with non-randomized survey/administrative observations over the same covariates that were observed in the experiment \cite{Huber2013TheScore}. The average effect from the randomized control trial provides the ‘ground truth’ target for the average effect estimand. Examples of this design for evaluation include \cite{Lalonde1986EvaluatingData}, \cite{Fraker1987ThePrograms}, \cite{Friedlander1995EvaluatingMethods}, \cite{Heckman1998MatchingEstimator}, \cite{Dehejia1999CausalPrograms}, \cite{Smith2005DoesEstimators}, and \cite{Flores2009EvaluatingData}.\par
 
 \vspace{\baselineskip}
 There are three things about this design worth noting. First, the empirical specification of the functional degrees of freedom means the true distributional setting is not known. Second, and related, the ground truth is itself an estimate rather than a known value. This produces additional uncertainty in the results which come from this evaluation method. Finally, this design can, by default, on evaluate estimators for the average treatment effect. The conditional average treatment effect must be estimated from the data using the very methods which we would like to evaluate using a Monte Carlo benchmark. This means the evaluation of conditional average treatment estimators is impossible under empirical designs of the kind described here.\par
