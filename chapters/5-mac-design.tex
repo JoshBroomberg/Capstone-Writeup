@@ -69,6 +69,10 @@ The procedure is given below. The parameters which influence the operation of ea
     
     \item The treatment assignment and untreated outcome functions are sampled from two independently parameterized distributions of the kind described above. The universe of each \textit{term type} is specified by the combination of all the potential confounders selected in step \ref{proc:confounders}. The co-efficients in all of the terms of two functions are initialized by drawing samples from a parameterized, global co-efficient distribution.
     
+    \vspace{\baselineskip}
+    
+    Note that, in the generic DGP described in Chapter \ref{chap:litreview}, the treatment assignment is sampled using a single function referred to as $\Omega$. In this concretization, $\Omega$ is split into a treatment probability and treatment assignment function. The treatment probability function is sampled in the manner described above and the treatment assignment produces assignments conditioned on the probability. For simplicity, this difference is not made explicit in the explanations below.
+    
     \item An alignment (confounding) adjustment is performed. This step involves randomly selecting terms to add/remove from the sampled treatment assignment and untreated outcome functions to meet a target alignment parameter. This parameter specifies the target probability for a term in the untreated outcome function to also appears in the treatment assignment function. Lower alignment thus implies a more disjoint set of covariates appearing across the functions. This produces weaker confounding of the treatment assignment and outcome variables present in the generated data.
     
     \item The treatment effect mechanism is then sampled. First, a constant treatment effect is sampled from a parameterized, global treatment effect distribution. Then, terms from the untreated outcome function are sampled based on a treatment effect heterogeneity parameter. This parameter specifies the uniform probability that a term in the untreated outcome function appears in the treatment effect function. This means the treatment effect function can be thought of a subset of the untreated outcome function terms (plus a constant offset) that interact linearly with the binary treatment assignment.
@@ -134,26 +138,30 @@ The graphical model in Figure \ref{fig:mac-graph-model} concretely specifies the
 
 \begin{enumerate}
 
-\item A set of $M$ DGPs is sampled from function sampling distributions parameterized by the fixed \textit{DGP Sampling Parameters} described above.
+\item A set of $M$ DGPs is sampled from a sampling distributions parameterized by the fixed \textit{DGP Sampling Parameters} described above.
 
 \item A set of $N$ covariate observations - each represented by the variable $X$ - is drawn for each $DGP$ (actually from the subcomponent of the DGP representing the joint distribution over covariate observations, the $\rho$ distribution in the theory paper).
 
-\item Each covariate observation $X$ has an associated set of treatment assignment, outcome and causal effect random variables. Added to the observed covariates, these variable represent the complete observed and unobserved information about each individual observation in the dataset. The variables are sampled with slightly different dependencies as depicted in the model. Note that, for expositional clarity, the dependencies in the model are slightly different to the generic DGP approach outlined in the theory paper. The sampling procedure for each observation, and the differences relative to Chapter \ref{chap:litreview}, are explained below:
+\item Each covariate observation $X$ has an associated set of treatment assignment, outcome and causal effect random variables. Added to the observed covariates, these variables represent the complete observed and unobserved information about each individual observation in the dataset. Note that, for expositional clarity, the dependencies between the individual observation variables depicted in this model are slightly different to the actual relations implied by the sampled DGPs described in Section \ref{mac:formalspec} above.
+
+\vspace{\baselineskip}
+
+With that established, the sampling procedure for each individual observation is given below:
 
 \begin{itemize}
-    \item The \textit{oracle} (unobserved) treatment probability ($P(T)$) is sampled conditioned on the covariate observation $X$ and the treatment probability function (defined over $X$) from the sampled $DGP$. The \textit{observed} treatment assignment - $T$ - is then sampled conditioned on $P(T)$. In the theory paper, the treatment probability and treatment assignment are sampled using a single function referred to as $\Omega$. Given that this function is likely to be composed of a propensity for treatment mechanism and a selection mechanism conditioned on this propensity, these two components are separated in the model and the implementation below.
+    \item The \textit{oracle} (unobserved) treatment probability ($P(T)$) is sampled conditioned on the covariate observation $X$ and the treatment probability function (defined over $X$) from the sampled $DGP$. The \textit{observed} treatment assignment - $T$ - is then sampled conditioned on $P(T)$.
     
-    \item The \textit{oracle} (unobserved) potential outcome variables ($Y1$ and $Y0$) are sampled conditioned on the covariate observation $X$ and the outcome functions (defined over $X$) from the sampled $DGP$. This is true to Rubin's Potential Outcome framework as described in Chapter \ref{chap:framework} but is not in line with generic DGP model from Chapter \ref{chap:litreview} or the actual sampling implementation below. In both of these, only the untreated outcome, $Y0$, is sampled from the untreated outcome function ($\Phi$). This  value is them combined with a treatment effect sampled from the treatment effect function ($\tau$) to produce the treated outcome, $Y1$. This procedure produces a much harder to parse model, so the model above is used instead. In this model, sampling proceeds as below.
+    \item The \textit{oracle} (unobserved) potential outcome variables ($Y1$ and $Y0$) are sampled conditioned on the covariate observation $X$ and the outcome functions (defined over $X$) from the sampled $DGP$. This is true to Rubin's Potential Outcome framework as described in Chapter \ref{chap:framework} but is not in line with procedure implied by the structure of the sampled DGPs from Section \ref{mac:formalspec} above. In a sampled DGP, only the untreated outcome, $Y0$, is sampled (from the untreated outcome function, $\Phi$). This value is them combined with a treatment effect (sampled from the treatment effect function, $\tau$) to produce the treated outcome, $Y1$. This difference simplifies the graphical model and is irrelevant for the remainder of the sampling procedure.
     
    \item The \textit{oracle} (unobserved) outcome noise is sampled from the outcome noise distribution from the sampled $DGP$.
 
    \item The \textit{observed} outcome variable - $Y$ - is sampled conditioned on the treatment assignment, potential outcomes and outcome noise.
     
-   \item The individual causal effect variable - $\tau$ - is (deterministically) sampled conditioned on the potential outcome variables. Note, again, that in the generic DGP and the implementation below, the individual treatment effect is sampled from the treatment effect function - $\tau$.
+   \item The individual causal effect variable - $\tau$ - is (deterministically) sampled conditioned on the potential outcome variables. Note, again, that in the sampled DGP, the individual treatment effect is sampled from the treatment effect function, $\tau$.
   
 \end{itemize}
 
-\item Causal estimand values can be sampled at the individual observation or dataset level. At the individual level, $N$ individual effect estimates $\hat{\tau}$ are sampled from a (deterministc/stochastic) estimator conditioned on each $X$, $T$ and $Y$. At the dataset level, a single average effect estimand $\bar{\hat{\tau}}$ is sampled from a (deterministc/stochastic) estimator conditioned on all $N$ of the $X$, $T$ and $Y$ observations.
+\item Causal estimand values can be sampled at the individual observation or dataset level. At the individual level, $N$ individual effect estimates $\hat{\tau}$ are sampled from a (deterministc/stochastic) estimator conditioned on each $X$, $T$ and $Y$. At the dataset level, a single average effect estimand $\bar{\hat{\tau}}$ is sampled from a (deterministic/stochastic) estimator conditioned on all $N$ of the $X$, $T$ and $Y$ observations.
 
 \item Following estimand sampling, $M$ Individual or Average Performance Metric values are calculated (deterministically sampled) at the dataset level by combining the causal effect estimate values with the appropriate ground truth value(s) - $\tau$ or $\bar{\tau}$ respectively.
 
