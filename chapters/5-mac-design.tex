@@ -84,6 +84,7 @@ The procedure is given below. The parameters which influence the operation of ea
     \item Finally, some components of the DGP sampling only occur at data generation time. On each instance of data generation:
 
     \begin{enumerate}
+        \item A fixed proportion of the covariates are sampled with the default being that all observations are sampled. This step can be used to mimic small datasets (or heavy, at-random censorship) when using empirical datasets. This will change the number of observations in each generated dataset.
         \item Observed outcome noise is sampled from a parameterized, global outcome noise distribution.
         \item A parameterized target proportion of the units in the treated and control groups with the lowest/highest probability of treatment respectively are swapped between the groups. This creates a larger imbalance in the covariate distribution between the groups.
     \end{enumerate}

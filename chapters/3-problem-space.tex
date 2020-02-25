@@ -178,12 +178,12 @@ The example below demonstrates the impact of a nonlinear response mechanism when
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-toy-1.png}
+    \includegraphics[width=0.7\linewidth]{figures/ch3-nonlinearity.png}
     \label{fig:toy-1}
 \end{figure}
+\FloatBarrier
 
 \par
-
 
 \vspace{\baselineskip}
 	\item \textbf{The Magnitude of the Treatment Effect:} the magnitude of treatment effect, measured relative to noise in the outcome mechanism (as defined above). This corresponds to the magnitude of the values produced by \( P \left(  \tau  \vert  X \right)  \) and the magnitude of the noise in  \( P \left( Y_{0}  \vert  X \right)  \)  - IE, the changes in  \( Y_{0} \) not correlated with changes in  \( X. \) \par
@@ -214,15 +214,13 @@ The example below demonstrates the impact of a treatment effect which is small r
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-toy-2.png}
+    \includegraphics[width=0.7\linewidth]{figures/ch3-noise.png}
     \label{fig:toy-2}
 \end{figure}
-
-\par
-
+\FloatBarrier
 
 \vspace{\baselineskip}
-	\item \textbf{The Nonlinearity/Complexity of the Treatment Assignment Mechanism }which defines the distribution over the treatment assignment value based on a unit’s covariates. This corresponds to the form of \( P \left( Z  \vert  X \right)  \) , the treatment assignment mechanism per the definitions above.\par
+	\item \textbf{The Nonlinearity/Complexity of the Treatment Assignment Mechanism} which defines the distribution over the treatment assignment value based on a unit’s covariates. This corresponds to the form of \( P \left( Z  \vert  X \right)  \) , the treatment assignment mechanism per the definitions above.\par
 
 
 \vspace{\baselineskip}
@@ -230,35 +228,29 @@ The example below demonstrates the impact of a treatment effect which is small r
 
 
 \vspace{\baselineskip}
-\textbf{NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
+\textbf{TODO NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{The Covariate Balance: }The distributional (dis)similarity of the covariates between the groups. As above, this is determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \) .\par
+	\item \textbf{The Covariate Balance:} The distributional (dis)similarity of the covariates between the groups. As above, this is determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \).\par
 
 \vspace{\baselineskip}
 
 \uline{Toy Example}\par
 
 \vspace{\baselineskip}
-The example below demonstrates the effect of covariate imbalance induced through strong selection pressure. The example is the same as the one shown for the nonlinear response axes but covariate imbalance is induced between groups using the treatment mechanism below. This result is that the conditional regressions extrapolate beyond the bounds of the outcome information, producing large errors.\par
-
-
-\vspace{\baselineskip}
- \( P \left( Z \vert X \right)  = Bernoulli \left( p=min \left( 1, X/30 \right)  \right)  \) \par
-
+The example below demonstrates the effect of covariate imbalance induced through strong selection pressure. The example outcome is a simple linear model with a constant treatment effect and moderate noise. Strong selection pressure is simulated by filtering the treated/control observations which fall outside of the indicated overlap region. This produces treatment groups with an unbalanced distribution of the covariate X. This results in conditional regressions that extrapolate beyond the bounds of the outcome information. When combined with moderate noise, this produces large error outside of the region of overlap between the groups.\par
 
 \vspace{\baselineskip}
-
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-toy-3.png}
+    \includegraphics[width=0.7\linewidth]{figures/ch3-balance.png}
     \label{fig:toy-3}
 \end{figure}
+\FloatBarrier
 
 \par
-
 
 \vspace{\baselineskip}
 
@@ -269,39 +261,34 @@ The example below demonstrates the effect of covariate imbalance induced through
 \vspace{\baselineskip}
 \uline{Toy Example}\par
 
-
 \vspace{\baselineskip}
-The example below demonstrates the effect of a small percent of units treated. The result is similar to the case of imbalance but holds even in the presence of asymptotic balance. IE, in this case  \( P \left( Z  \vert  X \right)  = P \left( Z \right)  = 0.1 \) . With enough samples, there would be no need for extrapolation but in the finite sample limit, there is an accuracy issue.\par
-
+The example below demonstrates the effect of a small percent of units treated. It was created by giving all units a small probability of treatment - set at $P(T|X) = 0.1$.The result is similar to the case of imbalance, in that there is imperfect overlap that results in extrapolation. But, in this case, this lack of overlap is created simply by a small treated group even though covariate balance holds in the asymptotic limit. IE, if there were many more observations, and the same fixed but small propensity for treatment, the bias would dissapear.
 
 \vspace{\baselineskip}
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-toy-4.png}
+    \includegraphics[width=0.7\linewidth]{figures/ch3-percent-treated.png}
     \label{fig:toy-4}
 \end{figure}
-
+\FloatBarrier
 \par
 
-
 \vspace{\baselineskip}
-	\item \textbf{The Degree of Alignment Between the Treatment Assignment and Response Mechanism\footnote{ The term alignment is taken from \cite{Kern2016AssessingPopulations}. }: } the number of confounding covariates relative to the number of non-confounding, but still, predictive covariates.
+	\item \textbf{The Degree of Alignment Between the Treatment Assignment and Response Mechanism:} the number of confounding covariates - that appear in both the treatment assignment and outcome mechanisms - relative to the number of non-confounding, but still, predictive covariates - that appear in at least of the two mechanisms. The term alignment, to reflect this degree of confounding, is taken from \cite{Kern2016AssessingPopulations}.
+	
 \end{enumerate}\par
 
-\tab 
-\vspace{\baselineskip}\begin{adjustwidth}{0.5in}{0.0in}
-\uline{Toy Example}\par
+\vspace{\baselineskip}
 
-\end{adjustwidth}
 
+\uline{Toy Example}
 
 \vspace{\baselineskip}
+
 \begin{adjustwidth}{0.5in}{0.0in}
-\textbf{NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
-
+\textbf{TODO NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
 \end{adjustwidth}
-
 
 \vspace{\baselineskip}
 Beyond these seven primary axes, there are three further properties of observed data which are relevant to performance but are not strictly properties of the joint distribution. These correspond to the two assumptions - ignorability and overlap - and the number of observed samples. I include these as part of the definition of the distributional setting despite the slight definitional complexity this brings about.\par
