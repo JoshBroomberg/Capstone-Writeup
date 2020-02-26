@@ -1,7 +1,7 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-The goal of this chapter is to provide a self-standing description of the benchmarking approach implemented in the Maccabee package. This is presented in three sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context for the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach, which is based on the design proposed by \cite{Dorie2019Automated1}. First, looking at the high level approach used by \cite{Dorie2019Automated1} and then at how this approach is concretized into a DGP sampling procedure in Maccabee. Finally, the third section provides a formal statistical specification of a Maccabee benchmark.
+The goal of this chapter is to provide a self-standing description of the benchmarking approach implemented in the Maccabee package. This is presented in three sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context for the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach, which is based on the design proposed by \cite{Dorie2019Automated1}. First, looking at the high level approach used by \cite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package. Taken together, the content of these four sections provides a complete picture of the theoretical design of the Maccabee package.
 
 \section{Design Goal: Better Benchmarking for Causal Inference Methods}
 \label{mac:problems}
@@ -169,5 +169,54 @@ With that established, the sampling procedure for each individual observation is
 \item Finally, and optionally, $M$ Data Metrics are calculated by combining some/all of the covariate data with the observed and oracle outcome data.
 
 \end{enumerate}
+
+\section{Empirical Data Sets in Maccabee}
+\label{mac:data}
+
+The sections above discuss the joint distribution over covariates, the $\rho$ component of the DGP, entirely generically. In reality, the selection and construction of this distribution is an important aspect of Maccabee's core design. As mentioned by section \ref{mac:generalapproach} above, and justified in Chapter \ref{chap:litreview}, the design advantage of Maccabee comes from the combination of \textit{empirical} covariates and sampled treatment and outcome mechanisms. This section discusses the use of empirical covariate distributions in Maccabee.
+
+\vspace{\baselineskip}
+
+As implied by the name, an empirical covariate distribution is a joint distribution over observed covariates with an unknown parameterization, ergo one which is defined, empirically, by the data itself. This data may be an incomplete/biased sample so that the empirical covariate distribution defined by it is not the same as its true underlying joint distribution.
+
+\vspace{\baselineskip}
+
+Maccabee is designed with both a set of included, high quality empirical covariate distributions as well as tools to allow for the use of user-supplied data to define custom empirical covariate distributions. These two approaches are described in the sections below.
+
+\subsection{Included Empirical Covariate Distributions}
+
+Maccabee includes empirical covariate distributions defined by data sets from the literature on causal inference benchmarking. These data sets where selected because they are:
+
+\begin{itemize}
+    \item Used widely, indicating a social consensus that they are high quality - representative, useful - data sets for the evaluation of causal inference methods.
+    
+    \item Varied in the number of observations and covariates, allowing for benchmarking of methods under different circumstances.
+    
+    \item Open source, meaning the data can be accessed and used by others to ensure that any results reproduce as expected.
+\end{itemize}
+
+\subsubsection{The National Support Work (NSW) Data Set}
+
+This is a data set corresponding to the NSW data, introduced by \cite{Lalonde1986EvaluatingData}, that appears throughout the early causal inference literature. Building on \cite{Dehejia2005PracticalTodd} and \cite{Smith2005DoesEstimators}, the package uses a selected subset of the \cite{Lalonde1986EvaluatingData} experimental data (the subset with real income in 1974 available) and the \textit{PSID} observational controls with the data downloaded from \href{https://users.nber.org/~rdehejia/data/.nswdata2.html}{here}. In the experimental data, there are 297 treated units and 425 control units. The control units are dropped in favor of the 2490 PSID units to produce a non-randomized observational setting \footnote{Note that, even though the treatment and outcome mechanisms will be sampled, it is necessary to drop the experimental controls to reproduce the covariate distributions in the Lalonde data set}. Real Income in 1978 is the measured outcome. All other variables are measured pre-treatment and serve as covariates.
+
+\subsubsection{The Collaborative Perinatal Project (CPP) Data Set}
+
+The CPP data set is extracted directly from the benchmarking implementation provided by \cite{Dorie2019Automated1}. The authors describe the data set as follows.
+
+\begin{quote}
+    The Collaborative Perinatal Project (Niswander and Gordon, 1972), is a massive longitudinal study that was conducted on pregnant women and their children between 1959 to 1974 with the aim of identifying causal factors leading to developmental disorders. The publicly available data contains records of over 55,000 pregnancies each with over 6500 variables. Variables were selected by considering a subset that might have been chosen for a plausible observational study. Given the nature of the data set we chose to consider a hypothetical twins study examining the impact of birth weight on a child’s IQ. We chose covariates that a researcher might have considered to be confounders for that research question. After reducing the data set to complete cases, 4802 observations and 58 covariates remained. Of these covariates, three are categorical, five are binary, 27 are count data and the remaining 23 are continuous.
+\end{quote}
+
+
+\subsection{Custom Empirical Covariate Distributions}
+
+ In Maccabee, almost any data to be used to defined an empirical covariate distribution. This is useful for benchmarking methods that are designed to work well in very specific covariate settings. The tools that enable the use of custom empirical data sets are described in the package documentation \RTDlink{here}.
+ 
+ \vspace{\baselineskip}
+ 
+ It is crucial to note that the properties of the sampled DGPs, measured along the axes from Chapter \ref{chap:problemspace}, are sensitive to the empirical covariate distribution. This means that, in order to produce DGPs in the desired region of the distributional problem space, it is usually necessary to both lightly pre-process the covariate data and fine tune the other DGP sampling parameters. There are limits on how much of these two steps can be automated by the package. By default, Maccabee applies normalization to the covariates appropriate for pair-wise independent, symmetric distributions of each covariate. The default sampling parameters are also tuned for to expect this form of distribution. If any other data is used, care will need to be taken. Fortunately, the formal metrics used to measure the position of sampled DGP in the distributional problem space can be used to guide this process without any fear of overfitting/compromising benchmark validity. DGP sampling is done prior to any causal estimation, so pre-processing and sampling parameter values can be adjusted until metric values indicate that DGP samples are being drawn from the desired region of the problem space.
+
+\vspace{\baselineskip}
+
 
 \end{document}
