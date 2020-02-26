@@ -17,11 +17,11 @@ Looking first at methods which target the treatment assignment mechanism: Matchi
 
 
 \vspace{\baselineskip}
-Propensity score based methods address some of the weaknesses above by explicitly modeling the treatment assignment mechanism and assigning each unit a probability (propensity) of treatment. \cite{Austin2011AnStudies} summarizes the various ways in which the propensity score can be used to remove bias. The four classes of methods reviewed by the authors are matching/stratification on the propensity score, inverse probability of treatment weighting, and propensity-based covariate adjustment. These methods share at least two failure modes related to the observed data: one, \cite{Hill2011BayesianInference} points out that the common methods used for estimation of the treatment mechanism are parametric and therefore sensitive to the functional form of the underlying mechanism and the number of covariates. If this form is misspecified, or there are too many covariates, then the resultant propensity scores will not properly mitigate bias. Two, \cite{Knaus2018MachineEvidence} points out that small propensity scores - which inevitably arise when there is an imbalance in covariate distribution across groups - can produce high variance (or even degenerate) estimates in weighting-based methods. So, again, there is sensitivity to the number of covariates, the functional form of the treatment assignment mechanism, and the covariate balance.\par
+Propensity score based methods address some of the weaknesses above by explicitly modeling the treatment assignment mechanism and estimating a probability (propensity) of treatment for each observation. \cite{Austin2011AnStudies} summarizes the various ways in which the propensity score can be used to remove bias. The four classes of methods reviewed by the authors are matching/stratification on the propensity score, inverse probability of treatment weighting, and propensity-based covariate adjustment. These methods share at least two failure modes related to the observed data: one, \cite{Hill2011BayesianInference} points out that the common methods used for estimation of the treatment mechanism are parametric and therefore sensitive to the functional form of the underlying mechanism and the number of covariates. If this form is misspecified, or there are too many covariates, then the resultant propensity scores will not properly mitigate bias. Two, \cite{Knaus2018MachineEvidence} points out that small propensity scores - which inevitably arise when there is an imbalance in covariate distribution across groups - can produce high variance (or even degenerate) estimates in weighting-based methods. So, again, there is sensitivity to the number of covariates, the functional form of the treatment assignment mechanism, and the covariate balance.\par
 
 
 \vspace{\baselineskip}
-Turning to methods which estimate the response surface, a similar pattern of sensitivity is evident. The simplest methods in this class are referred to as conditional mean estimations by \cite{Knaus2018MachineEvidence} or as T-learners by \cite{Kunzel2019MetalearnersLearning}. These methods estimate the conditional mean  \( E \left[ Y \vert  X, Z=z \right]  \)  separately for both the treatment and control groups (a method which was motivated in Chapter \ref{chap:framework}). Much like with direct modeling of the treatment assignment, this approach is sensitive to specification of the function form used for the estimation. This means there is sensitivity to the underlying functional form (and complexity) of the response mechanism. This sensitivity has inspired a huge number of flexible semi/nonparametric estimation schemes. See, for example, Causal Forests by \cite{Athey2018ApproximateDimensions}, BART \cite{Hill2011BayesianInference}, and X-learner \cite{Kunzel2019MetalearnersLearning}. But even these flexible estimation methods are sensitive to aspects of the data distribution. In the case of outcome function fitting, imbalance means that, in both groups, there are certain regions of the covariate support with fewer observations. This makes it hard to accurately fit functions in these regions. This is less problematic in parametric methods with fewer degrees of freedom but seriously affects non-parametric methods which rely on the data for accurate local estimation. Further, response mechanism based approaches only work if they correctly capture the response dependency on all confounders and the treatment assigning. This means that, much like in any function fitting task, there is sensitivity to the explainability of the response (the signal-to-noise ratio) and the number of, and redundancy between, predictive variables (the covariates). Incorrect inference of the response mechanism is possible in cases where there is a low signal-to-noise ratio and/or the presence of many covariates with similar but non-identical correlations with the prediction target\par
+Turning to methods which estimate the response surface, a similar pattern of sensitivity is evident. The simplest methods in this class are referred to as conditional mean estimations by \cite{Knaus2018MachineEvidence} or as T-learners by \cite{Kunzel2019MetalearnersLearning}. These methods estimate the conditional mean  \( E \left[ Y \vert  X, Z=z \right]  \)  separately for both the treatment and control groups (a method which was motivated in Chapter \ref{chap:framework}). Much like with direct modeling of the treatment assignment, this approach is sensitive to specification of the function form used for the estimation. This means there is sensitivity to the underlying functional form (and complexity) of the response mechanism. This sensitivity has inspired a huge number of flexible semi/nonparametric estimation schemes. See, for example, Causal Forests by \cite{Athey2018ApproximateDimensions}, BART \cite{Hill2011BayesianInference}, and X-learner \cite{Kunzel2019MetalearnersLearning}. But even these flexible estimation methods are sensitive to aspects of the data distribution. In the case of outcome function fitting, imbalance means that, in both groups, there are certain regions of the covariate support with fewer observations. This makes it hard to accurately fit functions in these regions. This is less problematic in parametric methods with fewer degrees of freedom but seriously affects non-parametric methods which rely on the data for accurate local estimation. Further, response mechanism-based approaches only work if they correctly capture the response dependency on all confounders and the treatment assignment (the treatment effect). This means that, much like in any function fitting task, there is sensitivity to the explainability of the response with respect to the data (the signal-to-noise ratio) and the number of, and redundancy between, predictive variables (the covariates). Incorrect inference of the response mechanism is possible in cases where there is a low signal-to-noise ratio and/or the presence of many covariates with similar but non-identical correlations with the prediction target\par
 
 
 \vspace{\baselineskip}
@@ -52,7 +52,7 @@ The \textit{distributional setting} of a particular causal inference problem col
 \section{Distributional Settings as Joint Distributions over Observed Data}
 
 \vspace{\baselineskip}
-The section above observed that different estimators target different underlying, component mechanisms and that this targetting produces sensitivity to different aspects of the observed data. This section formalizes this idea by showing that the two component mechanisms outlined above can be thought of as acting together to produce a joint distribution over the observed data, with the properties of this distribution affecting estimator performance. In this framing, a \textit{distributional setting }is a joint distribution over the observed data with specific marginal/collective properties that are relevant to performance. Many joint distributions may have the same property values and therefore represent roughly the same distributional setting.\par
+The section above observed that different estimators target different underlying, component mechanisms and that this targeting produces sensitivity to different aspects of the observed data. This section formalizes this idea by showing that the two component mechanisms outlined above can be thought of as acting together to produce a joint distribution over the observed data, with the properties of this distribution affecting estimator performance. In this framing, a \textit{distributional setting }is a joint distribution over the observed data with specific marginal/collective properties that are relevant to performance. Many joint distributions may have the same property values and therefore represent roughly the same distributional setting.\par
 
 
 \vspace{\baselineskip}
@@ -65,7 +65,7 @@ The first step in establishing this framing is to express the component mechanis
 
 
 \vspace{\baselineskip}
-	\item \textbf{The Response Mechanism: }in a classic SCM, this would be \( P \left( Y  \vert  Z, X \right)  \) . For consistency with the Potential Outcomes Framework, I further factor  \( P \left( Y  \vert  Z, X \right)  \)  as  \( P \left( Y  \vert  Z, X \right)  = P \left( Y_{1}  \vert  \text{Z , Y}_{0},~ \tau \right) P \left( Y_{0} \vert Z, X \right) P \left(  \tau \vert Z, X \right)  = P \left( Y_{1}  \vert  Y_{0}, \tau \right) P \left( Y_{0} \vert X \right) P \left(  \tau \vert X \right) .  \) This isolates the two sub-mechanisms identified by \cite{Kunzel2019MetalearnersLearning} - the \textit{outcome mechanism }and the \textit{treatment effect }mechanism.\par
+	\item \textbf{The Response Mechanism:} in a classic SCM, this would be \( P \left( Y  \vert  Z, X \right)  \) . For consistency with the Potential Outcomes Framework, I further factor  \( P \left( Y  \vert  Z, X \right)  \)  as  \( P \left( Y  \vert  Z, X \right)  = P \left( Y_{1}  \vert  \text{Z , Y}_{0},~ \tau \right) P \left( Y_{0} \vert Z, X \right) P \left(  \tau \vert Z, X \right)  = P \left( Y_{1}  \vert  Y_{0}, \tau \right) P \left( Y_{0} \vert X \right) P \left(  \tau \vert X \right) .  \) This isolates the two sub-mechanisms identified by \cite{Kunzel2019MetalearnersLearning} - the \textit{outcome mechanism }and the \textit{treatment effect }mechanism.\par
 \end{itemize}\par
 
 \vspace{\baselineskip}
@@ -123,7 +123,7 @@ There are three reasons for this. Firstly, it unifies conceptually disparate asp
 \section{The Causal Inference Problem Space}
 
 \vspace{\baselineskip}
-The first section in this chapter used examples of estimators to highlight sensitivity to aspects of the observed data. The second section introduced the idea that the performance-relevant aspects of the observed data can be fully described in terms of a \textit{distributional setting} which describes the properties of the joint distribution  \( P \left( X, Y, Z \right)  \). This section brings these ideas together by describing the so-called axes which define the space of distributional settings eluded to at the end of the last section. The seven axes introduced below represent the properties of the joint distribution which can vary and, in doing so, produce changes in the performance of estimators when applied to the corresponding data. The resultant problem space is intended to be exhaustive, implying that the axes should span all \textit{distinct problem classes - }classes of joint distributions which yield different estimator performance. The claim that the defined space is exhaustive is hard to prove concretely. Indeed, I expect that iteration on the axes may be required to meet the goal of defining an appropriate basis. However, it is worth noting two points which motivate the choice of axes below:\par
+The first section in this chapter used examples of estimators to highlight sensitivity to aspects of the observed data. The second section introduced the idea that the performance-relevant aspects of the observed data can be fully described in terms of a \textit{distributional setting} which describes the properties of the joint distribution  \( P \left( X, Y, Z \right)  \). This section brings these ideas together by describing the so-called axes which define the space of distributional settings eluded to at the end of the last section. The axes introduced below represent the properties of the joint distribution which can vary and, in doing so, produce changes in the performance of estimators when applied to the corresponding data. The resultant problem space is intended to be exhaustive, implying that the axes should span all \textit{distinct problem classes - }classes of joint distributions which yield different estimator performance. The claim that the defined space is exhaustive is hard to prove concretely. Indeed, I expect that iteration on the axes may be required to meet the goal of defining an appropriate basis. However, it is worth noting two points which motivate the choice of axes below:\par
 
 
 \vspace{\baselineskip}
@@ -137,48 +137,38 @@ The first section in this chapter used examples of estimators to highlight sensi
 
 
 \vspace{\baselineskip}
-Finally, it is worth noting that, while I do not present them here, each axis has at least one associated metric which assigns it a specific value for any given joint distribution. If the axes do span the causal inference problem space, then combinations of these values should be able to represent every distinct class of causal inference problem.\par
+Finally, it is worth noting that, while I do not present them here, each axis has at least one associated metric which assigns it a specific value for any given joint distribution. If the axes do span the causal inference problem space,  and the metrics successfully measure each axis, then combinations of these metric values should be able to represent every distinct class of causal inference problem.\par
 
+%%%%%%%%%%%%%%%%%%%%%%%%%% AXES %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \vspace{\baselineskip}
-Without further ado, I present the proposed axes of the causal inference problem space. For each axis, I explain which distributional component(s) of the overall causal mechanism affect its value. Following each definition (or group of related definitions), I provide simple toy datasets and estimators to demonstrate the impact of the axis on estimator performance. The toy datasets are based on a single covariate  \( X \) and show the simplest possible version of all mechanisms except those in focus.\par
+Without further ado, I present the proposed axes of the causal inference problem space. For each axis, I explain which distributional component(s) of the overall causal mechanism affect its value. Following each definition (or group of related definitions), I provide simple toy datasets and estimators to demonstrate the impact of the axis on estimator performance. The toy datasets are based on a single covariate  \( X \) and use the simplest possible setting for all axes but the one in focus.\par
 
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item \textbf{The Nonlinearity/Complexity of the Outcome Mechanism }which defines the distribution over the value of  \( Y_{0} \)  (the outcome without treatment) based on a unit’s covariates. This corresponds to the functional form of the distribution  \( P \left( Y_{0}  \vert  X \right)  \). \par
+	\item \textbf{The Nonlinearity (Modeling Complexity) of the (Untreated) Outcome Mechanism} which defines the distribution over the value of  \( Y_{0} \)  (the outcome without treatment) based on a unit’s covariates. This corresponds to the functional form of the distribution  \( P \left( Y_{0}  \vert  X \right)  \). \par
 
 
 \vspace{\baselineskip}
-	\item \textbf{The Nonlinearity/Complexity of the Treatment Effect Mechanism }which defines the distribution over the treatment effect for each unit. This corresponds to the form of the distribution  \( P \left(  \tau  \vert  X \right)  \)  and specifically the dependence on the covariance  \( X \) . \par
+	\item \textbf{The Nonlinearity (Modeling Complexity) of the Treatment Effect Mechanism} which defines the distribution over the treatment effect for each unit. This corresponds to the form of the distribution  \( P \left(  \tau  \vert  X \right)  \)  and specifically the dependence on the covariates  \( X \) . \par
 
+\uline{Toy Example for the Nonlinearity of the Response Mechanism}\par
+
+\vspace{\baselineskip}
+
+The example below demonstrates the impact of a nonlinear response mechanism - created by nonlinearity in either or both of the untreated outcome or the treatment effect - when using parametric (potentially misspecified) conditional mean regression. This example is inspired by a similar plot found in \cite{Hill2011BayesianInference}. It is evident that the misspecification of the regression model used to model the outcomes in each group produces an estimation error.
 
 \vspace{\baselineskip}
 
-
- %%%%%%%%%%%%  Starting New Page here %%%%%%%%%%%%%%
-
-\vspace{\baselineskip}
-\uline{Toy Example}\par
-\vspace{\baselineskip}
-The example below demonstrates the impact of a nonlinear response mechanism when using parametric (potentially misspecified) conditional mean regression. This example is inspired by a similar plot found in \cite{Hill2011BayesianInference}. The outcome and treatment effect mechanism are non-linear and this produces an estimation error when using a misspecified linear model.\par
-
-
-\vspace{\baselineskip}
- \( X\sim N\left( 30, 25 \right)  \) \par
-
- \( Y_{0}~\sim 50 + 3 \times \sqrt{X} \) \par
-
- \(  \tau~\sim90 + e^{0.05X} - Y_{0} \)  \(  \Rightarrow Y_{1}=90 + e^{0.05X}~ \) \par
-
- \( P \left( Z  \vert  X \right)  = 0.5 \) \par
-
+It is worth noting that this toy example glosses over some nuance. First, the error depicted only applies to estimates of the individual treatment effect. Estimates of average effects will be unbiased in this case as a result of the balance of the covariates across the treatment groups. (The average effect estimate in the example below is, indeed, 0). Second, depending on the modeling approach used, nonlinearity in the treatment effect mechanism may not have the same result as nonlinearity in the outcome mechanism. The point of this example is simply to demonstrate that there is sensitivity to the nonlinear of the outcome mechanism.
 
 \vspace{\baselineskip}
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-nonlinearity.png}
+    \includegraphics[width=0.85\linewidth]{figures/ch3-nonlinearity.png}
+    \caption{Left panel: the covariate and outcome values for the nonlinear response mechanism toy example. The data is divided into treatment groups with a linear outcome model plotted for each group. Right panel: the absolute error in the predicted individual treatment effect for each observation in the dataset. It is clear that a nonlinear outcome mechanism, combined with a misspecified outcome model, produces bias in the effect estimation.}
     \label{fig:toy-1}
 \end{figure}
 \FloatBarrier
@@ -192,51 +182,57 @@ The example below demonstrates the impact of a nonlinear response mechanism when
 \vspace{\baselineskip}
 
 \vspace{\baselineskip}
-\uline{Toy Example}\par
-
-
-\vspace{\baselineskip}
-The example below demonstrates the impact of a treatment effect which is small relative to the noise in the response mechanisms. The base outcome is linear and the treatment effect is constant. This is a classically easy problem but, in this case, the noise makes correctly-specified parametric inference highly inaccurate.\par
-
+\uline{Toy Example for Magnitude of Treatment Effect}
 
 \vspace{\baselineskip}
- \( X\sim N \left( 30, 25 \right)  \) \par
-
- \( Y_{0}~\sim N \left( 2 \times X, 3 \right)  \) \par
-
- \(  \tau~\sim~0.5~ \) \par
-
- \( Y_{1}=N \left( Y_{0~}+ \tau, 3 \right)   \) \par
-
- \( P \left( Z  \vert  X \right)  = 0.5 \) \par
+The example below demonstrates the impact of a treatment effect which is small relative to the noise in the outcome mechanism. The base outcome is linear and the treatment effect is constant. This is a classically easy problem but, in this case, the noise makes correctly-specified parametric inference highly inaccurate.\par
 
 \vspace{\baselineskip}
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-noise.png}
+    \includegraphics[width=0.85\linewidth]{figures/ch3-noise.png}
+    \caption{Left panel: the covariate and outcome values for the magnitude of treatment effect toy example. The data is divided into treatment groups with a linear outcome model plotted for each group. Right panel: the absolute error in the predicted individual treatment effect for each observation in the dataset. It is clear that a low signal-to-noise ratio produced by treatment effect values that are small relative to the outcome noise produces bias in the effect estimation. }
     \label{fig:toy-2}
 \end{figure}
 \FloatBarrier
 
 \vspace{\baselineskip}
-	\item \textbf{The Nonlinearity/Complexity of the Treatment Assignment Mechanism} which defines the distribution over the treatment assignment value based on a unit’s covariates. This corresponds to the form of \( P \left( Z  \vert  X \right)  \) , the treatment assignment mechanism per the definitions above.\par
+	\item \textbf{The Nonlinearity/Complexity of the Treatment Assignment Mechanism} which defines the distribution over the treatment assignment value based on a unit’s covariates. This corresponds to the form of \( P \left( Z  \vert  X \right)  \) , the treatment assignment mechanism per the definitions above.
+
+\vspace{\baselineskip}
+This can have an effect in one of two ways. In methods which directly model the treatment assignment mechanism to reverse selection bias, misspecification (of a more complex function) will induce bias. In methods which don’t model the treatment assignment, a nonlinear assignment will (likely) result in more extreme propensity scores. This will produce regions of the covariate space with imbalance/the absence of overlap.
+
+\vspace{\baselineskip}
+The second situation is displayed in the toy example below. A non-linear treatment assignment logit - in this case a simply cubic around the mean value of the covariate X - produces treatment groups with little to no overlap. This results in error despite the correctly specified outcome model.
+
+\vspace{\baselineskip}
+\tab \uline{Toy Example for Nonlinearity of Treatment Assignment Mechanism}\par
 
 
 \vspace{\baselineskip}
-\tab \uline{Toy Example}\par
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/ch3-treat-nonlinearity.png}
+    \label{fig:toy-treat-nonlin}
+\end{figure}
+\FloatBarrier
 
 
 \vspace{\baselineskip}
-\textbf{TODO NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
-
-
-\vspace{\baselineskip}
-	\item \textbf{The Covariate Balance:} The distributional (dis)similarity of the covariates between the groups. As above, this is determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \).\par
+	\item \textbf{The Covariate Balance:} The (dis)similarity of the distributional of covariates in the two treatment groups. As above, this is determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \). \par
 
 \vspace{\baselineskip}
+	\item \textbf{Covariate Distribution Overlap} this is conceptually similar to balance but refers to whether the domain of the covariate distribution in each of the treatment groups is the same. Much like balance it is determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \).
 
-\uline{Toy Example}\par
+\vspace{\baselineskip}
+
+In finite samples, the impact of imbalance and lack of overlap is similar, so a single toy example is given below. However, in the asymptotic limit, appropriate methods can reverse the bias induced by imbalance but will not reverse the bias induced by lack of overlap. This is why overlap was taken as a strong assumption of valid causal inference in Chapter \ref{chap:framework}.
+
+\vspace{\baselineskip}
+
+\uline{Toy Example for the Balance and Overlap Axes}\par
 
 \vspace{\baselineskip}
 The example below demonstrates the effect of covariate imbalance induced through strong selection pressure. The example outcome is a simple linear model with a constant treatment effect and moderate noise. Strong selection pressure is simulated by filtering the treated/control observations which fall outside of the indicated overlap region. This produces treatment groups with an unbalanced distribution of the covariate X. This results in conditional regressions that extrapolate beyond the bounds of the outcome information. When combined with moderate noise, this produces large error outside of the region of overlap between the groups.\par
@@ -245,7 +241,8 @@ The example below demonstrates the effect of covariate imbalance induced through
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-balance.png}
+    \includegraphics[width=0.85\linewidth]{figures/ch3-balance.png}
+    \caption{Left panel: the covariate and outcome values for the balance/overlap toy example. The data is divided into treatment groups with a linear outcome model plotted for each group. Right panel: the absolute error in the predicted individual treatment effect for each observation in the dataset. It is clear that, with a finite sample size, imbalance between the treatment groups’ covariate distributions produces bias in the effect estimation.}
     \label{fig:toy-3}
 \end{figure}
 \FloatBarrier
@@ -255,11 +252,11 @@ The example below demonstrates the effect of covariate imbalance induced through
 \vspace{\baselineskip}
 
 \vspace{\baselineskip}
-	\item \textbf{The Percent of Units Treated: }the\ (dis)similarity of the number of units in each group.  Again, primarily determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \) .\par
+	\item \textbf{The Percent of Units Treated: }the\ (dis)similarity of the number of units in each group stemming from systematically extreme (low or high) values of the probability for treatment for all observed units. Again, primarily determined by  \( P \left( Z \vert X \right)  \) and  \( P \left( X \right)  \) .\par
 
 
 \vspace{\baselineskip}
-\uline{Toy Example}\par
+\uline{Toy Example for the Percent of Units Treated}\par
 
 \vspace{\baselineskip}
 The example below demonstrates the effect of a small percent of units treated. It was created by giving all units a small probability of treatment - set at $P(T|X) = 0.1$.The result is similar to the case of imbalance, in that there is imperfect overlap that results in extrapolation. But, in this case, this lack of overlap is created simply by a small treated group even though covariate balance holds in the asymptotic limit. IE, if there were many more observations, and the same fixed but small propensity for treatment, the bias would dissapear.
@@ -268,42 +265,28 @@ The example below demonstrates the effect of a small percent of units treated. I
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ch3-percent-treated.png}
+    \includegraphics[width=0.85\linewidth]{figures/ch3-percent-treated.png}
+    \caption{Left panel: the covariate and outcome values for the small percent of treated units toy example. The data is divided into treatment groups with a linear outcome model plotted for each group. Right panel: the absolute error in the predicted individual treatment effect for each observation in the dataset. It is clear that, with a finite sample size, a small treated group produces bias in the effect estimation.}
     \label{fig:toy-4}
 \end{figure}
 \FloatBarrier
 \par
 
 \vspace{\baselineskip}
-	\item \textbf{The Degree of Alignment Between the Treatment Assignment and Response Mechanism:} the number of confounding covariates - that appear in both the treatment assignment and outcome mechanisms - relative to the number of non-confounding, but still, predictive covariates - that appear in at least of the two mechanisms. The term alignment, to reflect this degree of confounding, is taken from \cite{Kern2016AssessingPopulations}.
-	
-\end{enumerate}\par
+	\item \textbf{The Degree of Alignment Between the Treatment Assignment and Outcome Mechanism:} the number of confounding covariates - that appear in both the treatment assignment and outcome mechanisms - relative to the number of non-confounding, but still, predictive covariates - that appear in at least of the two mechanisms. The term alignment, to reflect this degree of confounding, is taken from \cite{Kern2016AssessingPopulations}.
 
 \vspace{\baselineskip}
 
+The impact of this axis is subtle. If there are a small number of confounders relative to the variables that are predictive of either (but not both) of the treatment assignment and outcome, then controlling for confounding becomes a difficult variable selection problem. It is possible that a model may accurately model both the treatment and outcome mechanism without controlling for the confounding effect of a few variables even if the mechanism by which these variables affect treatment assignment/outcome is relatively simple. Conversely, if there is a large number of confounders relative to the predictive covariates then variable selection is easier but modeling the treatment/outcome mechanisms (or reversing bias by other means) is more challenging. This complexity means that this axis does not lend itself to simple demonstration through a toy example. I defer quantitative demonstration for Chapter \ref{XXX}, which presents results from a benchmark that varies the alignment axis of the distributional setting.
 
-\uline{Toy Example}
-
-\vspace{\baselineskip}
-
-\begin{adjustwidth}{0.5in}{0.0in}
-\textbf{TODO NOTE: I haven’t yet constructed this example. As it doesn’t conform to the standard template of the other examples.}\par
-\end{adjustwidth}
 
 \vspace{\baselineskip}
-Beyond these seven primary axes, there are three further properties of observed data which are relevant to performance but are not strictly properties of the joint distribution. These correspond to the two assumptions - ignorability and overlap - and the number of observed samples. I include these as part of the definition of the distributional setting despite the slight definitional complexity this brings about.\par
+	\item \textbf{Other Axes:} there are two further properties of observed data that are relevant to estimator performance but are not strictly properties of the joint distribution. These properties are ignorability - whether all covariates which make up the treatment and outcome mechanisms are observed - and the number of observed samples - that, as was clear from the above, modulates the effect of many of the other axes. Given their close relation to the joint distribution, and their impact on performance, I treat these two properties as axes of the distributional setting problem space.\par
+
+\end{enumerate}
 
 \section{Conclusion}
 
-\vspace{\baselineskip}
-This chapter laid the theoretical groundwork necessary for the robust evaluation of causal inference estimators. Different estimators target different components of the causal mechanism and this produces sensitivity to different properties of the joint distribution over the observed data. The Causal Inference Problem Space is a space defined by ten axes along which the properties of the joint distribution vary. Understanding this space is important because different estimators are likely to perform differently on distributions which lie in different parts of it. With this foundation established, the next chapter goes on to review the methods used to evaluate causal inference methods in the literature.\par
-
-\vspace{\baselineskip}
-
-\vspace{\baselineskip}
-
-\vspace{\baselineskip}
-
-\vspace{\baselineskip}
+This chapter laid the theoretical groundwork necessary for the robust evaluation of causal inference estimators. Different estimators target different components of the causal mechanism and this produces sensitivity to different properties of the joint distribution over the observed data. The Causal Inference Problem Space is a space defined by ten axes along which the properties of the joint distribution vary. Understanding this space is important because different estimators are likely to perform differently on distributions which lie in different parts of it. With this foundation established, the next chapter goes on to review the methods used to evaluate causal inference methods in the literature.
 
 \end{document}
