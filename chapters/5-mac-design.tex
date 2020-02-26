@@ -143,7 +143,11 @@ The graphical model in Figure \ref{fig:mac-graph-model} concretely specifies the
 
 \item A set of $N$ covariate observations - each represented by the variable $X$ - is drawn for each $DGP$ (actually from the subcomponent of the DGP representing the joint distribution over covariate observations, the $\rho$ distribution in the theory paper).
 
-\item Each covariate observation $X$ has an associated set of treatment assignment, outcome and causal effect random variables. Added to the observed covariates, these variables represent the complete observed and unobserved information about each individual observation in the dataset. Note that, for expositional clarity, the dependencies between the individual observation variables depicted in this model are slightly different to the actual relations implied by the sampled DGPs described in Section \ref{mac:formalspec} above.
+\item Each covariate observation $X$ has an associated set of treatment assignment, outcome and causal effect random variables. Added to the observed covariates, these variables represent the complete observed and unobserved information about each individual observation in the dataset. Following the nomenclature from Chapter \ref{chap:problemspace}, I interchangeably refer to unobserved variables as oracle variables.
+
+\vspace{\baselineskip}
+
+Note that, for expositional clarity, the dependencies between the individual observation variables depicted in this model are slightly different to the actual relations implied by the sampled DGPs described in Section \ref{mac:formalspec} above.
 
 \vspace{\baselineskip}
 

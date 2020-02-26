@@ -1,9 +1,10 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-The previous chapter ended with the claim that many causal estimators can be constructed to target the same causal estimands and that these estimators may display varied performance under different \textit{distributional settings. }The primary goal of this chapter is to formalize the notion of a \textit{distributional setting }and motivate why the \textit{distributional setting}, as defined, affects estimator performance. In so doing, I will introduce the notion of a causal inference problem space which is the space of all performance-relevant distributional settings.\par
+The previous chapter ended with the claim that many causal estimators can be constructed to target the same causal estimands and that these estimators may display varied performance under different \textit{distributional settings.} The primary goal of this chapter is to formalize the notion of a \textit{distributional setting} and motivate why the \textit{distributional setting}, as defined, affects estimator performance. In so doing, I will introduce the notion of a causal inference problem space which is the space of all performance-relevant distributional settings. I also discuss techniques for measuring the location of some observed data in this space.\par
 
 \vspace{\baselineskip}
+
 I will proceed in three steps. First, I will provide a brief overview of the landscape of causal inference estimators. While this overview will include instructive examples of different approaches, it is not meant as a complete (or even partial) review of different methods. Rather, the analysis will provide initial insight into the importance of the properties of the underlying data distribution for the performance of different estimators. The discussion of distributional properties will remain informal at this stage. Second, I will formalize the notion of a distributional setting by expressing causal problems in terms of a joint distribution over observed data. In this context, a distributional setting can then be defined as a joint distribution over the observed data with some set of properties that affect estimator performance. Finally, I will establish the axes of an abstract space over distributional settings with each axis representing different possible values of some property of the joint distribution. This space is the Causal Inference Problem Space.\par
 
 \section{The Sensitivity of Causal Estimators to Properties of the Observed Data}
@@ -283,6 +284,75 @@ The impact of this axis is subtle. If there are a small number of confounders re
 \vspace{\baselineskip}
 	\item \textbf{Other Axes:} there are two further properties of observed data that are relevant to estimator performance but are not strictly properties of the joint distribution. These properties are ignorability - whether all covariates which make up the treatment and outcome mechanisms are observed - and the number of observed samples - that, as was clear from the above, modulates the effect of many of the other axes. Given their close relation to the joint distribution, and their impact on performance, I treat these two properties as axes of the distributional setting problem space.\par
 
+\end{enumerate}
+
+\section{Measuring the Location of Data in the Problem Space}
+
+\cite{Dorie2019Automated1} propose the use of \textit{metrics}, defined over the various variables discussed above, to measure the location of a DGP along an axis. These metrics work by assigning a numerical score to data drawn from a DGP, with this score proportional in some way to the property described by the target axis. Note that this means that these metrics are \textit{estimates} of the position along an axis for two reasons. First, the metric itself is only proportional to the underlying axis \textit{concept} and there may be many, roughly equivalent functions that share this proportionality property but do not produce values that are  absolutely comparable. Second, the metric is calculated using data sampled from the DGP. This means there is sampling bias associated with the metric value. That said, it is not crucial that these metrics are perfectly \textit{accurate} because there is no hard ground truth against which accuracy is measured. The problem space is a \textit{conceptual} space. Estimators are expected to be sensitive to the approximate location of data in this space but it is the region of the data in the space more than the (undefined) exact location that matters. This means heuristic metrics, that measure relative position, are perfectly acceptable.
+
+With this established, I proceed to describe the metric scheme proposed by \cite{Dorie2019Automated1}. Rather than describe each metric, I focus on the methods they use to measure concepts which are common to multiple axes above (for example, linearity). Before doing this, I first draw the distinction between the oracle and observed variables over which the metrics are defined. A complete list of the metrics proposed by the authors can be found in the supplementary material of their paper. These metrics can be used to measure all of the axes proposed above.
+
+\subsection{Observed vs Oracle Variables}
+
+The sections above established that the axes of the problem space correspond to properties of the distributional setting - the joint distribution over the observed data. While this is true, it is clear that distributions over unobserved data play a critical role in creating/defining the distributional setting of the observed data. For example, the linearity of the outcome mechanism depends on the distribution over the potential outcome without treatment - $Y0$ - conditioned on the observed covariates.
+
+\vspace{\baselineskip}
+
+Accurate measurement of the position of observed data along the axes above therefore requires access to unobserved data. Without this access, it is still possible to \textit{approximately} measure the location but it may be hard to disambiguate location along related axes. For example, low linearity of the observed outcome with respect to the covariates could imply nonlinearity in the untreated outcome mechanism or the treatment effect mechanism. This doesn't mean that all metrics over observed data are approximate. For example, an estimate of the linearity of treatment assignment may be accurate given that both true treatment assignment and covariates are observed.
+
+\vspace{\baselineskip}
+
+If the true DGP is known, then one has access to both observed and unobserved variables. This means that metrics including both can be calculated. To draw a distinction between (sometimes approximate) metrics over the observed data and (accurate) metrics over some unobserved data, \cite{Dorie2019Automated1} refer to the former as observed metrics and the later as oracle metrics. I adopt this nomenclature in the rest of the paper when referencing these classes of variables.
+
+\subsection{Functions for Measuring Axes Concepts}
+
+While the axes above each correspond to a unique property of the distributional setting, there is a smaller number of unique concepts that appear across the axes. For example, the concept of linearity appears directly in three of the axes (an indirectly in one more). The combination of a concept and the data to which the concept is applied forms a unique axis.
+
+\vspace{\baselineskip}
+
+Metrics to measure the position of data along each axis use functions that measure these concepts applied to some subset of the observed/oracle variables. Below, I describe the three concepts that cover all of the nontrivial metrics in \cite{Dorie2019Automated1} and outline the different functions that can be used to produce quantified (but heuristic) estimates of each concept.
+
+\begin{enumerate}
+    \item \textbf{Linearity:} the linearity of the function which relates some (potentially vector-valued) variable $A$ to a real valued variable $B$ can be quantified using the $R^2$ value of a linear regression of $B$ on $A$. This captures how much of the variance in $B$ can be explained through a linear relation with $A$. If $B$ is categorical, the linear regression can be replaced by a logistic regression to achieve the same effect in the probability space of the relationship between $A$ and $B$. Metrics that use this approach are applied to measure the axes:
+    
+    \begin{itemize}
+        \item The Nonlinearity (Modeling Complexity) of the (Untreated) Outcome Mechanism
+        \item The Nonlinearity (Modeling Complexity) of the Treatment Effect Mechanism
+        \item The Nonlinearity/Complexity of the Treatment Assignment Mechanism
+        \item The Degree of Alignment Between the Treatment Assignment and Outcome Mechanism \footnote{Measuring the correlation between the treatment and observed/oracle outcome variables can be used as a proxy for ratio of confounding to non-confounding variables in the treatment and outcome mechanism}.
+    \end{itemize}
+    
+    \item \textbf{Distributional distance:} the distributional distance between two sets of observations of the same variables can be measured in a number of ways.
+    \vspace{\baselineskip}
+    \textbf{Mean-based Distance Measures}
+    
+    \begin{itemize}
+        
+        \item The L2 (vector-space) distance between the mean of variables in each set of observations. This approach summarizes each group of observations using the mean of each variable and then calculated the distance between the means. This is only useful if the mean is a good summary and if the variables have roughly similar scales. Otherwise, a (relatively) small difference in the value of the mean of a variable with a (relatively) large scale may overwhelm all the very similar mean values of variables with small scales and produce a large overall distance.
+        
+        \item The Mahalanobis distance between the group means. This is equivalent to the L2 distance with each covariate scaled by its empirical standard deviation. This accounts for the scaling problem assuming the empirical standard deviation is an appropriate scale factor.
+    \end{itemize}
+    
+    \textbf{Distribution-based Distance Measures}
+    
+    \begin{itemize}
+        \item Both the L2 and Mahalanobis distance can be applied to nearest neighbor pairs across the two sets of observations - rather than the mean - with the result averaged across the data set. This produces a measure of distributional similarity that doesn't rely on the mean summary and is empirically weighted by the number of observations in each region of the domain.
+        
+        \item The Wasserstein distance measures the absolute difference in the cumulative distribution function for the distribution across the domain. Conceptually, this is the amount of probability mass that would have to be moved in one of the distributions to equalize the two distributions.
+    \end{itemize}
+    
+    Metrics that use the distance measures above are applied to measure the axes:
+    
+    \begin{itemize}
+        \item Covariate Balance
+        \item Covariate Distribution Overlap \footnote{It is impossible to know whether the distribution of the empirical data in the treatment groups overlaps, so distance measures at the distributional level are used as a proxy}
+    \end{itemize}
+    
+    \item \textbf{Relative Heterogeneity}: the heterogeneity of some variable $A$, relative to another variable $B$, can be measured using the ratio of the standard deviation of $A$ to the standard deviation of $B$. Metrics that use this approach are applied to measure the axes:
+    
+    \begin{itemize}
+        \item Treatment Effect Heterogeneity \footnote{The standard deviation in the treatment effect relative to the standard deviation in the untreated outcome measures can be used as a proxy for the heterogeneity in the treatment effect.}
+    \end{itemize}
 \end{enumerate}
 
 \section{Conclusion}
