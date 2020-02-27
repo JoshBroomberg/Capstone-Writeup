@@ -1,7 +1,7 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-The goal of this chapter is to provide a self-standing description of the benchmarking approach implemented in the Maccabee package. This is presented in three sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context for the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach, which is based on the design proposed by \cite{Dorie2019Automated1}. First, looking at the high level approach used by \cite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package. Taken together, the content of these four sections provides a complete picture of the theoretical design of the Maccabee package.
+The goal of this chapter is to provide a self-standing description of the benchmarking approach implemented in the Maccabee package. This is presented in three sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context for the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach, which is based on the design proposed by \textcite{Dorie2019Automated1}. First, looking at the high level approach used by \textcite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package. Taken together, the content of these four sections provides a complete picture of the theoretical design of the Maccabee package.
 
 \section{Design Goal: Better Benchmarking for Causal Inference Methods}
 \label{mac:problems}
@@ -10,7 +10,7 @@ As established in Chapter \ref{chap:litreview}, most existing approaches to benc
 
 \begin{enumerate}
     \item \textbf{Empirical methods} use real, observed covariate and outcome data. This data is typically drawn from randomized experiments so that ground truth effect values are known (although experiments only provide average effect estimates). In these benchmarks, there is a true Data Generating Process (DGP) but it is latent and its properties are unknown. It is unclear if the data meets the typically required causal inference assumptions, especially after modifications like replacing the random control group with non-random data to create a \textit{psuedo-observational} setting in which randomization, and the resultant expected covariate balance, doesn't hold.
-    
+
     \item \textbf{Synthetic methods} use covariate and outcome data generated from synthetic (hand-specificed rather as opposed to observed/empirical) distributions and functions. By definition, the DGP is known. As a result the true causal effects - both at the average and individual level - can be calculated directly and it is known if causal assumptions are met.
 \end{enumerate}
 
@@ -22,27 +22,27 @@ In the best case, either of these approaches risks missing important aspects of 
 
 \vspace{\baselineskip}
 
-The primary design goal of the Maccabee is to enable a benchmarking approach that mitigates the flaws of the common approaches analyzed above. This is done by adopting the theoretical design proposed \cite{Dorie2019Automated1}
+The primary design goal of the Maccabee is to enable a benchmarking approach that mitigates the flaws of the common approaches analyzed above. This is done by adopting the theoretical design proposed \textcite{Dorie2019Automated1}.
 
 \section{Approach: Flexible, Reusable Hybrid Benchmarking}
 \label{mac:approach}
 
-This section outlines Maccabee's benchmarking approach. The high-level approach is inspired by, and closely follows, the benchmarking process proposed in \cite{Dorie2019Automated1}. The low-level design specifics of the approach, and the corresponding implementation described in Chapter \ref{chap:macimplementation}, are de novo.
+This section outlines Maccabee's benchmarking approach. The high-level approach is inspired by, and closely follows, the benchmarking process proposed in \textcite{Dorie2019Automated1}. The low-level design specifics of the approach, and the corresponding implementation described in Chapter \ref{chap:macimplementation}, are de novo.
 
 \subsection{Dorie et al's General Approach to Hybrid Benchmarking}
 \label{mac:generalapproach}
 
-The benchmarking process proposed by \cite{Dorie2019Automated1} mitigates the weaknesses outlined in Section \ref{mac:problems} by \textit{sampling} Data Generating Processes. These sampled DGPs have treatment and outcome mechanisms defined over arbitrary covariates and sampled from parameterized distributions over a subspace of functions. The parameterization of these distributions allows for control over the expected location of sampled DGPs in the distributional problem space (established in Chapter \ref{chap:problemspace}). This approach allows for:
+The benchmarking process proposed by \textcite{Dorie2019Automated1} mitigates the weaknesses outlined in Section \ref{mac:problems} by \textit{sampling} Data Generating Processes. These sampled DGPs have treatment and outcome mechanisms defined over arbitrary covariates and sampled from parameterized distributions over a subspace of functions. The parameterization of these distributions allows for control over the expected location of sampled DGPs in the distributional problem space (established in Chapter \ref{chap:problemspace}). This approach allows for:
 
 \begin{itemize}
     \item More thorough exploration of the distributional problem space (relative to empirical benchmarks) because DGPs can be sampled from many different (known) locations in the problem space.
-    
+
     \item More realistic covariate distributions (relative to synthetic benchmarks) because sampled DGPs can (but do not have to) consist of sampling functions defined over empirical/observed sets of covariate data.
-    
+
     \item More robust results (relative to either of the pure approach) because performance evaluations are performed by averaging across many DGPs selected, in a principled manner, from a region of problem space.
 \end{itemize}
 
-Maccabee, following \cite{Dorie2019Automated1}, samples a treatment assignment, an untreated outcome function, and a treatment effect function and uses these functions as the components $\Omega$, $\Phi$ and $\tau$ to concretize the generic DGP outlined in Chapter \ref{chap:litreview}. The sampled functions are drawn from the subspace of \textit{generalized, additive functions} - additive functions with terms that are 1st, 2nd or 3rd degree polynomials, two or three way interactions, and linear functions with jump discontinuities in their value or derivative.
+Maccabee, following \textcite{Dorie2019Automated1}, samples a treatment assignment, an untreated outcome function, and a treatment effect function and uses these functions as the components $\Omega$, $\Phi$ and $\tau$ to concretize the generic DGP outlined in Chapter \ref{chap:litreview}. The sampled functions are drawn from the subspace of \textit{generalized, additive functions} - additive functions with terms that are 1st, 2nd or 3rd degree polynomials, two or three way interactions, and linear functions with jump discontinuities in their value or derivative.
 
 \vspace{\baselineskip}
 
@@ -50,7 +50,7 @@ The fourth degree of freedom in the concretization process - the joint distribut
 
 \subsection{Concretizing Dorie et al's Approach}
 
-While the approach described above makes sense, it does not prescribe a specific sampling scheme, and associated set of sampling parameters, that could be used to sample DGPs from a desired location in the distribution problem space. \cite{Dorie2019Automated1} does have such a scheme implemented in R (available \href{https://github.com/vdorie/aciccomp}{here}). But this code is designed to generate a static set of benchmarking datasets - using a single empirical covariate dataset and a single set of sampling parameterizations. Further, this code is not designed to execute benchmarks or perform metric calculation, it is only designed to generate the benchmarking data itself. Finally, the code is poorly documented which makes parsing the exact parameterization used by the authors non-trivial. Given this, Maccabee proposes its own parameterization and sampling scheme, based on the general approach outlined above. This scheme is then implemented such that it can be used with any covariate data and with arbitrary, easy-to-specify parameterizations.
+While the approach described above makes sense, it does not prescribe a specific sampling scheme, and associated set of sampling parameters, that could be used to sample DGPs from a desired location in the distribution problem space. \textcite{Dorie2019Automated1} does have such a scheme implemented in R (available \href{https://github.com/vdorie/aciccomp}{here}). But this code is designed to generate a static set of benchmarking datasets - using a single empirical covariate dataset and a single set of sampling parameterizations. Further, this code is not designed to execute benchmarks or perform metric calculation, it is only designed to generate the benchmarking data itself. Finally, the code is poorly documented which makes parsing the exact parameterization used by the authors non-trivial. Given this, Maccabee proposes its own parameterization and sampling scheme, based on the general approach outlined above. This scheme is then implemented such that it can be used with any covariate data and with arbitrary, easy-to-specify parameterizations.
 
 \vspace{\baselineskip}
 
@@ -66,21 +66,21 @@ The procedure is given below. The parameters which influence the operation of ea
 
 \begin{enumerate}
     \item A set of \textit{potential confounders} is selected from all of the covariates based on a single, uniform selection probability. This is the set of confounders that could enter either/both of the sampled treatment/outcome mechanisms. Fewer selected covariate produces a lower signal-to-noise ratio in the data and the makes the modeling of the treatment/outcome mechanisms harder. \label{proc:confounders}
-    
+
     \item The treatment assignment and untreated outcome functions are sampled from two independently parameterized distributions of the kind described above. The universe of each \textit{term type} is specified by the combination of all the potential confounders selected in step \ref{proc:confounders}. The co-efficients in all of the terms of two functions are initialized by drawing samples from a parameterized, global co-efficient distribution.
-    
+
     \vspace{\baselineskip}
-    
+
     Note that, in the generic DGP described in Chapter \ref{chap:litreview}, the treatment assignment is sampled using a single function referred to as $\Omega$. In this concretization, $\Omega$ is split into a treatment probability and treatment assignment function. The treatment probability function is sampled in the manner described above and the treatment assignment produces assignments conditioned on the probability. For simplicity, this difference is not made explicit in the explanations below.
-    
+
     \item An alignment (confounding) adjustment is performed. This step involves randomly selecting terms to add/remove from the sampled treatment assignment and untreated outcome functions to meet a target alignment parameter. This parameter specifies the target probability for a term in the untreated outcome function to also appears in the treatment assignment function. Lower alignment thus implies a more disjoint set of covariates appearing across the functions. This produces weaker confounding of the treatment assignment and outcome variables present in the generated data.
-    
+
     \item The treatment effect mechanism is then sampled. First, a constant treatment effect is sampled from a parameterized, global treatment effect distribution. Then, terms from the untreated outcome function are sampled based on a treatment effect heterogeneity parameter. This parameter specifies the uniform probability that a term in the untreated outcome function appears in the treatment effect function. This means the treatment effect function can be thought of a subset of the untreated outcome function terms (plus a constant offset) that interact linearly with the binary treatment assignment.
-    
+
     \item Numerical normalization and linear modification (by multiplicative/additive constants) of the treatment assignment function is used to meet target parameters for the min/expected/max value of the treatment probability
-    
+
     \item Numerical normalization and linear modification (by multiplicative/additive constants) of the untreated outcome function is applied to adjust the signal-to-noise ratio of the observed outcome. This is an automatic adjustment without parameterization.
-    
+
     \item Finally, some components of the DGP sampling only occur at data generation time. On each instance of data generation:
 
     \begin{enumerate}
@@ -88,7 +88,7 @@ The procedure is given below. The parameters which influence the operation of ea
         \item Observed outcome noise is sampled from a parameterized, global outcome noise distribution.
         \item A parameterized target proportion of the units in the treated and control groups with the lowest/highest probability of treatment respectively are swapped between the groups. This creates a larger imbalance in the covariate distribution between the groups.
     \end{enumerate}
-    
+
 \end{enumerate}
 
 By controlling the probability with which different term types appear in the treatment assignment, untreated outcome, and treatment effect functions, as well as the overlap of terms between the functions, one can (approximately) control linearity, degree of confounding and causal effect heterogeneity. By controlling the distributions from which the treatment effect, outcome noise, and constant co-efficients are sampled, and applying normalization techniques, one can (approximately) control the location and scale distribution over outcome values and probabilities of treatment (as well as the signal-to-noise ratio of these quantities with respect to the covariates). Finally, by swapping units between groups, one can (approximately) control the imbalance in the distribution of covariates across the treated/control groups can be controlled.
@@ -97,7 +97,7 @@ By controlling the probability with which different term types appear in the tre
 
 Note that the degrees of freedom listed above correspond exactly to the axes that make up the distributional problem space. Therefore, by using the parameters that control these degrees of freedom, it is possible to generate DGPs that are - in expectation - located in different regions of the space. This, in turn, allows for better evaluation of new causal inference methods. Both by evaluating them across more regions in the problem space and more robustly in each region by sampling multiple, structurally similar DGPs and averaging out any function-specific effects.
 
-\section{Formal Specification of the Maccabee Benchmark} 
+\section{Formal Specification of the Maccabee Benchmark}
 \label{mac:formalspec}
 
 Section \ref{mac:approach} above provided an overview of the approach taken by Maccabee, focusing on the DGP sampling procedure. This section provides a formal specification of the end-to-end benchmarking procedure. The specification takes the form of a statistical model, depicted as a graphical model, that describes a complete Maccabee Monte Carlo benchmark. The DGP sampling procedure from the previous section is only a sub-component of the statistical model depicted here.
@@ -112,13 +112,13 @@ It is important to note that this model extends (and slightly modifies) the gene
 
 \begin{itemize}
     \item \textit{DGP Random Variables} - that are part of the original generic DGP framework - are indicated in white while \textit{Estimate Random Variables} - either estimands or metrics derived from these estimates - are in blue.
-    
+
     \item Plate notation is used to indicate that each dataset includes $N$ observations and that $M$ such datasets, each drawn from a different DGP - are present in the benchmark described by the model. Each dataset has an associated set of performance and data metrics (that are themselves random variables). There is one metric value (for each metric) per dataset.
-    
+
     \item The $DGP$ random variable - sampled based on the \textit{DGP Sampling Parameters} - represents the treatment and outcome mechanisms that connect the observed covariates to the *oracle* (latent/unobserved) treatment and outcome random variables. This variable stretches graphical notation, so it worth a brief discussion.
-    
+
     \vspace{\baselineskip}
-    
+
     Ordinarily the functions/distributions relating the covariate variable $X$ to the treatment/outcome variables would be represented by the edges between these variables - each defined by fixed, parametric functional forms. In the Maccabee benchmarks, these functions/distributions are themselves sampled based on underlying parameters and distributions. As such, they are best represented as a Random Variable which conditions the value of the random variables that are related/generated by the DGP. The single $DGP$ random variable can thus be thought of as a variable that abstracts lower level functional detail.
 
 \end{itemize}
@@ -155,15 +155,15 @@ With that established, the sampling procedure for each individual observation is
 
 \begin{itemize}
     \item The \textit{oracle} (unobserved) treatment probability ($P(T)$) is sampled conditioned on the covariate observation $X$ and the treatment probability function (defined over $X$) from the sampled $DGP$. The \textit{observed} treatment assignment - $T$ - is then sampled conditioned on $P(T)$.
-    
+
     \item The \textit{oracle} (unobserved) potential outcome variables ($Y1$ and $Y0$) are sampled conditioned on the covariate observation $X$ and the outcome functions (defined over $X$) from the sampled $DGP$. This is true to Rubin's Potential Outcome framework as described in Chapter \ref{chap:framework} but is not in line with procedure implied by the structure of the sampled DGPs from Section \ref{mac:formalspec} above. In a sampled DGP, only the untreated outcome, $Y0$, is sampled (from the untreated outcome function, $\Phi$). This value is them combined with a treatment effect (sampled from the treatment effect function, $\tau$) to produce the treated outcome, $Y1$. This difference simplifies the graphical model and is irrelevant for the remainder of the sampling procedure.
-    
+
    \item The \textit{oracle} (unobserved) outcome noise is sampled from the outcome noise distribution from the sampled $DGP$.
 
    \item The \textit{observed} outcome variable - $Y$ - is sampled conditioned on the treatment assignment, potential outcomes and outcome noise.
-    
+
    \item The individual causal effect variable - $\tau$ - is (deterministically) sampled conditioned on the potential outcome variables. Note, again, that in the sampled DGP, the individual treatment effect is sampled from the treatment effect function, $\tau$.
-  
+
 \end{itemize}
 
 \item Causal estimand values can be sampled at the individual observation or dataset level. At the individual level, $N$ individual effect estimates $\hat{\tau}$ are sampled from a (deterministc/stochastic) estimator conditioned on each $X$, $T$ and $Y$. At the dataset level, a single average effect estimand $\bar{\hat{\tau}}$ is sampled from a (deterministic/stochastic) estimator conditioned on all $N$ of the $X$, $T$ and $Y$ observations.
@@ -193,19 +193,19 @@ Maccabee includes empirical covariate distributions defined by data sets from th
 
 \begin{itemize}
     \item Used widely, indicating a social consensus that they are high quality - representative, useful - data sets for the evaluation of causal inference methods.
-    
+
     \item Varied in the number of observations and covariates, allowing for benchmarking of methods under different circumstances.
-    
+
     \item Open source, meaning the data can be accessed and used by others to ensure that any results reproduce as expected.
 \end{itemize}
 
 \subsubsection{The National Support Work (NSW) Data Set}
 
-This is a data set corresponding to the NSW data, introduced by \cite{Lalonde1986EvaluatingData}, that appears throughout the early causal inference literature. Building on \cite{Dehejia2005PracticalTodd} and \cite{Smith2005DoesEstimators}, the package uses a selected subset of the \cite{Lalonde1986EvaluatingData} experimental data (the subset with real income in 1974 available) and the \textit{PSID} observational controls with the data downloaded from \href{https://users.nber.org/~rdehejia/data/.nswdata2.html}{here}. In the experimental data, there are 297 treated units and 425 control units. The control units are dropped in favor of the 2490 PSID units to produce a non-randomized observational setting \footnote{Note that, even though the treatment and outcome mechanisms will be sampled, it is necessary to drop the experimental controls to reproduce the covariate distributions in the Lalonde data set}. Real Income in 1978 is the measured outcome. All other variables are measured pre-treatment and serve as covariates.
+This is a data set corresponding to the NSW data, introduced by \textcite{Lalonde1986EvaluatingData}, that appears throughout the early causal inference literature. Building on \textcite{Dehejia2005PracticalTodd} and \textcite{Smith2005DoesEstimators}, the package uses a selected subset of the \textcite{Lalonde1986EvaluatingData} experimental data (the subset with real income in 1974 available) and the \textit{PSID} observational controls with the data downloaded from \href{https://users.nber.org/~rdehejia/data/.nswdata2.html}{here}. In the experimental data, there are 297 treated units and 425 control units. The control units are dropped in favor of the 2490 PSID units to produce a non-randomized observational setting \footnote{Note that, even though the treatment and outcome mechanisms will be sampled, it is necessary to drop the experimental controls to reproduce the covariate distributions in the Lalonde data set}. Real Income in 1978 is the measured outcome. All other variables are measured pre-treatment and serve as covariates.
 
 \subsubsection{The Collaborative Perinatal Project (CPP) Data Set}
 
-The CPP data set is extracted directly from the benchmarking implementation provided by \cite{Dorie2019Automated1}. The authors describe the data set as follows.
+The CPP data set is extracted directly from the benchmarking implementation provided by \textcite{Dorie2019Automated1}. The authors describe the data set as follows.
 
 \begin{quote}
     The Collaborative Perinatal Project (Niswander and Gordon, 1972), is a massive longitudinal study that was conducted on pregnant women and their children between 1959 to 1974 with the aim of identifying causal factors leading to developmental disorders. The publicly available data contains records of over 55,000 pregnancies each with over 6500 variables. Variables were selected by considering a subset that might have been chosen for a plausible observational study. Given the nature of the data set we chose to consider a hypothetical twins study examining the impact of birth weight on a child’s IQ. We chose covariates that a researcher might have considered to be confounders for that research question. After reducing the data set to complete cases, 4802 observations and 58 covariates remained. Of these covariates, three are categorical, five are binary, 27 are count data and the remaining 23 are continuous.
@@ -215,9 +215,9 @@ The CPP data set is extracted directly from the benchmarking implementation prov
 \subsection{Custom Empirical Covariate Distributions}
 
  In Maccabee, almost any data to be used to defined an empirical covariate distribution. This is useful for benchmarking methods that are designed to work well in very specific covariate settings. The tools that enable the use of custom empirical data sets are described in the package documentation \RTDlink{here}.
- 
+
  \vspace{\baselineskip}
- 
+
  It is crucial to note that the properties of the sampled DGPs, measured along the axes from Chapter \ref{chap:problemspace}, are sensitive to the empirical covariate distribution. This means that, in order to produce DGPs in the desired region of the distributional problem space, it is usually necessary to both lightly pre-process the covariate data and fine tune the other DGP sampling parameters. There are limits on how much of these two steps can be automated by the package. By default, Maccabee applies normalization to the covariates appropriate for pair-wise independent, symmetric distributions of each covariate. The default sampling parameters are also tuned for to expect this form of distribution. If any other data is used, care will need to be taken. Fortunately, the formal metrics used to measure the position of sampled DGP in the distributional problem space can be used to guide this process without any fear of overfitting/compromising benchmark validity. DGP sampling is done prior to any causal estimation, so pre-processing and sampling parameter values can be adjusted until metric values indicate that DGP samples are being drawn from the desired region of the problem space.
 
 \vspace{\baselineskip}
