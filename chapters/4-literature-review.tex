@@ -23,25 +23,25 @@ Given the central role of the sampling distribution, one can think about evaluat
 
 
 \vspace{\baselineskip}
-These two approaches - theoretical and experimental - are not mutually exclusive and, for the evaluation of an arbitrary estimator, can both provide useful information. However, honing in on our specific context, \textcite{Paxton2001MonteImplementation} provide a compelling analysis of the specific usefulness of Monte Carlo evaluation in evaluating econometric estimators. They raise three concerns with the usefulness of theoretical evaluation which are outlined below along with corresponding points made by authors who reach the same conclusions with regard to evaluating causal inference estimators specifically.\par
+These two approaches - theoretical and experimental - are not mutually exclusive and, for the evaluation of an arbitrary estimator, can both provide useful information. However, honing in on our specific context, \textcite{Paxton2001MonteImplementation} provides a compelling analysis of the specific usefulness of Monte Carlo evaluation in evaluating econometric estimators. They raise three concerns with the usefulness of theoretical evaluation which are outlined below along with corresponding points made by authors who reach the same conclusions with regard to evaluating causal inference estimators specifically.\par
 
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item In many cases, the theoretical sampling distribution for an estimator is not known. As pointed out in \textcite{Knaus2018MachineEvidence}, more complex estimators tend to make for much more challenging theoretical analysis. This fact, combined with the trend toward semi/nonparametric causal estimators outlined in the introduction, means that theoretical sampling distributions are missing for many causal inference estimators which have proven promising in practice.\par
+    \item In many cases, the theoretical sampling distribution for an estimator is not known. As pointed out in \textcite{Knaus2018MachineEvidence}, more complex estimators tend to make for much more challenging theoretical analysis. This fact, combined with the trend toward semi/nonparametric causal estimators outlined in the introduction, means that theoretical sampling distributions are missing for many causal inference estimators which have proven promising in practice.\par
 
 
 \vspace{\baselineskip}
-	\item Theoretical evaluation tends to rely heavily on simplifying assumptions - the most common of which is the assumption of the normality of the underlying data distribution. These assumptions limit the applicability of the theoretical sampling distribution: it is unlikely that real-world data distributions meet these assumptions and thus the theoretical metrics may not hold on real data. Even if the assumptions behind the theoretical analysis of different methods are available, \textcite{Knaus2018MachineEvidence} point out that the assumptions behind the analysis for different estimators may not overlap such that comparing theoretically derived metric values is impossible.\par
+    \item Theoretical evaluation tends to rely heavily on simplifying assumptions - the most common of which is the assumption of the normality of the underlying data distribution. These assumptions limit the applicability of the theoretical sampling distribution: it is unlikely that real-world data distributions meet these assumptions and thus the theoretical metrics may not hold on real data. Even if the assumptions behind the theoretical analysis of different methods are available, \textcite{Knaus2018MachineEvidence} point out that the assumptions behind the analysis for different estimators may not overlap such that comparing theoretically derived metric values is impossible.\par
 
 
 \vspace{\baselineskip}
-	\item Theoretical analysis tends to hold in the asymptotic limit of large sample sizes. The implications of theoretical results for finite samples is not necessarily well defined. This is echoed in \textcite{Huber2013TheScore}.
+    \item Theoretical analysis tends to hold in the asymptotic limit of large sample sizes. The implications of theoretical results for finite samples is not necessarily well defined. This is echoed in \textcite{Huber2013TheScore}.
 \end{enumerate}\par
 
 
 \vspace{\baselineskip}
-Taken together, these three weaknesses mean that Monte Carlo analysis - which can be performed using arbitrary sample sizes and on any underlying data distribution - plays a crucial role in the evaluation of causal inference estimators. The rest of this review focuses exclusively on these methods of evaluation, exploring the principles which define a good Monte Carlo evaluation and how existing variants measure up against these principles.\par
+These three weaknesses, taken together, mean that Monte Carlo analysis - which can be performed using arbitrary sample sizes and on any underlying data distribution - plays a crucial role in the evaluation of causal inference estimators. The rest of this review focuses exclusively on these methods of evaluation, exploring the principles which define a good Monte Carlo evaluation and how existing variants measure up against these principles.\par
 
 \section{Monte Carlo Evaluation of Causal Inference Estimators}
 \subsection{General Principles}
@@ -51,11 +51,11 @@ This section proposes a synthesized set of principles for what makes a \textit{g
 
 \subsubsection{The Axis of Specific Validity}
 
-Specific validity refers to whether a Monte Carlo evaluation provides a valid measure of an estimator’s performance in some specific distributional setting. A distributional setting is defined by a given DGP (joint distribution of the data) and the sample size drawn from this DGP. On the surface, internal validity appears to hold (trivially) for any Monte Carlo evaluation. There is some joint distribution from which a fixed size sample is drawn, the estimator is applied to the sample and the estimand value is collected. If this is repeated enough times, the distribution over the estimand for the distributional setting can be approximated with arbitrary precision. The problem is revealed by the nuance that researchers do not target arbitrary DGPs. The power of Monte Carlo - as established above - is that it does not rely on simple joint DGPs/joint distributions and, thus, can be used to validate \textit{realistic} DGPs (DGPs which could be found in the real world). This means that Monte Carlo evaluations are (and should be) designed with DGPs which aim to be representative of the real world. The quality with which the Monte Carlo DGP represents the \textit{specific }real-world setting targetted is the source of \textit{specific validity. }It is possible for a researcher to target a realistic setting but fail to use a DGP which is representative and, therefore, end up producing a result that is not valid in the \textit{specific }setting. This is one of a set of related failure modes for specific validity which will be explored below. The others include biased specification and the creation of DGPs which do not ensure convergence to the true sampling distribution.\par
+Specific validity refers to whether a Monte Carlo evaluation provides a valid measure of an estimator’s performance in some specific distributional setting. A distributional setting is defined by a given DGP (joint distribution of the data) and the sample size drawn from this DGP. On the surface, internal validity appears to hold (trivially) for any Monte Carlo evaluation. There is some joint distribution from which a fixed size sample is drawn, the estimator is applied to the sample, and the estimand value is collected. If this is repeated enough times, the distribution over the estimand for the distributional setting can be approximated with arbitrary precision. The problem is revealed by the nuance that researchers do not target arbitrary DGPs. The power of Monte Carlo - as established above - is that it does not rely on simple joint DGPs/joint distributions and, thus, can be used to validate \textit{realistic} DGPs (DGPs which could be found in the real world). This means that Monte Carlo evaluations are (and should be) designed with DGPs which aim to be representative of the real world. The quality with which the Monte Carlo DGP represents the \textit{specific }real-world setting targetted is the source of \textit{specific validity. }It is possible for a researcher to target a realistic setting but fail to use a DGP which is representative and, therefore, end up producing a result that is not valid in the \textit{specific }setting. This is one of a set of related failure modes for specific validity which will be explored below. The others include biased specification and the creation of DGPs which do not ensure convergence to the true sampling distribution.\par
 
 
 \vspace{\baselineskip}
-Concern for this validity is present in various papers that evaluate causal inference estimators using methods derived from Monte Carlo evaluation. \textcite{Dorie2019Automated1} refer to the importance of the $``$calibration of the DGP to the real world$"$ . They observe that if the types of covariates, their marginal and joint distribution, and the functional forms which relate them to the treatment and outcome variables are too simple, then the DGP will not be representative of the real world. \textcite{Paxton2001MonteImplementation} refer to the need for example-data-driven DGP design in order to avoid the creation of DGPs purpose-built to confirm the efficacy of an estimator despite having $``$little resemblance to [data and] models encountered in practice$"$ . The common concern here is that a positive evaluation result from an unrealistic DGP, or a DGP which poorly represents some real DGP, will not correspond to evidence that the estimator works in a specific, real-world setting. This is where the idea of \textit{specific validity }originates.\par
+Concern for this validity is present in various papers that evaluate causal inference estimators using methods derived from Monte Carlo evaluation. \textcite{Dorie2019Automated1} refer to the importance of the "calibration of the DGP to the real world." They observe that if the types of covariates, their marginal and joint distribution, and the functional forms which relate them to the treatment and outcome variables are too simple, then the DGP will not be representative of the real world. \textcite{Paxton2001MonteImplementation} refer to the need for example-data-driven DGP design in order to avoid the creation of DGPs purpose-built to confirm the efficacy of an estimator despite having $``$little resemblance to [data and] models encountered in practice$"$ . The common concern here is that a positive evaluation result from an unrealistic DGP, or a DGP which poorly represents some real DGP, will not correspond to evidence that the estimator works in a specific, real-world setting. This is where the idea of \textit{specific validity }originates.\par
 
 \subsubsection{The Axis of General Validity}
 
@@ -63,7 +63,7 @@ General validity refers to whether a Monte Carlo evaluation provides insight int
 
 \subsubsection{The Trade-off between Specific and General Validity and the Optimal Design Curve}
 
-Both \textcite{Paxton2001MonteImplementation} and \textcite{Wendling2018ComparingDatabases} point out that $``$there is a trade-off between realism and control in any Monte Carlo design$"$ \parencite{Paxton2001MonteImplementation}. This implies a trade-off in specific and general validity. General validity requires evaluation of a representative set of well-defined distributional settings but the control required to specify the DGPs that comprize this well-defined set tends to result in less realistic, and therefore less \textit{specifically valid}, evaluations. The mechanistic reasons for this are explored in the next section.\par
+Both \textcite{Paxton2001MonteImplementation} and \textcite{Wendling2018ComparingDatabases} point out that $``$there is a trade-off between realism and control in any Monte Carlo design$"$ \parencite{Paxton2001MonteImplementation}. This implies a trade-off in specific and general validity. General validity requires evaluation of a representative set of well-defined distributional settings but the control required to specify the DGPs that comprise this well-defined set tends to result in less realistic, and therefore less \textit{specifically valid}, evaluations. The mechanistic reasons for this are explored in the next section.\par
 
 
 \vspace{\baselineskip}
@@ -90,7 +90,7 @@ One could imagine a set of designs representing optimal trade-offs where, for an
 \subsection{(Sub)Optimal Approaches}
 
 \vspace{\baselineskip}
-At this stage, it’s clear that Monte Carlo based evaluation is a particularly useful method of assessing the performance of causal inference estimators. In the real world, practitioners deal with finite data samples from unknown but complex DGPs. Monte Carlo is capable of evaluating estimators in these settings while theoretical analysis is hard or impossible. It is also clear that Monte Carlo evaluation can vary in validity along two axes - specific and general validity - and that different designs may make (sub)optimal trade-offs between validity on these axes. The analysis which established these two points applied to Monte Carlo evaluation in an abstract sense. This section reviews concrete implementations of Monte Carlo evaluation of causal inference estimators from the literature, analyzing them in light of the axes of validity introduced above. This move toward analyzing concrete implementations brings with it vocabulary which is specific to causal inference. I refer the reader to Chapter \ref{chap:framework} for clarification of any unfamiliar terms.\par
+At this stage, it’s clear that Monte Carlo based evaluation is a particularly useful method of assessing the performance of causal inference estimators. In the real world, practitioners deal with finite data samples from unknown but complex DGPs. Monte Carlo is capable of evaluating estimators in these settings, while theoretical analysis is hard or impossible. It is also clear that Monte Carlo evaluation can vary in validity along two axes - specific and general validity - and that different designs may make (sub)optimal trade-offs between validity on these axes. The analysis which established these two points applied to Monte Carlo evaluation in an abstract sense. This section reviews concrete implementations of Monte Carlo evaluation of causal inference estimators from the literature, analyzing them in light of the axes of validity introduced above. This move toward analyzing concrete implementations brings with it vocabulary which is specific to causal inference. I refer the reader to Chapter \ref{chap:framework} for clarification of any unfamiliar terms.\par
 
 
 \vspace{\baselineskip}
@@ -98,11 +98,11 @@ The analysis in this section divides Monte Carlo evaluation methods into two cat
 
 \subsubsection{A Generic DGP for the Monte Carlo Evaluation of Causal Inference Estimators}
 
-This sections builds towards a formal specification scheme for the DGPs which underpin Monte Carlo evaluation of causal inference estimators. The scheme is defined in terms of a generic DGP, the functional components of which can then be defined/instantiated to describe a specific, concrete DGP design.\par
+This section builds towards a formal specification scheme for the DGPs which underpin Monte Carlo evaluation of causal inference estimators. The scheme is defined in terms of a generic DGP, the functional components of which can then be defined/instantiated to describe a specific, concrete DGP design.\par
 
 \vspace{\baselineskip}
 
-First, Table \ref{tbl:var-definitions} below recapitulates the variables over which a causal inference problem-instance is defined and provides the associated dimensionality and  definition. Full explanations for these variables are presented in Chapter \ref{chap:framework} above.\par
+First, Table \ref{tbl:var-definitions} below recapitulates the variables over which a causal inference problem-instance is defined and provides the associated dimensionality and definition. Full explanations for these variables are presented in Chapter \ref{chap:framework} above.\par
 
 \vspace{\baselineskip}
 
@@ -182,20 +182,20 @@ Note three facts about this generic DGP:\par
 
 \vspace{\baselineskip}
 \begin{itemize}
-	\item The designer has a maximum of four degrees of freedom in specifying the DGP. These degrees of freedom correspond to selecting the four functions  \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) .\par
+    \item The designer has a maximum of four degrees of freedom in specifying the DGP. These degrees of freedom correspond to selecting the four functions  \(  \rho ,~ \Omega ,~ \Phi ,~ \tau \) .\par
 
 
 \vspace{\baselineskip}
-	\item This generic DGP provides all of the information required to evaluate a causal inference estimator. The estimator receives  \( \text{X, T, } \) and \( Y \) and produces an estimate of either  \( E \left[ TE  \vert  X \right]  \)  - the conditional treatment effect - or  \( E \left[ TE \right]  \) , the average treatment effect. The ground-truth (sampled) values of  \( TE \) are then be used to evaluate the estimates. \par
+    \item This generic DGP provides all of the information required to evaluate a causal inference estimator. The estimator receives  \( \text{X, T, } \) and \( Y \) and produces an estimate of either  \( E \left[ TE  \vert  X \right]  \)  - the conditional treatment effect - or  \( E \left[ TE \right]  \) , the average treatment effect. The ground-truth (sampled) values of  \( TE \) are then be used to evaluate the estimates. \par
 
 
 \vspace{\baselineskip}
-	\item This DGP is constructed to ensure ignorability. Following Dorie et al (2019): Assume  \(  \Phi ,~ \Omega  \)  and  \(  \tau \) are probability distributions, then we have the following factorization as a result of the DGP form above (and specifically as a result of the absence of  \( T \) as an argument to  \(  \Phi ,~ \tau \) ):  \( p \left( Y_{0},~Y_{1}, T  \vert  X \right)  = p \left( Y_{0},~Y_{1} \vert  X \right)  \times p \left( T \vert X \right)  \)  which implies  \(  p \left( Y_{0},~Y_{1} \vert  T, X \right)  = p \left( Y_{0},~Y_{1} \vert ~ X \right)  \)  or  \( Y_{0},~Y_{1} \bigCI T  \vert  X \) . Non-ignorability can be induced by dropping some of the  \( d \)  covariates in  \( X \)  but, by default, it is guaranteed.
+    \item This DGP is constructed to ensure ignorability. Following Dorie et al (2019): Assume  \(  \Phi ,~ \Omega  \)  and  \(  \tau \) are probability distributions, then we have the following factorization as a result of the DGP form above (and specifically as a result of the absence of  \( T \) as an argument to  \(  \Phi ,~ \tau \) ):  \( p \left( Y_{0},~Y_{1}, T  \vert  X \right)  = p \left( Y_{0},~Y_{1} \vert  X \right)  \times p \left( T \vert X \right)  \)  which implies  \(  p \left( Y_{0},~Y_{1} \vert  T, X \right)  = p \left( Y_{0},~Y_{1} \vert ~ X \right)  \)  or  \( Y_{0},~Y_{1} \bigCI T  \vert  X \) . Non-ignorability can be induced by dropping some of the  \( d \)  covariates in  \( X \)  but, by default, it is guaranteed.
 \end{itemize}\par
 
 
 \vspace{\baselineskip}
-Taken together, these three facts mean that specifying the four functions is sufficient to generate a causal inference problem-instance. In fact, the minimal level of constraints on the four degrees of freedom means that this generic DGP can be used to specify a concrete DGP design corresponding to any joint distribution which factors in the way outlined above.\par
+These three facts mean that specifying the four functions is sufficient to generate a causal inference problem-instance. In fact, the minimal level of constraints on the four degrees of freedom means that this generic DGP can be used to specify a concrete DGP design corresponding to any joint distribution which factors in the way outlined above.\par
 
 
 \vspace{\baselineskip}
@@ -204,15 +204,15 @@ Having established this generic DGP, I turn to the idea of concretization strate
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item A function can be manually specified by constructing a mathematical (distribution) function from elementary mathematical building blocks and specifying all the parameters which appear in its definition. This produces functions with known form and parameter values. I will label functions specified in this way as  \( f_{synthetic} \) . \par
+    \item A function can be manually specified by constructing a mathematical (distribution) function from elementary mathematical building blocks and specifying all the parameters which appear in its definition. This produces functions with known form and parameter values. I will label functions specified in this way as  \( f_{synthetic} \) . \par
 
 
 \vspace{\baselineskip}
-	\item A function can be estimated from empirical data by specifying a fixed functional form and inferring the unknown parameter values. This produces functions with a known form but unknown ground-truth parameters. Functions produced by this strategy will be labeled  \( f_{estimated} \) . \par
+    \item A function can be estimated from empirical data by specifying a fixed functional form and inferring the unknown parameter values. This produces functions with a known form but unknown ground-truth parameters. Functions produced by this strategy will be labeled  \( f_{estimated} \) . \par
 
 
 \vspace{\baselineskip}
-	\item A function can be ‘specified’ to exactly match empirical data. In this case, the mathematical form of the function and any associated parameter values are unknown. This strategy produces functions labeled  \( f_{empirical} \) .
+    \item A function can be ‘specified’ to exactly match empirical data. In this case, the mathematical form of the function and any associated parameter values are unknown. This strategy produces functions labeled  \( f_{empirical} \) .
 \end{enumerate}\par
 
 
@@ -233,11 +233,11 @@ Pure designs are pure because they rely exclusively on sampling functions of the
 
 
 \vspace{\baselineskip}
-Synthetic designs rely on hand crafted functions to specify the four degrees of freedom which control the distribution over covariates, treatment assignment, untreated outcome and treatment effect. These designs are common in literature which introduces new estimators designed to tackle specific distributional settings as the manual specification allows careful control over the resultant joint distribution. For recent examples, see \textcite{Kunzel2018TransferNetworks, Johansson2018LearningDesigns, Johansson2016LearningInference}. Designs which fit into this class are used extensively in the literature beyond this small sample of recent papers. \textcite{Kang2007Demystifying1} introduce a benchmark based on four independent, normally distributed covariates, a linear outcome with Gaussian noise, a constant treatment effect and a linear expit for the propensity score. Imbalance is created by variable censoring of individuals based on assignment treatment. This benchmark is cited in over eight hundred works at the time of writing, the majority of which use the proposed DGP for evaluating causal inference estimators or use results from analysis of this kind by others. \textcite{Kallus2016AInference} introduces a similar benchmark which attempts to more accurately model non-linearities present in real data. The benchmark presented is that work is based on two covariates drawn from a uniform distribution, a non-linear propensity score expit and normally distributed outcomes with means derived from the covariates. This benchmark is cited in 10 other works, mostly those applying semi/nonparametric estimators. In both cases, the stated design principle is to create a DGP that is representative of the kinds of data found in practice.\par
+Synthetic designs rely on handcrafted functions to specify the four degrees of freedom which control the distribution over covariates, treatment assignment, untreated outcome, and treatment effect. These designs are common in literature which introduces new estimators designed to tackle specific distributional settings as the manual specification allows careful control over the resultant joint distribution. For recent examples, see \textcite{Kunzel2018TransferNetworks, Johansson2018LearningDesigns, Johansson2016LearningInference}. Designs that fit into this class are used extensively in the literature beyond this small sample of recent papers. \textcite{Kang2007Demystifying1} introduces a benchmark based on four independent, normally distributed covariates, a linear outcome with Gaussian noise, a constant treatment effect, and a linear expit for the propensity score. Imbalance is created by variable censoring of individuals based on assignment treatment. This benchmark is cited in over eight hundred works at the time of writing, the majority of which use the proposed DGP for evaluating causal inference estimators or use results from analysis of this kind by others. \textcite{Kallus2016AInference} introduces a similar benchmark that attempts to more accurately model non-linearities present in real data. The benchmark presented is that work is based on two covariates drawn from a uniform distribution, a non-linear propensity score expit, and normally distributed outcomes with means derived from the covariates. This benchmark is cited in 10 other works, mostly those applying semi/nonparametric estimators. In both cases, the stated design principle is to create a DGP that is representative of the kinds of data found in practice.\par
 
 
 \vspace{\baselineskip}
-The top left panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the synthetic design using the function labels and generic DGP defined above. All four degrees of freedom are specified to be synthetic functions and the consequence is a DGP devoid of empirical grounding. The bottom left panel expresses the \textcite{Kang2007DemystifyingData} DGP design as an assignment of the four base functions.\par
+The top left panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the synthetic design using the function labels and generic DGP defined above. All four degrees of freedom are specified to be synthetic functions; the consequence is a DGP devoid of empirical grounding. The bottom left panel expresses the \textcite{Kang2007DemystifyingData} DGP design as an assignment of the four base functions.\par
 
 
 \vspace{\baselineskip}
@@ -249,7 +249,7 @@ In\ contrast to synthetic designs, empirical designs specify the four functional
 
 \vspace{\baselineskip}
 
-There are three things about this design worth noting. First, the empirical specification of the functional degrees of freedom means the true distributional setting is not known. Second, and related, the ground truth is itself an estimate rather than a known value. This produces additional uncertainty in the results which come from this evaluation method. Finally, this design can, by default, on evaluate estimators for the average treatment effect. The conditional average treatment effect must be estimated from the data using the very methods which we would like to evaluate using a Monte Carlo benchmark. This means the evaluation of conditional average treatment estimators is impossible under empirical designs of the kind described here.\par
+There are three things about this design worth noting. First, the empirical specification of the functional degrees of freedom means the true distributional setting is not known. Second, and related, the ground truth is itself an estimate rather than a known value. This produces additional uncertainty in the results which come from this evaluation method. Finally, this design can, by default, only evaluate estimators for the average treatment effect. The conditional average treatment effect must be estimated from the data using the very methods which we would like to evaluate using a Monte Carlo benchmark. This means the evaluation of conditional average treatment estimators is impossible under empirical designs of the kind described here.\par
 
 
 \vspace{\baselineskip}
@@ -257,7 +257,7 @@ The top right panel of Table \ref{tbl:synth-vs-emp-dgp} below represents the emp
 
 
 \vspace{\baselineskip}
-There is an obvious concern worth addressing in calling this a Monte Carlo design. The component functions are specified by data rather than sampling functions which means that the DGP cannot be used to generate multiple samples from the joint distribution over the variables. As a result, this method does not provide access to a sampling distribution for the estimand but rather only a single estimate. I believe the Monte Carlo classification is justified for two reasons despite this concern. Firstly, we can conceive of the empirical design as a single sample from some latent DGP which could - in theory - be used produce more samples. This design might be weakened by the small (single) sample size but this doesn’t change the fundamental principle behind its operation. Second, the analysis below will introduce hybrid designs which share common components with the pure empirical design but do allow sampling. In this sense, the pure empirical design can be thought of the extreme (and somewhat degenerate) end of a Monte Carlo design spectrum.\par
+There is an obvious concern worth addressing in calling this a Monte Carlo design. The component functions are specified by data rather than sampling functions which means that the DGP cannot be used to generate multiple samples from the joint distribution over the variables. As a result, this method does not provide access to a sampling distribution for the estimand but rather only a single estimate. I believe the Monte Carlo classification is justified for two reasons despite this concern. Firstly, we can conceive of the empirical design as a single sample from some latent DGP which could - in theory - be used to produce more samples. This design might be weakened by the small (single) sample size, but this doesn’t change the fundamental principle behind its operation. Second, the analysis below will introduce hybrid designs which share common components with the pure empirical design but do allow sampling. In this sense, the pure empirical design can be thought of the extreme (and somewhat degenerate) end of a Monte Carlo design spectrum.\par
 
 \vspace{\baselineskip}
 
@@ -339,7 +339,7 @@ The framing proposed above clarifies how the theoretical trade-off between speci
 
 
 \vspace{\baselineskip}
-This comparison between the designs, grounded in concretization strategies, provides some insight but is still too abstract. It is unclear what is meant by the ideas of realism and control which appear throughout the paragraph above. Below, I synthesize the work in \textcite{Paxton2001MonteImplementation}, \textcite{Huber2013TheScore} and \textcite{Dorie2019Automated1} to compare the properties of synthetic and empirical designs that contribute to specific and general validity. Many of the points which appear below are implicit or explicit in the analysis above but this complete enumeration will prove useful later when considering hybrid designs which mix the properties of the pure designs.\par
+This comparison between the designs, grounded in concretization strategies, provides some insight but is still too abstract. It is unclear what is meant by the ideas of realism and control which appear throughout the paragraph above. Below, I synthesize the work in \textcite{Paxton2001MonteImplementation}, \textcite{Huber2013TheScore} and \textcite{Dorie2019Automated1} to compare the properties of synthetic and empirical designs that contribute to specific and general validity. Many of the points which appear below are implicit or explicit in the analysis above, but this complete enumeration will prove useful later when considering hybrid designs which mix the properties of the pure designs.\par
 
 
 \vspace{\baselineskip}
@@ -348,15 +348,15 @@ This comparison between the designs, grounded in concretization strategies, prov
 
 \vspace{\baselineskip}
 \begin{itemize}
-	\item Unrealistic covariate distributions: the number, type (continuous, categorical, binary) and joint distribution (over the covariates) is often poorly calibrated to the data researchers encounter in practice. It is unlikely that covariates in the real-world are drawn from a multivariate normal distribution.\par
+    \item Unrealistic covariate distributions: the number, type (continuous, categorical, binary) and joint distribution (over the covariates) is often poorly calibrated to the data researchers encounter in practice. It is unlikely that covariates in the real-world are drawn from a multivariate normal distribution.\par
 
 
 \vspace{\baselineskip}
-	\item Unrealistic treatment and outcome functions: the complexity of the functional forms - in terms of interactions, non-linearity etc - is often poorly calibrated to mechanisms likely to be found in the real world. It is unlikely that the treatment policy in the real world is a logistic function with a linear expit.\par
+    \item Unrealistic treatment and outcome functions: the complexity of the functional forms - in terms of interactions, non-linearity, etc. - is often poorly calibrated to mechanisms likely to be found in the real world. It is unlikely that the treatment policy in the real world is a logistic function with a linear expit.\par
 
 
 \vspace{\baselineskip}
-	\item The potential for specification bias: because covariates and treatment/outcome functions are selected by hand there is the potential for intentional or unintentional bias in the design such that the DGP favors the method being evaluated. This implies DGPs with similar properties would or could lead to worse results. Consider that many researchers may change the DGP specification until their method produces the results they \textit{expect} to see from it under the assumption that their DGP specification, and not their method, is at fault for unexpected results. This would induce the kind of bias described here.
+    \item The potential for specification bias: because covariates and treatment/outcome functions are selected by hand, there is the potential for intentional or unintentional bias in the design such that the DGP favors the method being evaluated. This implies DGPs with similar properties would or could lead to worse results. Consider that many researchers may change the DGP specification until their method produces the results they \textit{expect} to see from it under the assumption that their DGP specification, and not their method, is at fault for unexpected results. This would induce the kind of bias described here.
 \end{itemize}\par
 
 
@@ -366,15 +366,15 @@ However, synthetic designs have three characteristics which counter-balance thos
 
 \vspace{\baselineskip}
 \begin{itemize}
-	\item The DGP can be guaranteed to meet the assumptions required for observational causal inference, specifically ignorability and overlap. This avoids false negatives in which an otherwise valid estimator produces poor results as a result of violated assumptions rather than inherent flaws.\par
+    \item The DGP can be guaranteed to meet the assumptions required for observational causal inference, specifically ignorability and overlap. This avoids false negatives in which an otherwise valid estimator produces poor results as a result of violated assumptions rather than inherent flaws.\par
 
 
 \vspace{\baselineskip}
-	\item The DGP can be used to produce many samples and, therefore, to ensure convergence to a true sampling distributions for the estimand. Further, this provides access to a distribution over performance which is useful for quantifying best and worst case performance.\par
+    \item The DGP can be used to produce many samples and, therefore, to ensure convergence to the true sampling distribution for the estimand. Further, this provides access to a distribution over performance which is useful for quantifying best and worst-case performance.\par
 
 
 \vspace{\baselineskip}
-	\item The DGP provides access to the ground truth of the individual treatment effect and average treatment effect. This precludes the need for additional estimation of the ground truth and means that a wider range of estimators can be evaluated.
+    \item The DGP provides access to the ground truth of the individual treatment effect and average treatment effect. This precludes the need for additional estimation of the ground truth and means that a wider range of estimators can be evaluated.
 \end{itemize}\par
 
 
@@ -384,16 +384,16 @@ Moving on to consider general validity, synthetic designs have two properties wh
 
 \vspace{\baselineskip}
 \begin{itemize}
-	\item The joint distribution over covariates, treatment and outcomes is well-defined and known. This means the performance of the estimator is relative to a known distributional setting.\par
+    \item The joint distribution over covariates, treatment, and outcomes is well-defined and known. This means the performance of the estimator is relative to a known distributional setting.\par
 
 
 \vspace{\baselineskip}
-	\item The distributional setting is controllable such that the estimator can be tested over a range of settings.
+    \item The distributional setting is controllable such that the estimator can be tested over a range of settings.
 \end{itemize}\par
 
 
 \vspace{\baselineskip}
-\textbf{Empirical designs} are effectively polar opposite to synthetic designs when examined in terms of the eight properties above. In order of the points above: They possess inherently realistic covariate distributions and outcome/treatment functions and, by extension, unbiased specification (given that the researcher has no control). However, they do not guarantee that causal inference assumptions are met, do not allow repeat sampling and do not provide access to the ground truth of the average or individual treatment effect without estimation. Further, they use DGPs with an unknown distributional setting and do not allow for researcher control.\par
+\textbf{Empirical designs} are effectively polar opposite to synthetic designs when examined in terms of the eight properties above. In order of the points above: They possess inherently realistic covariate distributions and outcome/treatment functions and, by extension, unbiased specification (given that the researcher has no control). However, they do not guarantee that causal inference assumptions are met, do not allow repeat sampling, and do not provide access to the ground truth of the average or individual treatment effect without estimation. Further, they use DGPs with an unknown distributional setting and do not allow for researcher control.\par
 
 
 \vspace{\baselineskip}
@@ -421,7 +421,7 @@ The analysis above establishes a more granular understanding of the properties o
 
 \subsubsection{Hybrid Designs for Monte Carlo Evaluation}
 
-Hybrid designs combine the concretization strategies from synthetic and empirical designs to produce a Monte Carlo evaluation method with more of the desirable properties enumerated above. The unifying principle behind hybrid designs is the maximal use of data to inform specification of the DGP - to improve realism and specific validity - while maintaining the control required to allow general validity.\par
+Hybrid designs combine the concretization strategies from synthetic and empirical designs to produce a Monte Carlo evaluation method with more of the desirable properties enumerated above. The unifying principle behind hybrid designs is the maximal use of data to inform the specification of the DGP - to improve realism and specific validity - while maintaining the control required to allow general validity.\par
 
 
 \vspace{\baselineskip}
@@ -429,20 +429,20 @@ The earliest examples of thought in the direction of blending synthetic and empi
 
 
 \vspace{\baselineskip}
-\textcite{Huber2013TheScore} formalize this idea and introduce what they call \textit{Empirical Monte Carlo }(EMC). The context for the introduction of their method is instructive. Their paper attempts to resolve a disagreement between \textcite{Frolich2004Finite-sampleEstimators} and \textcite{Busso2014NewEstimators}, both of whom evaluate the same set of propensity-score based estimators using synthetic Monte Carlo but find quite different results. \textcite{Huber2013TheScore} points out that both papers use DGPS with poor specific validity as a result of arbitrary synthetic design. This inspires the design of a method which uses a $``$DGP not entirely [built] on relations specified by the researcher, but [one which] exploits real data as much as possible instead, [using] observed outcomes and covariates instead of simulated ones as well as an observed selection process$"$ . The authors propose the following design: They define a population of observations as a dataset covering all German nationals with social insurance in the years between 1990 and 2006 (millions of observations). The treatment is participation in any employment assistance program during the observed period and the outcome is the employment status in the 36 months following participation. EMC then involves four steps: \par
+\textcite{Huber2013TheScore} formalize this idea and introduce what they call \textit{Empirical Monte Carlo }(EMC). The context for the introduction of their method is instructive. Their paper attempts to resolve a disagreement between \textcite{Frolich2004Finite-sampleEstimators} and \textcite{Busso2014NewEstimators}, both of whom evaluate the same set of propensity-score based estimators using synthetic Monte Carlo but find quite different results. \textcite{Huber2013TheScore} points out that both papers use DGPS with poor specific validity as a result of arbitrary synthetic design. This inspires the design of a method which uses a $``$DGP not entirely [built] on relations specified by the researcher, but [one which] exploits real data as much as possible instead, [using] observed outcomes and covariates instead of simulated ones as well as an observed selection process$"$. The authors propose the following design: They define a population of observations as a dataset covering all German nationals with social insurance in the years between 1990 and 2006 (millions of observations). The treatment is participation in any employment assistance program during the observed period and the outcome is the employment status in the 36 months following participation. EMC then involves four steps: \par
 
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item A propensity score model is estimated based on the entire population using a logistic regression with a linear expit.\par
+    \item A propensity score model is estimated based on the entire population using a logistic regression with a linear expit.\par
 
-	\item A random sample of the non-treated individuals is drawn from the population. This means the observed outcome - with an unknown functional relation to the covariates - serves as the value  \( Y_{0} \) .\par
+    \item A random sample of the non-treated individuals is drawn from the population. This means the observed outcome - with an unknown functional relation to the covariates - serves as the value  \( Y_{0} \) .\par
 
-	\item Each individual is assigned a treatment status based on a draw from a Bernoulli distribution parameterized by the propensity score for the individual under the model from step 1.\par
+    \item Each individual is assigned a treatment status based on a draw from a Bernoulli distribution parameterized by the propensity score for the individual under the model from step 1.\par
 
-	\item Each individual is subjected to a ‘placebo’ treatment to construct  \( Y_{1}. \) This is treatment with a constant, zero treatment effect.\par
+    \item Each individual is subjected to a ‘placebo’ treatment to construct  \( Y_{1}. \) This is treatment with a constant, zero treatment effect.\par
 
-	\item Steps 2 through 4 are repeated for multiple samples.
+    \item Steps 2 through 4 are repeated for multiple samples.
 \end{enumerate}\par
 
 
@@ -457,7 +457,7 @@ Table \ref{tbl:huber-hybrid} expresses this design using the generic DGP and fun
 
 
 \begin{table}[H]
- 			\centering
+             \centering
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
@@ -476,40 +476,40 @@ Analyzing the assignment of the functional degrees of freedom from Table \ref{tb
 
 \vspace{\baselineskip}
 \begin{itemize}
-	\item \textbf{Realistic Covariate Distribution - Yes: }The use of observed covariates means the covariate distribution is realistic (in the specific domain of labour data).\par
+    \item \textbf{Realistic Covariate Distribution - Yes: }The use of observed covariates means the covariate distribution is realistic (in the specific domain of labor data).\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Realistic Treatment/Outcome Functions - Partial: }The use of the observed outcome mechanism means this too is realistic. However, the treatment assignment and treatment effect are both hand crafted and too simplistic.\par
+    \item \textbf{Realistic Treatment/Outcome Functions - Partial: }The use of the observed outcome mechanism means this is also realistic. However, the treatment assignment and treatment effect are both handcrafted and too simplistic.\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Guaranteed unbiased specification - No: }The hand selection of the two functions above means there is potential for researcher bias (which holds even if more complex functions are chosen).\par
+    \item \textbf{Guaranteed unbiased specification - No: }The hand selection of the two functions above means there is potential for researcher bias (which holds even if more complex functions are chosen).\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Access to ground truth - Yes: }the simulated treatment means the ground truth is known at the individual and average effect level.\par
+    \item \textbf{Access to ground truth - Yes: }the simulated treatment means the ground truth is known at the individual and average effect level.\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Guaranteed to meet causal assumptions - Yes: }the treatment assignment mechanism is known to include only the observed covariates so we have selection on observables and therefore ignorability. The authors also include an offset in the treatment assignment expit to ensure that the probability of treatment is bounded away from 0 and 1, meaning there is overlap. So both important causal assumptions are met.\par
+    \item \textbf{Guaranteed to meet causal assumptions - Yes: }the treatment assignment mechanism is known to include only the observed covariates, so we have selection on observables and therefore, ignorability. The authors also include an offset in the treatment assignment expit to ensure that the probability of treatment is bounded away from 0 and 1, meaning there is overlap. So both important causal assumptions are met.\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Allows repeat sampling - Yes: }the large population of observations allows repeat samping as in a synthetic Monte Carlo design:\par
+    \item \textbf{Allows repeat sampling - Yes: }the large population of observations allows repeat sampling as in a synthetic Monte Carlo design:\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Known distributional setting - Weak: }the joint distribution over the covariates and the outcome is unknown. The treatment assignment mechanism is known.\par
+    \item \textbf{Known distributional setting - Weak: }the joint distribution over the covariates and the outcome is unknown. The treatment assignment mechanism is known.\par
 
 
 \vspace{\baselineskip}
-	\item \textbf{Controllable distributional setting - Weak: }the treatment assignment mechanism can be altered but the joint distribution over the covariates and the outcome mechanism is fixed by the data.
+    \item \textbf{Controllable distributional setting - Weak: }the treatment assignment mechanism can be altered but the joint distribution over the covariates and the outcome mechanism is fixed by the data.
 \end{itemize}\par
 
 
 \vspace{\baselineskip}
-\textcite{Knaus2018MachineEvidence} build on EMC. They use a very similar dataset as \textcite{Huber2013TheScore} - but covering Swiss administrative data on labour and employment rather than German. They also share the same logistic estimation for the treatment assignment. But, unlike Huber et al, they specify a non-zero, non-constant treatment effect mechanism. This is specified synthetically rather than estimated because $``$estimation may favor [functionally] similar estimators under investigation$"$ . It is unclear why the authors are concerned about this problem in outcome mechanism but are ok with fixed functional form estimation in the treatment assignment mechanism. This paper is designed to test methods which infer individual treatment effects, so the authors specify the treatment effect mechanism with the goal of $``$making disambiguating selection and treatment effect heterogeneity hard$"$ . To this end, they include the propensity score in the synthetic treatment effect, apply a highly non-linear transform, and add random noise. The treatment effect from this function is added to the observed outcome (much like in EMC, only non-treated individuals are selected into samples so the observed outcome equals the untreated potential outcome  \( Y_{0} \)). In addition to the synthetic treatment effect, the authors parameterize the population sampler, treatment assignment mechanism and treatment effect function to generate 24 datasets with different sample sizes, treatment effect magnitude, treatment effect heterogeneity, and counts of treated vs control individuals.\par
+\textcite{Knaus2018MachineEvidence} build on EMC. They use a very similar dataset as \textcite{Huber2013TheScore} - but covering Swiss administrative data on labor and employment rather than German. They also share the same logistic estimation for the treatment assignment. But, unlike Huber et al., they specify a non-zero, non-constant treatment effect mechanism. This is specified synthetically rather than estimated because $``$estimation may favor [functionally] similar estimators under investigation$"$. It is unclear why the authors are concerned about this problem in the outcome mechanism but are ok with fixed functional form estimation in the treatment assignment mechanism. This paper is designed to test methods that infer individual treatment effects, so the authors specify the treatment effect mechanism with the goal of $``$making disambiguating selection and treatment effect heterogeneity hard$"$. To this end, they include the propensity score in the synthetic treatment effect, apply a highly non-linear transform, and add random noise. The treatment effect from this function is added to the observed outcome (much like in EMC, only non-treated individuals are selected into samples, so the observed outcome equals the untreated potential outcome  \( Y_{0} \)). In addition to the synthetic treatment effect, the authors parameterize the population sampler, treatment assignment mechanism, and treatment effect function to generate 24 datasets with different sample sizes, treatment effect magnitude, treatment effect heterogeneity, and counts of treated vs control individuals.\par
 
 
 \vspace{\baselineskip}
@@ -521,7 +521,7 @@ Analyzing the assignment of the functional degrees of freedom from Table \ref{tb
 
 
 \begin{table}[H]
- 			\centering
+             \centering
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
@@ -532,18 +532,18 @@ Analyzing the assignment of the functional degrees of freedom from Table \ref{tb
 \label{tbl:knaus-hybrid}
 \end{table}
 
-The concretized DGP is given in Table \ref{tbl:knaus-hybrid}. The makes the similarity with Huber et al obvious. But the changes do represent a moderate improvement over EMC when examining the validity properties. The outcome mechanism is arguably more realistic as a result of the complex synthetic treatment effect function combined with the empirical control outcome. But, the synthetic component of the specification opens this design to the same criticisms of realism and potential bias as any other synthetic design. The primary contribution of these authors is the parameterization of the functions to generate datasets with different, well-defined distributional settings. This allows the evaluation of estimators over a partial subspace of all possible distributional settings. These changes are reflected in the 5th column of Table \ref{tbl:hybrid-prop-comparison} which upgrades the known and controllable distributional setting properties from weak under EMC to partial under Knaus et al.\par
+The concretized DGP is given in Table \ref{tbl:knaus-hybrid}. This makes the similarity with Huber et al. obvious. But the changes do represent a moderate improvement over EMC when examining the validity properties. The outcome mechanism is arguably more realistic as a result of the complex synthetic treatment effect function combined with the empirical control outcome. But, the synthetic component of the specification opens this design to the same criticisms of realism and potential bias as any other synthetic design. The primary contribution of these authors is the parameterization of the functions to generate datasets with different, well-defined distributional settings. This allows the evaluation of estimators over a partial subspace of all possible distributional settings. These changes are reflected in the 5th column of Table \ref{tbl:hybrid-prop-comparison} which upgrades the known and controllable distributional setting properties from weak under EMC to partial under Knaus et al. .\par
 
 
 \vspace{\baselineskip}
-The two approaches analyzed above use an empirical covariate population and empirical outcome with an estimated treatment assignment mechanism. There is a loosely analogous set of designs which use an empirical treatment and specify a synthetic outcome mechanism. \textcite{Hill2011BayesianInference} develops a method to test their new causal estimator based on non-parametric Bayesian regression. The proposed method uses experimental data from the Infant Health and Development Program (IHDP) - a $``$randomized experiment which targeted low birth-weight, premature infants and provided the treatment group with high-quality individual care$"$ \parencite{Brooks-Gunn1991TheProgram}. Per \textcite{Hill2011BayesianInference}, using an experimental dataset guarantees overlap (and balance) in the covariate distributions and simulating the outcome using only the observed covariates ensures ignorability. The outcome mechanism (the outcome function  \(  \Phi  \) and treatment effect function  \(  \tau \) ) are specified by hand - the author chooses two conditions, one linear outcome and constant treatment effect and one non-linear outcome with heterogenous treatment effect. Starting from the position of balanced covariate distribution allows the author to induce imbalance by non-randomly censoring individuals from the treat/control group. This is the first instance of an intentional specification of the level of balance.\par
+The two approaches analyzed above use an empirical covariate population and empirical outcome with an estimated treatment assignment mechanism. There is a loosely analogous set of designs that use an empirical treatment and specify a synthetic outcome mechanism. \textcite{Hill2011BayesianInference} develops a method to test their new causal estimator based on non-parametric Bayesian regression. The proposed method uses experimental data from the Infant Health and Development Program (IHDP) - a $``$randomized experiment which targeted low birth-weight, premature infants and provided the treatment group with high-quality individual care$"$ \parencite{Brooks-Gunn1991TheProgram}. Per \textcite{Hill2011BayesianInference}, using an experimental dataset guarantees overlap (and balance) in the covariate distributions, and simulating the outcome using only the observed covariates ensures ignorability. The outcome mechanism (the outcome function  \(  \Phi  \) and treatment effect function  \(  \tau \) ) are specified by hand - the author chooses two conditions, one linear outcome and constant treatment effect and one non-linear outcome with heterogeneous treatment effect. Starting from the position of balanced covariate distribution allows the author to induce imbalance by non-randomly censoring individuals from the treat/control group. This is the first instance of an intentional specification of the level of balance.\par
 
 
 \vspace{\baselineskip}
-The concretization of the generic DGP proposed by \textcite{Hill2011BayesianInference} is summarized in Tbale \ref{tbl:hill-hybrid}. Ultimately, as a result of the parallel between simulating outcome and treatment, this method has very similar validity properties to those analyzed above. Unlike the methods in \textcite{Huber2013TheScore} and \textcite{Knaus2018MachineEvidence}, the simulated (untreated) outcome provides greater control over the distribution of outcomes and the experimental datasets allows for the easy control of balance (although a similar censoring method could be applied to non-experimental data). This means the method has arguably better definition and control of the distributional setting but this control is still worse than under purely synthetic treatment assignment and outcome mechanisms.\par
+The concretization of the generic DGP proposed by \textcite{Hill2011BayesianInference} is summarized in Table \ref{tbl:hill-hybrid}. Ultimately, as a result of the parallel between simulating outcome and treatment, this method has very similar validity properties to those analyzed above. Unlike the methods in \textcite{Huber2013TheScore} and \textcite{Knaus2018MachineEvidence}, the simulated (untreated) outcome provides greater control over the distribution of outcomes, and the experimental dataset allows for the easy control of balance (although a similar censoring method could be applied to non-experimental data). This means the method has arguably better definition and control of the distributional setting but this control is still worse than under purely synthetic treatment assignment and outcome mechanisms.\par
 
 \begin{table}[H]
- 			\centering
+             \centering
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
@@ -558,11 +558,11 @@ The concretization of the generic DGP proposed by \textcite{Hill2011BayesianInfe
 
 
 \vspace{\baselineskip}
-Two papers iterate on the design proposed by \textcite{Hill2011BayesianInference} but change the specification of the outcome mechanism (the outcome and treatment effect functions) in order to improve the realism of the synthetic outcomes and reduce the potential for bias. \textcite{Wendling2018ComparingDatabases} uses four experimental datasets from the medical field but, instead of manually specifying the outcome and treatment effect functions, estimates these using neural networks. This technically avoids the need to specify a functional form because neural networks can represent an arbitrary set of functional forms. This is a move back toward the estimation used in EMC with  \(  \Phi _{} \leftarrow f_{estimated} \)  and  \(  \tau_{} \leftarrow f_{estimated}~ \) . While this may more accurately model the true outcome function, the estimation method could still favor specific estimators - for example those based on neural networks which will more naturally recover the same estimated function from the same data. It also gives up on control over the outcome aspect of the distributional setting because it is not clear what level of interaction/non-linearity is represented by the estimated functions nor how to change these functions to change the level of these aspects of the distribution. The first point results in improved realism of the outcome/treatment but no change to the Guaranteed Unbiased Specification property. The second point results in worsened scores on Known and Controllable distributional setting - see Table \ref{tbl:hybrid-prop-comparison}.\par
+Two papers iterate on the design proposed by \textcite{Hill2011BayesianInference} but change the specification of the outcome mechanism (the outcome and treatment effect functions) in order to improve the realism of the synthetic outcomes and reduce the potential for bias. \textcite{Wendling2018ComparingDatabases} uses four experimental datasets from the medical field but, instead of manually specifying the outcome and treatment effect functions, estimates these using neural networks. This technically avoids the need to specify a functional form because neural networks can represent an arbitrary set of functional forms. This is a move back toward the estimation used in EMC with  \(  \Phi _{} \leftarrow f_{estimated} \)  and  \(  \tau_{} \leftarrow f_{estimated}~ \) . While this may more accurately model the true outcome function, the estimation method could still favor specific estimators - for example, those based on neural networks, which will more naturally recover the same estimated function from the same data. It also gives up on control over the outcome aspect of the distributional setting because it is not clear what level of interaction/non-linearity is represented by the estimated functions nor how to change these functions to change the level of these aspects of the distribution. The first point results in improved realism of the outcome/treatment but no change to the Guaranteed Unbiased Specification property. The second point results in worsened scores on Known and Controllable distributional setting - see Table \ref{tbl:hybrid-prop-comparison}.\par
 
 
 \vspace{\baselineskip}
-\textcite{Kern2016AssessingPopulations} pursue a different approach - they specify the outcome and treatment effect functions manually but use a $``$saturated parametric model$"$  with some desired level of nonlinearity and interaction. This means that, for example, all covariates may appear in both linear and quadratic form as well as in every possible (pairwise) interaction with lower/higher powers and interaction levels possible. The motivation for this is to create a principled approach for building complex functions with desired properties but without allowing the function to be hand crafted with arbitrary form and/or modified to produce desired results. This moves towards a design that allows for control over the outcome mechanism while also partially mitigating specification bias. Note that the the full saturation is itself fairly arbitrary (although it is closed to respecification in order to achieve desired results). On balance, the result of this change is a design which appears to have some degree of positive across-the-board ‘performance’ when assessed on the properties of validity - see Table \ref{tbl:hybrid-prop-comparison}. This is not a claim to formal superiority but rather an indication of a promising design direction.\par
+\textcite{Kern2016AssessingPopulations} pursue a different approach - they specify the outcome and treatment effect functions manually but use a $``$saturated parametric model$"$  with some desired level of nonlinearity and interaction. This means that, for example, all covariates may appear in both linear and quadratic forms as well as in every possible (pairwise) interaction with lower/higher powers and interaction levels possible. The motivation for this is to create a principled approach for building complex functions with desired properties but without allowing the function to be handcrafted with arbitrary form and/or modified to produce desired results. This moves towards a design that allows for control over the outcome mechanism while also partially mitigating specification bias. Note that the full saturation is itself fairly arbitrary (although it is closed to respecification in order to achieve desired results). On balance, the result of this change is a design that appears to have some degree of positive across-the-board ‘performance’ when assessed on the properties of validity - see Table \ref{tbl:hybrid-prop-comparison}. This is not a claim to formal superiority but rather an indication of a promising design direction.\par
 
 
 \vspace{\baselineskip}
@@ -688,11 +688,11 @@ Two papers iterate on the design proposed by \textcite{Hill2011BayesianInference
 \footnotetext{The semi-parametric neural network estimation of outcome function and empirical treatment assignment makes this approach arguably more realistic, to the extent that one believes that semi-parametric methods are an a priori better method of function estimation.}
 
 \vspace{\baselineskip}
-The methods explored up until this point share a few key properties. They all use empirical covariate data from which samples are drawn. In all cases, either the treatment assignment or outcome mechanism is simulated to provide access to ground truth and allow for control over the distributional setting. Some methods, like EMC, trade off control for realism but newer approaches propose designs which allow for some degree of realism and control - either by approximation with non-parametric functions \parencite{Wendling2018ComparingDatabases} or by the principled specification of functions from simpler components \parencite{Kern2016AssessingPopulations}. The ideal method would improve on the methods above by improving the realism of the treatment assignment/outcome mechanism while also increasing control over the distributional setting.\par
+The methods explored up until this point share a few key properties. They all use empirical covariate data from which samples are drawn. In all cases, either the treatment assignment or outcome mechanism is simulated to provide access to ground truth and allow for control over the distributional setting. Some methods, like EMC, trade-off control for realism but newer approaches propose designs that allow for some degree of realism and control - either by approximation with non-parametric functions \parencite{Wendling2018ComparingDatabases} or by the principled specification of functions from simpler components \parencite{Kern2016AssessingPopulations}. The ideal method would improve on the methods above by improving the realism of the treatment assignment/outcome mechanism while also increasing control over the distributional setting.\par
 
 
 \vspace{\baselineskip}
-\textcite{Dorie2019Automated1} propose a method which moves toward this ideal, building on the ideas of \textcite{Hill2011BayesianInference} by simulating functions on top of experimental data and \textcite{Kern2016AssessingPopulations} by providing a principled way to construct functions while maintaining control over desired properties. The authors explicitly set out to create a $``$testing ground$"$  to help applied researchers choose between different causal estimators - a goal which is shared by this paper. There are two notable design contributions in this paper. First, the authors motivate for the simulation of both the outcome and treatment assignment mechanisms. This allows for control over the full range of distribution settings including $``$balance, overlap, and nonlinearity$"$ . Second, the authors mitigate the (potential) decrease in realism by employing a meta-sampling approach: The functions for untreated outcome, treatment effect and treatment assignment are sampled randomly from the space of $``$generalized additive functions$"$  by (stochastically) selecting terms from a set of covariate transform building blocks - polynomial powers, discontinuous-valued ‘steps’, discontinuous-gradient ‘kinks’ - and combining these through the (stochastic) use of the operators addition, exponentiation, and multiplication. By parameterizing the distribution over the base terms and combination operators, the (distribution over) the functional properties of the sampled functions can be modified. This provides a principled way to construct functions with desired properties - as in \textcite{Kern2016AssessingPopulations} - but allows testing over a large number of different functions which are more likely to capture performance on realistic DGPs by, one, sampling from space large enough to contain realistic DGPs and, two, averaging results over many samples from this space to maximize accuracy and remove idiosyncrasies. Combined, this makes for strong realism. Further, the authors parameterize the function selection mechanism to allow control over six $``$knobs$"$  which cover most of the evaluation space from the previous section. The level of each knob is measured through the use of well-defined metrics. This allows the relatively precise specification of a distributional setting of a simulation in terms of targeted metric values and a corresponding sample of functions. This allows for close control over the distributional setting without giving method evaluators control over the actual functional forms. \par
+\textcite{Dorie2019Automated1} proposes a method that moves toward this ideal, building on the ideas of \textcite{Hill2011BayesianInference} by simulating functions on top of experimental data and \textcite{Kern2016AssessingPopulations} by providing a principled way to construct functions while maintaining control over desired properties. The authors explicitly set out to create a $``$testing ground$"$  to help applied researchers choose between different causal estimators - a goal that is shared by this paper. There are two notable design contributions in this paper. First, the authors motivate for the simulation of both the outcome and treatment assignment mechanisms. This allows for control over the full range of distribution settings, including $``$balance, overlap, and nonlinearity$"$. Second, the authors mitigate the (potential) decrease in realism by employing a meta-sampling approach: The functions for untreated outcome, treatment effect, and treatment assignment are sampled randomly from the space of $``$generalized additive functions$"$  by (stochastically) selecting terms from a set of covariate transform building blocks - polynomial powers, discontinuous-valued ‘steps,’ discontinuous-gradient ‘kinks’ - and combining these through the (stochastic) use of the operators addition, exponentiation, and multiplication. By parameterizing the distribution over the base terms and combination operators, the (distribution over) the functional properties of the sampled functions can be modified. This provides a principled way to construct functions with desired properties - as in \textcite{Kern2016AssessingPopulations} - but allows testing over a large number of different functions which are more likely to capture performance on realistic DGPs by, one, sampling from space large enough to contain realistic DGPs and, two, averaging results over many samples from this space to maximize accuracy and remove idiosyncrasies. Combined, this makes for strong realism. Further, the authors parameterize the function selection mechanism to allow control over six $``$knobs$"$, which cover most of the evaluation space from the previous section. The level of each knob is measured through the use of well-defined metrics. This allows the relatively precise specification of the distributional setting of a simulation in terms of targeted metric values and a corresponding sample of functions. This allows for close control over the distributional setting without giving method evaluators control over the actual functional forms. \par
 
 
 \vspace{\baselineskip}
@@ -701,17 +701,17 @@ The six knobs are:\par
 
 \vspace{\baselineskip}
 \begin{enumerate}
-	\item The degree of nonlinearity in treatment assignment/outcome\par
+    \item The degree of nonlinearity in treatment assignment/outcome\par
 
-	\item The treatment effect heterogeneity\par
+    \item The treatment effect heterogeneity\par
 
-	\item The treatment effect magnitude\par
+    \item The treatment effect magnitude\par
 
-	\item The percentage treated\par
+    \item The percentage treated\par
 
-	\item The degree of treat/control group covariate overlap\par
+    \item The degree of treat/control group covariate overlap\par
 
-	\item The degree of alignment between treatment and control mechanism
+    \item The degree of alignment between treatment and control mechanism
 \end{enumerate}\par
 
 
@@ -728,7 +728,7 @@ The design of the evaluation method is presented in Table \ref{tbl:dorie-hybrid}
 
 
 \begin{table}[H]
- 			\centering
+             \centering
 \begin{tabular}{p{3.14in}}
 \hline
 %row no:1
@@ -755,7 +755,7 @@ Based on the properties above, it appears that the design proposed by \textcite{
 
 
 \begin{table}[H]
- 			\centering
+             \centering
 \begin{tabular}{p{0.78in}p{0.57in}p{0.52in}p{-0.02in}p{0.51in}p{0.52in}p{0.52in}}
 \hline
 %row no:1
@@ -856,6 +856,6 @@ Based on the properties above, it appears that the design proposed by \textcite{
 
 \section{Conclusion}
 
-Hybrid Monte Carlo evaluation designs - which combine empirical data and simulated functional forms - provide the foundation for evaluation methods with both specific and general validity. Not all hybrid designs are optimal. Many of the proposed designs - like those by \textcite{Huber2013TheScore, Knaus2018MachineEvidence, Hill2011BayesianInference, Wendling2018ComparingDatabases, Kern2016AssessingPopulations} - do allow for some degree of specific and general validity but are still subject to criticism on both axes. \textcite{Dorie2019Automated1} provide a sampling-based approach which appears to establish a near optimal middle ground in the design space by allowing careful control over the distributional while using leveraging the Monte Carlo sampling of designs to improve realism and mitigate bias.\par
+Hybrid Monte Carlo evaluation designs - which combine empirical data and simulated functional forms - provide the foundation for evaluation methods with both specific and general validity. Not all hybrid designs are optimal. Many of the proposed designs - like those by \textcite{Huber2013TheScore, Knaus2018MachineEvidence, Hill2011BayesianInference, Wendling2018ComparingDatabases, Kern2016AssessingPopulations} - do allow for some degree of specific and general validity but are still subject to criticism on both axes. \textcite{Dorie2019Automated1} provide a sampling-based approach which appears to establish a near-optimal middle ground in the design space by allowing careful control over the distributional while using leveraging the Monte Carlo sampling of designs to improve realism and mitigate bias.\par
 
 \end{document}
