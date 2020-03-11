@@ -1,7 +1,11 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-The goal of this chapter is to provide a self-standing description of the benchmarking approach implemented in the Maccabee package. This is presented in three sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context for the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach, which is based on the design proposed by \textcite{Dorie2019Automated1}. First, looking at the high-level approach used by \textcite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package. Taken together, the content of these four sections provides a complete picture of the theoretical design of the Maccabee package.
+The remainder of this paper is focused on Maccabee. Maccabee - \textbf{M}onte \textbf{C}arlo \textbf{Ca}usal \textbf{Be}nchmarks using \textbf{E}mpirical data - is a Python Package that makes Hybrid Monte Carlo benchmarking available to researchers and practitioners. This chapter provides a formal description of Maccabee's benchmarking approach. The next chapter presents the implementation of this design.
+
+\vspace{\baselineskip}
+
+As noted at the end of Chapter \ref{chap:litreview}, the design described here builds on the theoretical design proposed in \textcite{Dorie2019Automated1}, extending it into a flexible, implementation-ready \textit{concrete} design. The concrete design is presented in four sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context that informed the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach. First, looking at the high-level approach used by \textcite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package, as these form an important part of the 'design' of a Hybrid Monte Carlo benchmark. Taken together, the content of these four sections provides a complete picture of the design of the Maccabee package.
 
 \section{Design Goal: Better Benchmarking for Causal Inference Methods}
 \label{mac:problems}
@@ -189,7 +193,7 @@ Maccabee is designed with both a set of included, high-quality empirical covaria
 
 \subsection{Included Empirical Covariate Distributions}
 
-Maccabee includes empirical covariate distributions defined by data sets from the literature on causal inference benchmarking. These data sets where selected because they are:
+Maccabee includes empirical covariate distributions defined by data sets from the literature on causal inference benchmarking. These data sets were selected because they are:
 
 \begin{itemize}
     \item Used widely, indicating a social consensus that they are high quality - representative, useful - data sets for the evaluation of causal inference methods.
@@ -214,7 +218,7 @@ The CPP data set is extracted directly from the benchmarking implementation prov
 
 \subsection{Custom Empirical Covariate Distributions}
 
- In Maccabee, almost any data to be used to define an empirical covariate distribution. This is useful for benchmarking methods that are designed to work well in very specific covariate settings. The tools that enable the use of custom empirical data sets are described in the package documentation \RTDlink{here}.
+ In Maccabee, almost any data can be used to define an empirical covariate distribution. This is useful for benchmarking methods that are designed to work well in very specific covariate settings. The tools that enable the use of custom empirical data sets are described in the package documentation \RTDlink{here}.
 
  \vspace{\baselineskip}
 
