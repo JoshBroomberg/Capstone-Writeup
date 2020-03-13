@@ -1,6 +1,17 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
+\tags{
+    \nameref{hc:audience},
+    \nameref{hc:distributions},
+    \nameref{hc:gapanalysis},
+    \nameref{hc:medium},
+    \nameref{hc:sampling},
+    \nameref{hc:variables}
+}{
+    None
+}
+
 The remainder of this paper is focused on Maccabee. Maccabee - \textbf{M}onte \textbf{C}arlo \textbf{Ca}usal \textbf{Be}nchmarks using \textbf{E}mpirical data - is a Python Package that makes Hybrid Monte Carlo benchmarking available to researchers and practitioners. This chapter provides a formal description of Maccabee's benchmarking approach. The next chapter presents the implementation of this design.
 
 \vspace{\baselineskip}
@@ -33,20 +44,22 @@ The primary design goal of the Maccabee is to enable a benchmarking approach tha
 
 This section outlines Maccabee's benchmarking approach. The high-level approach is inspired by, and closely follows, the benchmarking process proposed in \textcite{Dorie2019Automated1}. The low-level design specifics of the approach, and the corresponding implementation described in Chapter \ref{chap:macimplementation}, are de novo.
 
-\subsection{Dorie et al's General Approach to Hybrid Benchmarking}
+\subsection{Dorie et al's Approach to Hybrid Benchmarking}
 \label{mac:generalapproach}
 
-The benchmarking process proposed by \textcite{Dorie2019Automated1} mitigates the weaknesses outlined in Section \ref{mac:problems} by \textit{sampling} Data Generating Processes. These sampled DGPs have treatment and outcome mechanisms defined over arbitrary covariates and sampled from parameterized distributions over a subspace of functions. The parameterization of these distributions allows for control over the expected location of sampled DGPs in the distributional problem space (established in Chapter \ref{chap:problemspace}). This approach allows for:
+The benchmarking process proposed by \textcite{Dorie2019Automated1} mitigates the weaknesses outlined in Section \ref{mac:problems} by \textit{sampling} Data Generating Processes. This approach has enormous potential usefulness because sampled DGPs have treatment/outcome mechanisms defined over arbitrary covariates (arbitrary empirical data) and sampled from parameterized distributions over a subspace of functions. With the parameterization of these distributions allowing for control over the expected location of sampled DGPs in the distributional problem space (established in Chapter \ref{chap:problemspace}). This approach allows for:
 
 \begin{itemize}
-    \item More thorough exploration of the distributional problem space (relative to empirical benchmarks) because DGPs can be sampled from many different (known) locations in the problem space.
+    \item More thorough exploration of the distributional problem space (relative to empirical benchmarks) because DGPs can be sampled from many different (known) locations in the problem space. Methods designed to tackle specific classes of distributional settings can be tested on these settings.
 
-    \item More realistic covariate distributions (relative to synthetic benchmarks) because sampled DGPs can (but do not have to) consist of sampling functions defined over empirical/observed sets of covariate data.
+    \item More realistic covariate distributions (relative to synthetic benchmarks) because sampled DGPs can (but do not have to) consist of sampling functions defined over empirical/observed sets of covariate data. The flexibility of the sampling process means that almost any empirical data can be used, allowing methods to be tested on the kind of data they are designed to handle in real applications.
 
     \item More robust results (relative to either of the pure approach) because performance evaluations are performed by averaging across many DGPs selected, in a principled manner, from a region of problem space.
 \end{itemize}
 
-Maccabee, following \textcite{Dorie2019Automated1}, samples a treatment assignment, an untreated outcome function, and a treatment effect function and uses these functions as the components $\Omega$, $\Phi$ and $\tau$ to concretize the generic DGP outlined in Chapter \ref{chap:litreview}. The sampled functions are drawn from the subspace of \textit{generalized, additive functions} - additive functions with terms that are 1st, 2nd, or 3rd-degree polynomials, two or three-way interactions, and linear functions with jump discontinuities in their value or derivative.
+The problem is that the concrete design, implementation and validation presented by \textcite{Dorie2019Automated1} are tied to a single data set and set of sampling parameters. Maccabee is designed to mitigate these weaknesses. But, before getting into the specifics of how this is achieved, it is important to establish the components of \textcite{Dorie2019Automated1}'s abstract design that are adopted by Maccabee.
+
+Following \textcite{Dorie2019Automated1}, the core workflow in Maccabee samples a treatment assignment, an untreated outcome function, and a treatment effect function and then uses these functions as the components $\Omega$, $\Phi$ and $\tau$ to concretize the generic DGP outlined in Chapter \ref{chap:litreview}. The sampled functions are drawn from the subspace of \textit{generalized, additive functions} - additive functions with terms that are 1st, 2nd, or 3rd-degree polynomials, two or three-way interactions, and linear functions with jump discontinuities in their value or derivative.
 
 \vspace{\baselineskip}
 
@@ -54,11 +67,17 @@ The fourth degree of freedom in the concretization process - the joint distribut
 
 \subsection{Concretizing Dorie et al.'s Approach}
 
-While the approach described above makes sense, it does not prescribe a specific sampling scheme and associated set of sampling parameters that could be used to sample DGPs from a desired location in the distribution problem space. \textcite{Dorie2019Automated1} does have such a scheme implemented in R (available \href{https://github.com/vdorie/aciccomp}{here}). But this code is designed to generate a static set of benchmarking datasets - using a single empirical covariate dataset and a single set of sampling parameterizations. Further, this code is not designed to execute benchmarks or perform metric calculation; it is only designed to generate the benchmarking data itself. Finally, the code is poorly documented which makes parsing the exact parameterization used by the authors non-trivial. Given this, Maccabee proposes its own parameterization and sampling scheme, based on the general approach outlined above. This scheme is then implemented such that it can be used with any covariate data and with arbitrary, easy-to-specify parameterizations.
+\subsubsection{Departure Point}
+
+While the approach described above makes sense, it does not prescribe a specific sampling scheme and associated set of sampling parameters that could be used to sample DGPs from a desired location in the distribution problem space. \textcite{Dorie2019Automated1} do, in fact, propose such a scheme and even supply an R implementation (available \href{https://github.com/vdorie/aciccomp}{here}). The problem is that this scheme and implementation is designed to generate a static set of benchmarking datasets - using a single empirical covariate dataset and a single set of sampling parameterizations. Further, the code is not designed to execute benchmarks or perform metric calculation; it is only designed to generate a single static set of benchmarking data. Finally, the code is poorly documented which makes parsing (and modifying) the exact parameterization used by the authors a non-trivial, specially for method developers not familiar with Hybrid Benchmarking and focused on their own research.
 
 \vspace{\baselineskip}
 
-The goal of this explanation is to show how a set of \textit{DGP Sampling Parameters} can be used to sampled DGPs from a region of the distributional problem space. As established in Chapter \ref{chap:problemspace}, this means the parameters must (approximately) control the location of sampled DGPs along the seven problem space axes. Discussion of how sampled DGPs can then be used to implement benchmarking is covered in the formal specification in Section \ref{mac:formalspec}.
+Maccabee proposes its own parameterization and sampling scheme, based on the general approach outlined above. This scheme is then implemented such that it can be used with any covariate data and with arbitrary, easy-to-specify parameterizations. It is designed to allow users to use their own empirical data, easily specify locations in the distributional problem space, and run repeated benchmarks using new, dynamically generated data sets.
+
+\subsubsection{Maccabee's Approach}
+
+The goal of the explanation below is to show how a set of \textit{DGP Sampling Parameters} can be used to sampled DGPs from a region of the distributional problem space. As established in Chapter \ref{chap:problemspace}, this means the parameters must (approximately) control the location of sampled DGPs along the seven problem space axes. Discussion of how sampled DGPs can then be used to implement benchmarking is covered in the formal specification in Section \ref{mac:formalspec}.
 
 \vspace{\baselineskip}
 

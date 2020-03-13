@@ -94,13 +94,29 @@ citestyle=apa,
 
 %% Docs links
 \newcommand{\RTDurl}{https://maccabee.readthedocs.io/en/latest}
-% \newcommand{\RTDurl}{https://maccabee.readthedocs.io/en/dev}
 \newcommand{\RTDlink}[1]{\href{\RTDurl}{#1}}
 
 %% Quotes
 \usepackage{setspace} % for \onehalfspacing and\singlespacing macros
 
 \usepackage{etoolbox}
+
+% HC/LO tags
+
+\makeatletter
+\newcommand{\tags}[3][, ]{%
+  HCs in this chapter: %
+  \def\nextitem{\def\nextitem{#1}}%
+  \@for \el:=#2\do{\nextitem\el}%
+  \newline%
+  \newline%
+  LOs in this chapter: %
+  \def\nextitem{\def\nextitem{#1}}%
+  \@for \el:=#3\do{\nextitem\el}%
+  \vspace{2\baselineskip}
+}
+\makeatother
+
 \AtBeginEnvironment{quote}{\singlespacing\small}
 
 \TabPositions{0.5in,1.0in,1.5in,2.0in,2.5in,3.0in,3.5in,4.0in,4.5in,5.0in,5.5in,6.0in,}
