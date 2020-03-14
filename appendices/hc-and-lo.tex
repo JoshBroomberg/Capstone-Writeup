@@ -6,7 +6,7 @@
 \subsection{\textbf{\#critique}}
 \label{hc:critique}
 
-This work is based on a critique of the benchmarking methods used in the causal inference literature. In Chapter \ref{chap:litreview}, I review a wide set of papers - both those which explicitly set out to introduce novel benchmarking approaches and those which implicitly introduce approaches by using them to test new causal estimators. I distill this landscape of benchmarking approaches into \textit{Pure} and \textit{Hybrid} classes (and empirical/synthetic sub-classes) and discuss the relative advantages and disadvantages of the different approaches in each class. This discussion is based on eight properties that elucidate the key differences between approaches. The writing in this chapter demonstrates the ability to both engage deeply with individual works - to understand the methods employed/proposed - and to synthesize many related works in order to extract insights from the literature as a whole. The critique in Chapter \ref{chap:litreview} provides the context for the \nameref{hc:gapanalysis} that guides the design of Maccabee:
+This work is based on a critique of the benchmarking methods used in the causal inference literature. In Chapter \ref{chap:litreview}, I review a wide set of papers - both those which explicitly set out to introduce novel benchmarking approaches and those which implicitly introduce approaches by using them to test new causal estimators. I distill this landscape of benchmarking approaches into \textit{Pure} and \textit{Hybrid} classes (and empirical/synthetic sub-classes) and discuss the relative advantages and disadvantages of the different approaches in each class. This discussion is based on eight properties that elucidate the key differences between approaches. The writing in this chapter demonstrates the ability to both engage deeply with individual works - to understand the methods employed/proposed - and to synthesize many related works in order to extract insights from the literature as a whole. The critique in Chapter \ref{chap:litreview} provides the context for the \nameref{hc:gapanalysis} that guides the design of Maccabee. It is enabled by an application of \nameref{hc:breakitdown}, which is used to simplify the problem of comparing the vast array of different benchmarking approaches.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -17,12 +17,26 @@ This paper is driven by a gap analysis at two levels. At the broad-approach leve
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#sourcequality}}
+\subsection{\textbf{\#breakitdown}}
+\label{hc:breakitdown}
+
+The primary purpose of the Literature Review (Chapter \ref{chap:litreview}) is to compare and contrast the methods of causal inference benchmarking from the literature. Analyzing which method is `best' is a fairly daunting problem, but one which is made easier by the extensive application of \nameref{hc:breakitdown}. I first breakdown the concept of quality in two axes of validity - specific and general validity - and then express these axes in terms of eight validity properties (with validity on each axis influenced by multiple properties). This makes it much easier to compare different methods, by simply determining the value of the eight properties and then comparing property values across methods. This can be thought of as solving/analyzing a series of smaller comparisons that add up to solving/analyzing the overall quality of the various methods.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{\textbf{\#evidencebased}}
+\label{hc:evidencebased}
+
+I have invested substantial effort into collecting, reviewing, and presenting a wide body of evidence to provide a foundation for my work. I have spent a lot of time thinking about how to organize this evidence into a clear and cohesive set of chapters that build on each other to motivate and explain my core contribution. The introduction in Chapter \ref{chap:intro} connects the work in this paper to the broader set of related predictive and causal inference literature. It does this by citing numerous high-quality review papers and extracting/synthesizing key connections between them and the specific field of causal inference benchmarking. Chapter \ref{chap:framework} establishes the theoretical foundation of the work by connecting and reviewing the two leading frameworks for causal inference - Rubin's Potential Outcomes and Pearl's Structural Causal Models. Chapter \ref{chap:litreview}, as discussed above, provides a close review of wide (but not exhaustive) set of the causal inference benchmarking literature.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{\#sourcequality} and 
 \label{hc:sourcequality}
 
-I have invested substantial effort into basing all of the analysis in this paper on high-quality, typically peer-reviewed work. The introduction in Chapter \ref{chap:intro} connects the work in this paper to the broader set of related literature by citing numerous review papers and extracting/synthesizing key connections to the current work. Chapter \ref{chap:framework} establishes the key theoretical foundation of this work by connecting and reviewing the two leading frameworks for causal inference - Rubin's Potential Outcomes and Pearl's Structural Causal Models. Chapter \ref{chap:litreview}, as discussed above, provides a close review of wide (but not exhaustive) set of the causal inference benchmarking literature.\par
+The tag for \nameref{hc:evidencebased} above says much of what needs to be said for this tag. Here, I emphasize that I have exclusively used published, peer-reviewed papers - often relying on seminal works with hundreds or thousands of citations (a rough proxy for reliability and quality). Peer-review does not guarantee quality and, indeed, I have critiqued many of the ideas proposed. But, as a minimum bar, it does ensure that other independent experts have read the works cited and found them suitable for publication and broader consumption.\par
 
-Finally, it is worth noting that the sources which appear in the work represent only about a third of the sources which I reviewed during the past year of work. This means, beyond being high-quality, peer-reviewed works, they represent a strict filtering for work that is most relevant to supporting my analysis. This is relative quality.
+It is also worth noting that the sources which appear in this work represent only about a third of the sources which I reviewed during the past year of research on this topic. This means the sources presented represents a strict filtering for articles that are most relevant to my analysis. The definition of relevance varies chapter to chapter. For example, for sources in Chapter \ref{chap:framework}, I prioritized explanatory clarity and status as seminal work that established the core tenants of the field of causal inference. For sources in Chapter \ref{chap:litreview}, I prioritized the quality and popularity of the benchmarking approach in order to ensure I the review included the best, and most widely used, methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -54,13 +68,6 @@ This HC is typically applied to creative work but I think it has an important pl
 \label{hc:context}
 
 As outlined in \nameref{hc:audience}, Chapter \ref{chap:intro} and \ref{chap:framework} are designed provide the points of context that situate this work in the broader realm of general predictive modeling and provide a solid conceptual foundation for the original analysis in later chapters. Writing this context requires striking a balance between going broad and basic enough to be useful but not so broad/basic that the context is uninteresting or unfocused. I attempted to achieve this by ensuring there is a coherent narrative that runs throughout the early chapters of the work, tying all the content together. I never introduce concepts in the form of arbitrary lists/sections and explain how each new idea connects to previous ideas and the larger narrative.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#breakitdown}}
-\label{hc:breakitdown}
-
-The primary purpose of the Literature Review (Chapter \ref{chap:litreview}) is to compare and contrast the methods of causal inference benchmarking from the literature. Analyzing which method is 'best' is a fairly daunting problem, but one which is made easier by the extensive application of \nameref{hc:breakitdown}. I first breakdown the concept of quality in two axes of validity - specific and general validity - and then express these axes in terms of eight validity properties (with validity on each axis influenced by multiple properties). This makes it much easier to compare different methods, by simply determining the value of the eight properties and then comparing property values across methods. This can be thought of as solving/analyzing a series of smaller comparisons that add up to solving/analyzing the overall quality of the various methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -98,7 +105,7 @@ The \#variables HC is applied extensively throughout this paper. I'd like to hig
     
     \item Chapter \ref{chap:problemspace} establishes the distributional problem space. This chapter is premised the formal descriptions of the relations between variables outlined in Chapter \ref{chap:framework}. It extends the analysis in that chapter to show how different instantiations of the joint distribution over the variables result in different \textit{distributional problem settings}, with different resultant performance for different methods of observational causal inference. This chapter establishes the (hopefully spanning) space of possible joint distributions and the effect of the position of systems along the axes of the space on the ability of causal inference estimators to recover true causal effects. The analysis in the chapter demonstrates the power of formal descriptions in helping to develop theoretical new analysis/problem descriptions.
     
-    \item Finally, Chapter \ref{chap:macdesign} (section \ref{mac:formalspec}) extends the formal description of observational systems from Chapter \ref{chap:framework} into a complete, formal description of the benchmarking approach proposed in this paper. This formalization describes estimator quality metrics as dependent variables arising from the combination of the observed system (made up of the variables described above, sampled from sampling distributions) and the causal estimand produced by the (independent) choice of causal estimator. In this framing, the the benchmark can (rightly) be thought of as an experiment which evaluates which (independent) choice of estimator produces the best (dependent) quality result in a (controlled) distributional setting. This is a nice way of understanding and expressing the value of hybrid Monte Carlo benchmarking - it allows for control over the 'variables' (observed system distributional setting) that 'confound' the dependent, measured performance of the independently selected causal estimator. Thus, allowing for valid experimental evidence of estimator performance.
+    \item Finally, Chapter \ref{chap:macdesign} (section \ref{mac:formalspec}) extends the formal description of observational systems from Chapter \ref{chap:framework} into a complete, formal description of the benchmarking approach proposed in this paper. This formalization describes estimator quality metrics as dependent variables arising from the combination of the observed system (made up of the variables described above, sampled from sampling distributions) and the causal estimand produced by the (independent) choice of causal estimator. In this framing, the the benchmark can (rightly) be thought of as an experiment which evaluates which (independent) choice of estimator produces the best (dependent) quality result in a (controlled) distributional setting. This is a nice way of understanding and expressing the value of hybrid Monte Carlo benchmarking - it allows for control over the `variables' (observed system distributional setting) that `confound' the dependent, measured performance of the independently selected causal estimator. Thus, allowing for valid experimental evidence of estimator performance.
     
 \end{enumerate}
 
@@ -172,84 +179,129 @@ Shifting gears, standard correlation analysis is used in a more practical/applie
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{\textbf{\#testability}}
+\label{hc:testability}
+
+One of the key challenges in this work was designing a way to validate Maccabee's benchmarking approach and implementation. Validation is required for two aspects of the design and implementation:
+
+\begin{enumerate}
+    \item \textbf{Correctness:} refers to whether the design and implementation of Maccabee achieve its design goal: to provide the ability to sample DGPs from specified regions of the distributional problem space and then perform (valid) benchmarks using these DGPs.
+    
+    \item \textbf{Superiority:} refers to whether the design and implementation are superior to existing benchmarking methods (the theoretical conclusion reached in Chapter \ref{chap:litreview}).
+\end{enumerate}
+
+To proceed, these two aspects of design and implementation validity need to be converted in testable `hypotheses', defined over measurable quantities and amenable to some kind of empirical validation. This is much easier for correctness relative to superiority. In both cases, some assumptions are required.
+
+\begin{enumerate}
+    \item \textbf{Correctness:} testing correctness is relatively straight-forward. To test the correctness of targeted DGP sampling, I implicitly use the following testable hypothesis: Assuming the data metrics are a valid measure of distributional setting, changing the \textit{DGP Sampling Parameters} should produce observable changes in the data metrics for sampled DGP data, with changes in-line with the design-intent of each parameter. This hypothesis is manifestly testable, and the experiment to test it is performed in Chapter \ref{chap:macvalidation}. It is worth noting that confirming this hypothesis is not equivalent to confirming correctness. If the data metrics are invalid, then the targeting of the sampling is invalid. Further, there is no objective scale against which to evaluate the observed changes. So, even though changes are observed in the data metrics, each corresponding to a problem space axis, it is unclear if these changes span the range of the axis/cover the distributional problem space. Given the highly theoretical nature of the distributional problem space, I do not think that more certain confirmation of targeted DGP sampling is possible.
+    
+    \item \textbf{Superiority:} testing superiority is a harder problem. As noted in Chapter \ref{chap:macvalidation}, producing different results for some inference method relative to another benchmarking approaches is not indicative of either success/failure without a deeper understanding of why the results differ. The approach I take in Chapter \ref{chap:macvalidation} is to drastically simplify and reduce the surface of comparison. For example, I compare the performance results from a static DGP, taken from \textcite{Diamond2012GeneticStudies} and very similar sampled DGPs. This `similarity' is achieved by only sampling only the treatment mechanism while keeping the rest of the DGP the same and, further, sampling the treatment mechanism from the set of functions with identical form as the treatment mechanism in the static DGP. In this highly restricted context, it is possible to state a testable hypothesis that partially validates Maccabee's superiority: sampled DGPs will produce a distribution over estimator performance, with the static DGP appearing as a single sample from this distribution. Further, the sampled (and static) performance values should be correlated to the measurable distributional setting of the sampled DGP. If this hypothesis holds, it justifies both the general need for sampling - to capture enough of the distribution to provide accurate summary statistics - and the specific targeting of sampling based on distributional setting - given that distributional setting affects performance. Again, confirming this hypothesis does not amount to certain confirmation of superiority. It is possible that the results are an artifact of the chosen example or that they will not carry over to less restricted cases of sampling.
+\end{enumerate}
+
+Finally, I note that, even though the testable hypotheses above do not serve as absolute confirmation of validity, they do serve a purpose. The failure to \textbf{invalidate} the design and approach of Maccabee lends some credibility to its validity. Further tests of the same kind, which also failed to invalidate the approach, would lend further credence. This is how science works. We can never be 100\% sure of some ground-truth claim but can repeatedly fail to invalidate it.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{\textbf{\#dataviz}}
 \label{hc:dataviz}
 
 This paper is relatively light on examples of data visualization - much more effort was put into creating informative figures and tables to support theoretical analysis and explanations. I would, however, like to draw attention to the visualizations used in Chapter \ref{chap:macvalidation}, and specifically to figure \ref{fig:benchmark-validation-pure-synth-2}. 
 
+\vspace{\baselineskip}
+
 This figure communicates the key results relating to the importance of sampling DGPs to establish accurate measures of estimator performance. The challenge with constructing good data visualization in this case comes down to the complexity of the underlying data as well as of the concept being visualized. The core of the data is performance metric values for an estimator applied to data from a baseline, concrete DGP and a number of sampled, Maccabee DGPs. The goal of the figure is to demonstrate that a) their is substantial variance in estimator performance across sampled DGPs (but minimal variance within each DGP), b) that the performance of the estimator in sampled DGPs is correlated with the metric value that measures treatment mechanism linearity, and c) that the concrete DGP is just a single sample from the distribution over non-linearity and (correlated) performance. This information is displayed in the figure using a combination of a scatter plot, error bars, a regression line. Clear labelling, color and captioning are used to make interpretation straightforward.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\subsection{\textbf{\#testability}}
-\label{hc:testability}
-
-used in Chapter \ref{chap:macvalidation}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#strategize}}
-\label{hc:strategize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#selfawareness}}
-\label{hc:selfawareness}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#biasidentification}}
-\label{hc:biasidentification}
-
-used in the review of existing methods when discussing how researchers may introduce bias by selecting functions which suit their own methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{\textbf{\#professionalism}}
 \label{hc:professionalism}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+    \item This paper is written in \LaTeX \(  \) in order to produce a document with typesetting and quality of appearance appropriate for a thesis.
+    
+    \item The code that makes up the core contribution is open source to ensure that others can verify and extend it as they please. It is available \href{https://github.com/JoshBroomberg/Maccabee}{here}.
+    
+    \item The code is also made available as a pre-built python package hosted on the standard package repository, \href{https://pypi.org/project/maccabee/}{here}. This allows others to install it, and all required dependencies, with minimal effort. This is complemented by extensive documentation and tutorials to improve ease of use. Together, these two components embody the professional manner in which open source code should be distributed.
+\end{itemize}
 
-\subsection{\textbf{\#modeling}}
-\label{hc:modeling} %todo remove?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Applies extensively in constructing the statistical framework that is used to formalize the concept of a Data Generating Process. See Chapter \ref{chap:problemspace}.
+\subsection{\textbf{\#organization}}
+\label{hc:organization}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This work has extensive hierarchical structuring, designed to contribute to the ease of consumption and understanding. The paper is divided into parts which group the chapters related to foundational theory, literature review, and the design and implementation of the novel contribution (the Maccabee package). The chapters in each part cover logically distinct sets of material and are further divided into sections that contribute to the narrative of each chapter. Each chapter starts with an overview that explains this narrative, how it contributes to the overall work, and how it divided amongst the sections of the chapter.
 
-\subsection{\textbf{\#estimation}}
-\label{hc:estimation} %todo remove?
+\vspace{\baselineskip}
 
-Applied to estimating the relative advantage of compilation vs dynamic execution using the Big-O complexity approximation. Documented in Chapter \ref{chap:macimplementation}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#biasmitigation}}
-\label{hc:biasmitigation} %todo remove?
-
-used in the review of existing methods when discussing how researchers may introduce bias by selecting functions which suit their own methods.
+Beyond aiding in the linear consumption of the work, all of this structure, combined with the tools provided by \LaTeX, allows for the construction of a hyper-linked table of contents and extensive clickable cross-referencing throughout. These organizational features allow for the reader to easily jump into and between sections in order to promote build an understanding of specific concepts or remind themselves of previous analysis when it is used later in the work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#communicationdesign}}
-\label{hc:communicationdesign} % todo remove
+\subsection{\textbf{\#selfawareness}}
+\label{hc:selfawareness}
 
-used in the choice to make real online documentation that is easily consumed.
+The choice of this topic reflects awareness of my strengths. I have a strong coding background and so I knew from the outset that I would be able to produce the most valuable work if I chose a topic that was implementation-heavy. I also have a strong interest (and some skill) in statistical theory. This means that I enjoy work which builds from foundational (statistical) theory to reach novel/useful conclusions. I set out to find a topic that combined these two aspects. The later would ensure I was passionate about the work and willing to put in the effort to produce something of high quality. The former would ensure that I had the requisite skill to actually produce this high quality work.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{\baselineskip}
 
-\subsection{\textbf{\#confidenceintervals}}
-\label{hc:confidenceintervals} %todo remove
-
-used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
+Initially, I settled on building a package to implement and benchmark methods of causal inference based on modern machine learning. This satisfied both of the aspects of my interest/strengths above. The goal was to make these advanced methods available to researchers without the skill required to implement machine learning-based methods. However, I ran into some practical issues in pursuing this idea. This required careful application of \nameref{hc:strategize}:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#significance}}
-\label{hc:significance} %todo remove
+\subsection{\textbf{\#strategize}}
+\label{hc:strategize}
 
-used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
+Early in the Capstone process, I realized, with the help of my advisor Professor Diamond, that the idea outlined above was a) too ambitious and would require an amount of work that was not possible within my time and resource constraints and b) that others, including a team at Microsoft, were working on similar packages. This meant there was little chance for me to contribute truly unique and valuable work.
+
+\vspace{\baselineskip}
+
+Fortunately, by this point, I had done enough initial research into the benchmarking component of the package to realize that there was interesting and valuable work to be done on approaches to benchmarking methods of causal inference. This aspect was not explored in the rapidly expanding literature on using machine learning for causal inference, so it represented a niche in which I could contribute. With this in mind, I pivoted to researching and building a package to support the benchmarking of all methods of causal inference. I was able to re-purposed my initial research on machine learning-based methods to justify why better methods of benchmarking would becoming increasingly important as inference methods became more complex and less amenable to formal/asymptotic performance analysis.
+
+\vspace{\baselineskip}
+
+This pivot was executed such that I ended up with a topic that was a) still in-line with my strengths and interests while b) being in a domain without aggressive competition, where I could contribute value as an undergrad and c) resulted in minimal wasted effort as I was able to re-purpose all of my existing research. I believe this demonstrates a strong example of \#strategic thought and action.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#modeling}}
+% \label{hc:modeling} %todo remove?
+
+% Applies extensively in constructing the statistical framework that is used to formalize the concept of a Data Generating Process. See Chapter \ref{chap:problemspace}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#estimation}}
+% \label{hc:estimation} %todo remove?
+
+% Applied to estimating the relative advantage of compilation vs dynamic execution using the Big-O complexity approximation. Documented in Chapter \ref{chap:macimplementation}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#biasmitigation}}
+% \label{hc:biasmitigation} %todo remove?
+
+% used in the review of existing methods when discussing how researchers may introduce bias by selecting functions which suit their own methods.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#communicationdesign}}
+% \label{hc:communicationdesign} % todo remove
+
+% used in the choice to make real online documentation that is easily consumed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#confidenceintervals}}
+% \label{hc:confidenceintervals} %todo remove
+
+% used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsection{\textbf{\#significance}}
+% \label{hc:significance} %todo remove
+
+% used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

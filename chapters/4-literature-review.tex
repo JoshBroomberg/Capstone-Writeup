@@ -369,24 +369,25 @@ This comparison between the designs, grounded in concretization strategies, prov
 
 
 \vspace{\baselineskip}
-    \item The potential for specification bias: because covariates and treatment/outcome functions are selected by hand, there is the potential for intentional or unintentional bias in the design such that the DGP favors the method being evaluated. This implies DGPs with similar properties would or could lead to worse results. Consider that many researchers may change the DGP specification until their method produces the results they \textit{expect} to see from it under the assumption that their DGP specification, and not their method, is at fault for unexpected results. This would induce the kind of bias described here.
+    \item The potential for specification bias: because covariates and treatment/outcome functions are selected by hand, there is the potential for intentional or unintentional bias in the design such that the DGP favors the method being evaluated. This implies DGPs with similar properties would or could lead to worse results. Consider that many researchers may change the DGP specification until their method produces the results they \textit{expect} to see from it under the assumption that their DGP specification, and not their method, is at fault for unexpected results. This would induce the kind of bias described here \footnote{This is an application of the \textbf{\#biasidentification} HC. Researchers psychology provides a number of potential avenues for bias in benchmarking design. First, they have a strong intrinsic desire for their methods to succeed. This can result in the false attribution of failure to the testing data rather than the method. If the data is changed until good results are produced, then these results are almost certainly biased. Second, researchers have intimate knowledge of how their method works (and potentially a corresponding lack of familiarity with other methods). This can result in the (unintentional) specification of benchmarking data or benchmarking conditions that favor their method over other methods.}.
 \end{itemize}\par
 
-
 \vspace{\baselineskip}
+
 However, synthetic designs have three characteristics which counter-balance those above when considering specific validity:\par
 
-
 \vspace{\baselineskip}
+
 \begin{itemize}
     \item The DGP can be guaranteed to meet the assumptions required for observational causal inference, specifically ignorability and overlap. This avoids false negatives in which an otherwise valid estimator produces poor results as a result of violated assumptions rather than inherent flaws.\par
 
+    \vspace{\baselineskip}
 
-\vspace{\baselineskip}
     \item The DGP can be used to produce many samples and, therefore, to ensure convergence to the true sampling distribution for the estimand. Further, this provides access to a distribution over performance which is useful for quantifying best and worst-case performance.\par
 
 
-\vspace{\baselineskip}
+    \vspace{\baselineskip}
+    
     \item The DGP provides access to the ground truth of the individual treatment effect and average treatment effect. This precludes the need for additional estimation of the ground truth and means that a wider range of estimators can be evaluated.
 \end{itemize}\par
 
