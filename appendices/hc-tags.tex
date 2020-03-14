@@ -1,77 +1,64 @@
 \documentclass[./main.tex]{subfiles}
 \begin{document}
 
-\section{Habits of Mind and Foundational Concepts}
+Below, I provide explanations of how I have applied various habits of Mind and Foundational Concepts in this work. The explanations are divided into four sections.
 
-\subsection{\textbf{\#critique}}
+\begin{enumerate}
+    \item Section \ref{hc:section-analytical} describes the HCs applied in constructing the theoretical content in this paper. Largely the early chapters which establish the theoretical foundation and guide the design of the core contribution.
+    
+    \item Section \ref{hc:section-technical} describes the HCs applied in designing and constructing the technical components of the work. These are focused on statistics, code implementation, and experimental validation.
+    
+    \item Section \ref{hc:section-writing} describes the HCs applied to the writing and structuring of the paper, a level above the content itself.
+    
+    \item Section \ref{hc:section-process} describes HCs applied to the meta-process of completing this project.
+\end{enumerate}
+
+\section{Analytical HC Applications}
+\label{hc:section-analytical}
+
+\subsection*{\textbf{\#critique}}
 \label{hc:critique}
 
-This work is based on a critique of the benchmarking methods used in the causal inference literature. In Chapter \ref{chap:litreview}, I review a wide set of papers - both those which explicitly set out to introduce novel benchmarking approaches and those which implicitly introduce approaches by using them to test new causal estimators. I distill this landscape of benchmarking approaches into \textit{Pure} and \textit{Hybrid} classes (and empirical/synthetic sub-classes) and discuss the relative advantages and disadvantages of the different approaches in each class. This discussion is based on eight properties that elucidate the key differences between approaches. The writing in this chapter demonstrates the ability to both engage deeply with individual works - to understand the methods employed/proposed - and to synthesize many related works in order to extract insights from the literature as a whole. The critique in Chapter \ref{chap:litreview} provides the context for the \nameref{hc:gapanalysis} that guides the design of Maccabee. It is enabled by an application of \nameref{hc:breakitdown}, which is used to simplify the problem of comparing the vast array of different benchmarking approaches.
+This work is based on a critique of the benchmarking methods used in the causal inference literature. In Chapter \ref{chap:litreview}, I review a wide set of papers - both those which explicitly set out to introduce novel benchmarking approaches and those which implicitly introduce approaches by using them to test new causal estimators. I distill this landscape of benchmarking approaches into \textit{Pure} and \textit{Hybrid} classes (and empirical/synthetic sub-classes) and discuss the relative advantages and disadvantages of the different approaches in each class. This discussion is based on eight properties that elucidate the key differences between approaches. The writing in this chapter demonstrates the ability to both engage deeply with individual works - to understand the methods employed/proposed - and to synthesize many related works in order to extract insights from the literature as a whole. The critique in Chapter \ref{chap:litreview} is enabled by an application of \nameref{hc:breakitdown}, which is used to simplify the problem of comparing the vast array of different benchmarking approaches. The comparison then provides the background required for the \nameref{hc:gapanalysis} that guides the design of Maccabee.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#gapanalysis}}
+\subsection*{\textbf{\#breakitdown}}
+\label{hc:breakitdown}
+
+The primary purpose of the Literature Review (Chapter \ref{chap:litreview}) is to compare and contrast the methods of causal inference benchmarking from the literature. Analyzing which method is `best' is a fairly daunting problem, but one which is made easier by the extensive application of \nameref{hc:breakitdown}. I first breakdown the concept of quality in two axes of validity - specific and general validity - and then express these axes in terms of eight validity properties (with validity on each axis influenced by multiple properties). This makes it much easier to compare different methods, by simply determining the value of the eight properties and then comparing property values across methods. This can be thought of as breaking up the comparison into a series of smaller comparisons that add up to a comparison of the overall quality of the various methods.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{\#gapanalysis}}
 \label{hc:gapanalysis}
 
 This paper is driven by a gap analysis at two levels. At the broad-approach level, the Literature Review (Chapter \ref{chap:litreview}) identifies that the vast majority of evaluation approaches used in practice fall into the class of \textit{pure} methods - sub-optimally trading off \textit{specific} and \textit{general} validity. The solution to this gap is found in the literature itself in the form of \textit{hybrid} approaches which make a better trade-off between realism, bias and control of distributional setting. However, as established in Chapter \ref{chap:macdesign}, even within the class of \textit{hybrid} methods a gap remains in the realm of implementation. There is no general purpose package/tool available for researchers to apply hybrid benchmarking to their own causal inference methods. Code that is provided, for example by \textcite{Dorie2019Automated1}, is parochial - fixed to specific data and parameterization. This means that enormous potential is left unrealized - the power of sample-based hybrid benchmarking is that it can be used to target method-specific distributional settings and applied to different empirical data. Maccabee - the core deliverable in this work - is designed to address this gap in the solution space. It provides a tool which allows researchers to easily apply hybrid benchmarks to their own methods, using their own data, and targeting easily-specified locations in the distributional problem space.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#breakitdown}}
-\label{hc:breakitdown}
-
-The primary purpose of the Literature Review (Chapter \ref{chap:litreview}) is to compare and contrast the methods of causal inference benchmarking from the literature. Analyzing which method is `best' is a fairly daunting problem, but one which is made easier by the extensive application of \nameref{hc:breakitdown}. I first breakdown the concept of quality in two axes of validity - specific and general validity - and then express these axes in terms of eight validity properties (with validity on each axis influenced by multiple properties). This makes it much easier to compare different methods, by simply determining the value of the eight properties and then comparing property values across methods. This can be thought of as solving/analyzing a series of smaller comparisons that add up to solving/analyzing the overall quality of the various methods.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#evidencebased}}
+\subsection*{\textbf{\#evidencebased}}
 \label{hc:evidencebased}
 
 I have invested substantial effort into collecting, reviewing, and presenting a wide body of evidence to provide a foundation for my work. I have spent a lot of time thinking about how to organize this evidence into a clear and cohesive set of chapters that build on each other to motivate and explain my core contribution. The introduction in Chapter \ref{chap:intro} connects the work in this paper to the broader set of related predictive and causal inference literature. It does this by citing numerous high-quality review papers and extracting/synthesizing key connections between them and the specific field of causal inference benchmarking. Chapter \ref{chap:framework} establishes the theoretical foundation of the work by connecting and reviewing the two leading frameworks for causal inference - Rubin's Potential Outcomes and Pearl's Structural Causal Models. Chapter \ref{chap:litreview}, as discussed above, provides a close review of wide (but not exhaustive) set of the causal inference benchmarking literature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textbf{\#sourcequality} and 
+\subsection*{\textbf{\#sourcequality}}
 \label{hc:sourcequality}
 
-The tag for \nameref{hc:evidencebased} above says much of what needs to be said for this tag. Here, I emphasize that I have exclusively used published, peer-reviewed papers - often relying on seminal works with hundreds or thousands of citations (a rough proxy for reliability and quality). Peer-review does not guarantee quality and, indeed, I have critiqued many of the ideas proposed. But, as a minimum bar, it does ensure that other independent experts have read the works cited and found them suitable for publication and broader consumption.\par
+The tag for \nameref{hc:evidencebased} above says much of what needs to be said for this tag. Here, I emphasize that I have exclusively used published, peer-reviewed papers - often relying on seminal works with hundreds or thousands of citations (a rough proxy for reliability and quality). Peer-review does not guarantee quality and, indeed, I have critiqued many of the ideas proposed. But, as a minimum bar, it does ensure that other independent experts have read the works cited and found them suitable for publication and broader consumption.
+
+\vspace{\baselineskip}
 
 It is also worth noting that the sources which appear in this work represent only about a third of the sources which I reviewed during the past year of research on this topic. This means the sources presented represents a strict filtering for articles that are most relevant to my analysis. The definition of relevance varies chapter to chapter. For example, for sources in Chapter \ref{chap:framework}, I prioritized explanatory clarity and status as seminal work that established the core tenants of the field of causal inference. For sources in Chapter \ref{chap:litreview}, I prioritized the quality and popularity of the benchmarking approach in order to ensure I the review included the best, and most widely used, methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#audience}}
-\label{hc:audience}
+\section{Technical HC Applications}
+\label{hc:section-technical}
 
-My goal was to make this work clear enough to be understood and appreciated by a reasonably technical reader without any specialized knowledge of causal inference. To this end, I wrote an Introduction (Chapter \ref{chap:intro}) and a theory review (Chapter \ref{chap:framework}) that are designed to connect the content of this paper to the broader (and more familiar) realm of general predictive modeling and to provide a solid conceptual foundation for the original analysis and synthesis in Chapters \ref{chap:problemspace} and \ref{chap:litreview}. The content in these chapters makes few assumptions about prior knowledge, thoroughly explaining all fundamental concepts (see \nameref{hc:context}). It also makes extensive use of common tools for technical communication - like the graphical models in Chapters \ref{chap:problemspace} and \ref{chap:macdesign} - to convey complex topics in a way that will be familiar to a technical audience (see \nameref{hc:medium}).
-
-\vspace{\baselineskip}
-
-The secondary goal of this paper, but the one which is of greatest practical importance, is to convince causal inference researchers that the approach proposed in this work is superior to existing approaches. And, to provide a path for them to adopt it in their own research. The applicable audience here is both more technical than the reader described above and requires a description of the approach/implementation at a much greater level of detail. Awareness of the needs of this audience inspired the creation of the online documentation (available \RTDlink{here}) - this documentation provides detailed descriptions of the implementation and how it can be used to benchmark methods of causal inference under varied active research conditions.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#medium}}
-\label{hc:medium}
-
-This HC is typically applied to creative work but I think it has an important place in the construction of compelling scientific communication. The goal of scientific communication is less subjective than the goal of artistic communication but the medium is as important. Two examples are worth mentioning:
-
-\begin{enumerate}
-    \item \textbf{Explaining code using rich, standalone documentation}: even-well written code is not optimized to convey all, and only, the information that a user needs to actually use the code. This is especially true when you consider all of the boilerplate code that obfuscates the key information in any given file. Professional documentation tools, like the one I used, are designed to provide this information. This is literally a matter of a) for each component of the package, using page structure, spacing, and color to convey information about each object in a way that is easy to consume. The tool I use makes it easy to mix code, written text, and results in a visually clear format. And, b) using hyperlinks to allow for the navigation of a large network of interdependent components, each with their own detailed implementation documentations. 
-    
-    \item \textbf{Explaining models using graphical notation}: throughout the work (Chapters \ref{chap:framework}, \ref{chap:problemspace}, \ref{chap:macdesign}) I use graphical models to convey the relationship between random variables that define joint distributions/probabilistic models. This is a choice to use a specific visual medium to communicate information that could be communicated through math or text. This format is both a well-known standard and happens to be well-suited to the kind of generative models which are common in causal modeling. I believe that this format makes it much easier for readers to build an intuitive understanding of complex models and the underlying reality they describe.
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#context}}
-\label{hc:context}
-
-As outlined in \nameref{hc:audience}, Chapter \ref{chap:intro} and \ref{chap:framework} are designed provide the points of context that situate this work in the broader realm of general predictive modeling and provide a solid conceptual foundation for the original analysis in later chapters. Writing this context requires striking a balance between going broad and basic enough to be useful but not so broad/basic that the context is uninteresting or unfocused. I attempted to achieve this by ensuring there is a coherent narrative that runs throughout the early chapters of the work, tying all the content together. I never introduce concepts in the form of arbitrary lists/sections and explain how each new idea connects to previous ideas and the larger narrative.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{\textbf{\#algorithms}}
+\subsection*{\textbf{\#algorithms}}
 \label{hc:algorithms}
 
 Algorithms and algorithmic thinking are applied at a number of levels in this work. At a high level, the core operational flow of Maccabee can be thought of as the implementation of an algorithm for sampling from the statistical model of the Maccabee benchmark formalized in Chapter \ref{chap:macdesign}. This sampling requires (repeatedly) sampling treatment/outcome functions, applying these functions to empirical data, fitting estimators, and calculating metrics. Executing these steps correctly and efficiently required the design of an execution flow that satisfies the dependencies of the various steps while minimizing wasted computation. Two examples of important algorithmic design principles:
@@ -85,7 +72,7 @@ Algorithms and algorithmic thinking are applied at a number of levels in this wo
 At a lower level, there are numerous algorithmic optimizations throughout the package that are crucial to the speed of execution. These largely come down to using data structures and packages that are conducive to the efficient execution of the operations being performed. For example:
 
 \begin{enumerate}
-    \item In the DGP sampling implementation, Python set objects are used to find and adjust the overlap between the sampled covariates for the treatment and outcome functions in optimal time.
+    \item In the DGP sampling implementation, Python set objects are used to find and adjust the overlap between the sampled covariates for the treatment and outcome functions in optimal time. See the optimality explanations \href{https://wiki.python.org/moin/TimeComplexity}{here}.
     
     \item In the data sampling implementation, sampled DGP functions are converted to numpy functions that can be applied to all observations as arrays rather than repeatedly invoking the function for each observations. These functions are defined over all the covariates in the data set rather than those covariates known to appear in the function to avoid the need to index into the covariate data structure to extract the right arguments. Just these two simple changes yielded a performance improvement of ~70\% relative to naive implementation.
     
@@ -95,7 +82,7 @@ At a lower level, there are numerous algorithmic optimizations throughout the pa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#variables}}
+\subsection*{\textbf{\#variables}}
 \label{hc:variables}
 
 The \#variables HC is applied extensively throughout this paper. I'd like to highlight three related but conceptually distinct places in which variables are used to construct formal descriptions of complex, inter-related systems.
@@ -113,7 +100,7 @@ The \#variables HC is applied extensively throughout this paper. I'd like to hig
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#distributions}}
+\subsection*{\textbf{\#distributions}}
 \label{hc:distributions}
 
 In each of the three cases described in \nameref{hc:variables} above, the formal model of the relationship between the observed/unobserved variables takes the form of a joint distribution defined over the variables. This framing as a joint distribution is implicit and relatively unimportant in Chapter \ref{chap:framework}. It is of much greater importance in Chapters \ref{chap:problemspace} and \ref{chap:macdesign} as these chapters establish the formal theory that underpin Maccabee's sample-based benchmarks. The understanding of the benchmark as a sample from the joint distribution over all of the variables (data, estimand, metrics) is the motivation behind all Monte Carlo-based benchmarking.
@@ -124,7 +111,7 @@ Beyond this theoretical application, distributions are also used throughout the 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#sampling}}
+\subsection*{\textbf{\#sampling}}
 \label{hc:sampling}
 
 Sampling is at the heart of this work - both in identifying the problem with existing approaches and constructing a solution. The problem with existing, \textit{pure} approaches to benchmarking - whether empirical or synthetic - is that they are effectively a single sample from the distribution over performance in a region of the problem space (Chapter \ref{chap:macdesign}). In synthetic approaches, there is good reason to believe this sample may be biased toward samples in which estimators are likely to perform better. In empirical studies, it is unclear which region the sample is drawn from and whether it is valid. Even without these problems, a single sample is not necessarily representative of the distribution of estimator performance (which has intrinsic variability, even in controlled settings - see Chapter \ref{chap:macvalidation}).
@@ -135,7 +122,7 @@ The solution to this problem is a mechanism that can be used to construct a repr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#descriptivestats}}
+\subsection*{\textbf{\#descriptivestats}}
 \label{hc:descriptivestats}
 
 Maccabee benchmarks are based on Monte Carlo sampling. This means they result in a sample of the distribution over various measurable quantities, referred to as metrics in this paper. Descriptive statistics are to summarize these distributions. It is worth drawing a distinction between the two primary ways in which descriptive statistics are used in the benchmarking process:
@@ -153,7 +140,7 @@ Maccabee benchmarks are based on Monte Carlo sampling. This means they result in
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#probability}}
+\subsection*{\textbf{\#probability}}
 \label{hc:probability}
 
 Formal probability theory is used throughout Chapter \ref{chap:framework} to establish the notation and theory behind the two frameworks for causal inference. The analysis in the chapter synthesizes two frameworks which come from different schools of statistical thought. Rubin's Potential Outcomes framework is Frequentist in nature, defining estimators and estimands over fixed samples from populations. Causal estimands are expressed as conditional expectation values over the sample data. Pearl's Structural Causal Modeling (SCM) is Bayesian in nature, expressing estimands as the parameters of the model that relates the various variables in the problem.
@@ -164,7 +151,7 @@ The analysis in the chapter borrows the best expositional components from both f
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#correlation}}
+\subsection*{\textbf{\#correlation}}
 \label{hc:correlation}
 
 Chapter \ref{chap:intro} first introduces the distinction between predictive, phenomenological correlation and fundamental, mechanistic correlation - which is how I describe causation in this paper. This is a somewhat unusual framing. One is used to hearing that \textit{correlation is not causation}. But, while this statement is correct as a simple heuristic, it disguises nuance which helps to understand and operationalize causal inference:
@@ -179,7 +166,7 @@ Shifting gears, standard correlation analysis is used in a more practical/applie
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#testability}}
+\subsection*{\textbf{\#testability}}
 \label{hc:testability}
 
 One of the key challenges in this work was designing a way to validate Maccabee's benchmarking approach and implementation. Validation is required for two aspects of the design and implementation:
@@ -202,7 +189,7 @@ Finally, I note that, even though the testable hypotheses above do not serve as 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#dataviz}}
+\subsection*{\textbf{\#dataviz}}
 \label{hc:dataviz}
 
 This paper is relatively light on examples of data visualization - much more effort was put into creating informative figures and tables to support theoretical analysis and explanations. I would, however, like to draw attention to the visualizations used in Chapter \ref{chap:macvalidation}, and specifically to figure \ref{fig:benchmark-validation-pure-synth-2}. 
@@ -213,7 +200,10 @@ This figure communicates the key results relating to the importance of sampling 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#professionalism}}
+\section{Writing HC Applications}
+\label{hc:section-writing}
+
+\subsection*{\textbf{\#professionalism}}
 \label{hc:professionalism}
 
 \begin{itemize}
@@ -226,7 +216,7 @@ This figure communicates the key results relating to the importance of sampling 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#organization}}
+\subsection*{\textbf{\#organization}}
 \label{hc:organization}
 
 This work has extensive hierarchical structuring, designed to contribute to the ease of consumption and understanding. The paper is divided into parts which group the chapters related to foundational theory, literature review, and the design and implementation of the novel contribution (the Maccabee package). The chapters in each part cover logically distinct sets of material and are further divided into sections that contribute to the narrative of each chapter. Each chapter starts with an overview that explains this narrative, how it contributes to the overall work, and how it divided amongst the sections of the chapter.
@@ -237,7 +227,41 @@ Beyond aiding in the linear consumption of the work, all of this structure, comb
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#selfawareness}}
+\subsection*{\textbf{\#audience}}
+\label{hc:audience}
+
+My goal was to make this work clear enough to be understood and appreciated by a reasonably technical reader without any specialized knowledge of causal inference. To this end, I wrote an Introduction (Chapter \ref{chap:intro}) and a theory review (Chapter \ref{chap:framework}) that are designed to connect the content of this paper to the broader (and more familiar) realm of general predictive modeling and to provide a solid conceptual foundation for the original analysis and synthesis in Chapters \ref{chap:problemspace} and \ref{chap:litreview}. The content in these chapters makes few assumptions about prior knowledge, thoroughly explaining all fundamental concepts (see \nameref{hc:context}). It also makes extensive use of common tools for technical communication - like the graphical models in Chapters \ref{chap:problemspace} and \ref{chap:macdesign} - to convey complex topics in a way that will be familiar to a technical audience (see \nameref{hc:medium}).
+
+\vspace{\baselineskip}
+
+The secondary goal of this paper, but the one which is of greatest practical importance, is to convince causal inference researchers that the approach proposed in this work is superior to existing approaches. And, to provide a path for them to adopt it in their own research. The applicable audience here is both more technical than the reader described above and requires a description of the approach/implementation at a much greater level of detail. Awareness of the needs of this audience inspired the creation of the online documentation (available \RTDlink{here}) - this documentation provides detailed descriptions of the implementation and how it can be used to benchmark methods of causal inference under varied active research conditions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{\#context}}
+\label{hc:context}
+
+As outlined in \nameref{hc:audience}, Chapter \ref{chap:intro} and \ref{chap:framework} are designed provide the points of context that situate this work in the broader realm of general predictive modeling, and provide a solid conceptual foundation for the original analysis in later chapters. Writing this context requires striking a balance between going broad and basic enough to be useful but not so broad/basic that the context is uninteresting or unfocused. I attempted to achieve this by ensuring there is a coherent narrative that runs throughout the early chapters of the work, tying all the content together. I never introduce concepts in the form of arbitrary lists/sections and explain how each new idea connects to previous ideas and the larger narrative.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{\#medium}}
+\label{hc:medium}
+
+This HC is typically applied to analyzing the mediums used creative work but I think it has an important place in the construction of compelling scientific communication. The goal of scientific communication is less subjective than the goal of artistic communication but the mediums used to construct the communication are equally as important. Two examples are worth mentioning:
+
+\begin{enumerate}
+    \item \textbf{Explaining code using rich, standalone documentation}: even-well written code is not optimized to convey all, and only, the information that a user needs to actually understand and use the code. This is especially true when you consider all of the boilerplate code that obfuscates the key information in any given file. Professional documentation tools, like the one I used, are designed to provide this information. This is literally a matter of a) for each component of the package, using page structure, spacing, and color to convey information about each object in a way that is easy to consume. Careful use of these visual components is required in order to combine code, written text, and results in a visually clear format. And, b) using hyperlinks to allow for the navigation of a large network of interdependent components, each with their own detailed implementation documentations. Both the formatting and linking are made possible by the use of a web-based, programatically-generated medium for the documentation.
+    
+    \item \textbf{Explaining models using graphical notation}: throughout the work (Chapters \ref{chap:framework}, \ref{chap:problemspace}, \ref{chap:macdesign}) I use graphical models to convey the relationship between random variables that define joint distributions/probabilistic models. This is a choice to use a specific visual medium to communicate information that could be communicated through math or text. This format is both a well-known standard and happens to be well-suited to the kind of generative models which are common in causal modeling. I believe that this format makes it much easier for readers to build an intuitive understanding of complex models and the underlying reality they describe.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Process HC Applications}
+\label{hc:section-process}
+
+\subsection*{\textbf{\#selfawareness}}
 \label{hc:selfawareness}
 
 The choice of this topic reflects awareness of my strengths. I have a strong coding background and so I knew from the outset that I would be able to produce the most valuable work if I chose a topic that was implementation-heavy. I also have a strong interest (and some skill) in statistical theory. This means that I enjoy work which builds from foundational (statistical) theory to reach novel/useful conclusions. I set out to find a topic that combined these two aspects. The later would ensure I was passionate about the work and willing to put in the effort to produce something of high quality. The former would ensure that I had the requisite skill to actually produce this high quality work.
@@ -248,7 +272,7 @@ Initially, I settled on building a package to implement and benchmark methods of
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\textbf{\#strategize}}
+\subsection*{\textbf{\#strategize}}
 \label{hc:strategize}
 
 Early in the Capstone process, I realized, with the help of my advisor Professor Diamond, that the idea outlined above was a) too ambitious and would require an amount of work that was not possible within my time and resource constraints and b) that others, including a team at Microsoft, were working on similar packages. This meant there was little chance for me to contribute truly unique and valuable work.
@@ -263,67 +287,46 @@ This pivot was executed such that I ended up with a topic that was a) still in-l
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#modeling}}
+% \section{\textbf{\#modeling}}
 % \label{hc:modeling} %todo remove?
 
 % Applies extensively in constructing the statistical framework that is used to formalize the concept of a Data Generating Process. See Chapter \ref{chap:problemspace}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#estimation}}
+% \section{\textbf{\#estimation}}
 % \label{hc:estimation} %todo remove?
 
 % Applied to estimating the relative advantage of compilation vs dynamic execution using the Big-O complexity approximation. Documented in Chapter \ref{chap:macimplementation}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#biasmitigation}}
+% \section{\textbf{\#biasmitigation}}
 % \label{hc:biasmitigation} %todo remove?
 
 % used in the review of existing methods when discussing how researchers may introduce bias by selecting functions which suit their own methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#communicationdesign}}
+% \section{\textbf{\#communicationdesign}}
 % \label{hc:communicationdesign} % todo remove
 
 % used in the choice to make real online documentation that is easily consumed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#confidenceintervals}}
+% \section{\textbf{\#confidenceintervals}}
 % \label{hc:confidenceintervals} %todo remove
 
 % used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \subsection{\textbf{\#significance}}
+% \section{\textbf{\#significance}}
 % \label{hc:significance} %todo remove
 
 % used in Chapter \ref{chap:macvalidation} when discussing benchmark validation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Learning Outcomes}
-
-\textbf{NOTE: because these are custom LOs, their application is fairly obvious. I will write extensive tags soon.}
-
-\subsection{Foundation: Causal Inference}
-\subsection{\textbf{\#CausalInferenceTheory}}\label{lo:CausalInferenceTheory} applied in Chapter \ref{chap:framework}.
-\subsection{\textbf{\#graphicalmodels}}\label{lo:graphicalmodels} applied in Chapter \ref{chap:framework}
-\subsection{\textbf{\#probabilitytheory}}\label{lo:probabilitytheory} applied in Chapter \ref{chap:framework}
-\subsection{\textbf{\#CausalProblemSpace}}\label{lo:CausalProblemSpace} applied in Chapter \ref{chap:problemspace}
-
-
-\subsection{Hybrid MC Benchmarking: Theory/Design}
-\subsection{\textbf{\#CausalBenchmarkTheory}}\label{lo:CausalBenchmarkTheory} applied in Chapter \ref{chap:macdesign}
-\subsection{\textbf{\#CausalBenchmarkDesign}}\label{lo:CausalBenchmarkDesign} applied in Chapter \ref{chap:macdesign}
-
-\subsection{Hybrid MC Benchmarking: Implementation}
-\subsection{\textbf{\#CodeDesign}}\label{lo:CodeDesign} applied in Chapter \ref{chap:macimplementation}
-\subsection{\textbf{\#CodeImplementation}}\label{lo:CodeImplementation} applied in Chapter \ref{chap:macimplementation}
-\subsection{\textbf{\#CodeUsability}}\label{lo:CodeUsability} applied in Chapter \ref{chap:macimplementation}
 
 \end{document}
