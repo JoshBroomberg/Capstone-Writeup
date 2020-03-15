@@ -10,7 +10,9 @@
     \nameref{hc:sourcequality},
     \nameref{hc:variables}
 }{
-    None
+    \LOref{CausalInferenceTheory},
+    \LOref{GraphicalModels},
+    \LOref{ProbabilityTheory}
 }
 
 This chapter provides a theoretical overview of observational causal inference. This serves as a foundation for the rest of the work, introducing the notation and framing which are used throughout. The framing of causal inference introduced in this chapter is primarily based on Rubin’s Potential Outcome Framework as outlined in \textcite{Holland1986StatisticsInference} with augmentation from Pearl’s Structural Causal Models as outlined in \textcite{Pearl2009CausalOverview}.\par
@@ -60,6 +62,7 @@ Note that the PATE can be recovered by averaging the CATE over all of the units 
 Given than two units with an identical observed  \( X_{i} \) are effectively indistinguishable in experimental terms, the CATE is often referred to as the \textit{individual average treatment effect \footnote{ The word average is used to indicate that units with identical X\_i values may, in fact, have different treatment effects in which case the CATE is an average over these effects for units indistinguishable on the observed covariates. }.}\par
 
 \section{The Challenge of Accurate Causal Inference}
+\label{sec:challenge-of-causal-inference}
 
 \vspace{\baselineskip}
 The estimands above imply that if we can accurately approximate the expectation of the two potential outcomes across the population, or a covariate level, then we can approximate the average treatment effects. IE, it is possible to estimate the unobservable counterfactual at the individual level using expectations for the potential outcomes defined over the population of units. However, estimating these expectations is challenging: In any experimental or observational setting - rather than observing  \( E \left[ Y_{1} \right]  \)  and  \( E \left[ Y_{0} \right]  \) , we observe  \( E \left[ Y_{1}  \vert  Z=1 \right]   \) and  \( E \left[ Y_{0}  \vert  Z= 0 \right]  \) . This expresses the idea that we observe the outcome conditioned on treatment assignment. There is no guarantee that  \( E \left[ Y_{1} \right]  = E \left[ Y_{0}  \vert  Z=1 \right]  \)  and, in fact, this is highly unlikely in observation settings. This is where the notion of selection bias become important.\par
@@ -145,7 +148,7 @@ This result implies that:\par
 
 
 \vspace{\baselineskip}
- \( P \left( Y_{1}, Y_{0}  \vert  X, Z  \right) =P \left( Y_{1}, Y_{0} \vert  X \right)  =   \) \par
+ \( P \left( Y_{1}, Y_{0}  \vert  X, Z  \right) =P \left( Y_{1}, Y_{0} \vert  X \right)\) \par
 
 
 \vspace{\baselineskip}

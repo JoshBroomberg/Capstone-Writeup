@@ -89,7 +89,6 @@ citestyle=apa,
 \usepackage{subfiles}
     
 %% Include PDFs
-
 \usepackage{pdfpages}
 
 %% Docs links
@@ -99,10 +98,8 @@ citestyle=apa,
 %% Quotes
 \usepackage{setspace} % for \onehalfspacing and\singlespacing macros
 
-\usepackage{etoolbox}
-
 % HC/LO tags
-
+\usepackage{etoolbox}
 \makeatletter
 \newcommand{\tags}[3][, ]{%
   HCs in this chapter: %
@@ -110,12 +107,16 @@ citestyle=apa,
   \@for \el:=#2\do{\nextitem\el}%
   \newline%
   \newline%
-  LOs in this chapter: %
+  LOs in this chapter:%
   \def\nextitem{\def\nextitem{#1}}%
   \@for \el:=#3\do{\nextitem\el}%
   \vspace{2\baselineskip}
 }
 \makeatother
+
+% Custom ref tools
+\newcommand{\customref}[2]{\hyperref[#1]{\textbf{#2}}}
+\newcommand{\LOref}[1]{\hyperref[lo:#1]{\textbf{\##1}}}
 
 \AtBeginEnvironment{quote}{\singlespacing\small}
 
@@ -136,7 +137,6 @@ citestyle=apa,
 
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
-
 
  %%%%%%%%%%%%  Set Depths for Nested Lists created by \begin{enumerate}  %%%%%%%%%%%%%%
 

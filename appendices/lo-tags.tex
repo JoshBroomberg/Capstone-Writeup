@@ -3,67 +3,115 @@
 
 \section{Causal Inference Theory}
 
-\subsection*{\textbf{Capstone \#CausalInferenceTheory}}
+\subsection*{\textbf{Capstone--\#CausalInferenceTheory}}
 \label{lo:CausalInferenceTheory}
 
-applied in Chapter \ref{chap:framework}.
+In Chapter \ref{chap:framework}, I outline the difference between predictive inference and causal inference, while recognizing the important overlap: The two types of inference are not truly separate, they are nested with causal inference being prediction under specific settings and assumptions. This analysis utilizes and contrast the two conventional frameworks for causal inference - Rubin’s Potential Outcomes Framework and Pearl’s Structural Causal Modeling. A key takeaway is that many different modeling approaches, and inference methods premised on these models, can be used to recover the same causal estimands. This is the premise that supports the importance of benchmarking - as a tool to determine which functionally equivalent inference approach is `best'.
+
+\vspace{\baselineskip}
+
+Chapter \ref{chap:problemspace} also makes use of basic causal inference theory in constructing the problem space. The construction of this space depends on understanding how the relationships between the various variables, that make up a causal inference problem, affect estimator performance. See \LOref{CausalProblemSpace} below for more detail.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{\textbf{CS146 \#graphicalmodels}}
-\label{lo:graphicalmodels}
-
-applied in Chapter \ref{chap:framework}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection*{\textbf{CS146 \#probabilitytheory}}
-\label{lo:probabilitytheory}
-
-applied in Chapter \ref{chap:framework}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection*{\textbf{Capstone \#CausalProblemSpace}}
+\subsection*{\textbf{Capstone--\#CausalProblemSpace}}
 \label{lo:CausalProblemSpace}
 
-applied in Chapter \ref{chap:problemspace}
+In Chapter \ref{chap:problemspace}, I describe the connection between the challenge of observational causal inference and the properties of the observed data. The analysis in this chapter establishes that the difficulty of accurate causal inference is highly dependent on the distributional setting of the data. Further, the chapter formalizes the description of the distributional setting using the language and tools of probability theory. IE, using random variables to describe each component of the data and then describing the distributional setting in terms of properties of the joint distribution that results from the specific (stochastic) functional relationships between the random variables. Different estimators may interact differently with different joint distributions - providing a technical foundation for the claim of differential performance first introduced in Chapter \ref{chap:framework} and mentioned in \LOref{CausalInferenceTheory} above.
+
+\vspace{\baselineskip}
+
+Chapters \ref{chap:litreview} and \ref{chap:macdesign} make use of the problem space introduced in Chapter \ref{chap:problemspace}. The analysis in these chapters demonstrates how the problem space can be used to a) understand the specific and general validity of existing benchmarking methods and b) design new methods with better validity properties given the way they handle benchmarking across the problem space.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{CS146--\#GraphicalModels}}
+\label{lo:GraphicalModels}
+
+Graphical models are used throughout the paper to represent joint probability distributions in terms of the relationships between variables in the underlying (statistical) model. The way the notation is used varies chapter by chapter:
+
+\begin{itemize}
+    \item In Chapter \ref{chap:framework}, graphical models are used to demonstrate how causal inference is operationalized given observational data. Here, the primary purpose of the model is expositional, clarifying why and how the different pathways of dependency between variables must be untangled for accurate inference.
+    
+    \item In Chapter \ref{chap:litreview}, graphical models are used to represent the prototypal, generic Data Generating Process and the derived, concrete Data Generating Processes from the literature. Here, the (often implicit) graphical model representation of the data generation models aided in comparing different models.
+    
+    \item In Chapter \ref{chap:problemspace}, graphical models are used to aide the construction the problem space that (hopefully) contains all performance-relevant variants of the joint distribution over the observed variables in a causal inference problem instance. Here, the graphical models are used to guide the permutation over the different, possible functional relations between the variables.
+    
+    \item In Chapter \ref{chap:macdesign}, graphical models are used to formalize the design of the stochastic benchmarking process. Here, the graphical model is both a communication tool - communicating a complex stochastic process to the reader - and a useful aide in the later implementation - helping to identify different sources of variance in the benchmark to guide aggregation and metric calculation.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{CS146--\#ProbabilityTheory}}
+\label{lo:ProbabilityTheory}
+
+The rubric for this LO describes the core skill as follows: ``when provided with statements of probability, derive related statements of probability – involving marginal, conditional or joint distributions – using the sum rule, product rule and Bayes' rule''. The ability to perform these operations is demonstrated most clearly in the following places:
+
+\begin{itemize}
+    \item In Chapter \ref{chap:framework} (Section \ref{sec:challenge-of-causal-inference}), I implicitly manipulate conditional distributions using known independence relations to express the treatment effect as the true treatment effect plus selection bias. I then demonstrate how the same relation can be seen directly from a graphical model (which encodes the same independence information).
+    
+    \item In Chapter \ref{chap:problemspace} (Section \ref{sec:distro-setting-as-joint}), I use the product rule to construct the joint distribution over the observed data as the product of the marginal/conditional distributions  that describe the observed and unobserved variables that make up a problem instance.
+\end{itemize}
+
+Beyond these two examples, probability theory is used extensively throughout rest of the material in Chapters \ref{chap:framework} and \ref{chap:problemspace}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Benchmarking Theory and Design}
 
-\subsection*{\textbf{Capstone \#CausalBenchmarkTheory}}
+\subsection*{\textbf{Capstone--\#CausalBenchmarkTheory}}
 \label{lo:CausalBenchmarkTheory}
 
-applied in Chapter \ref{chap:macdesign}
+Chapter \ref{chap:litreview} introduces and defines the concept of estimator quality as measured by one or more metric defined over the estimates produced by an estimator (values from the estimator's sampling distribution). It describes various strategies to calculate these metrics - analytical or asymptotic methods derive true expected values using the explicit analytical form of the estimator and input data distribution. This is only viable for data and estimators that are relatively simple. Monte Carlo methods calculate quality metrics by sampling from the estimator's sampling distribution and calculating approximate metric expectations. This is a specific application of general Monte Carlo simulation to compute approximate distributional statistics. Following this foundational work, the chapter provides an in-depth discussion of the relative pros and cons of these two approaches to benchmarking causal inference algorithms. After reaching the conclusion that Monte Carlo approaches are superior, it then compares the validity of various Monte Carlo implementations/strategies from the literature. The specific and general validity criteria developed to support this discussion demonstrate a strong understanding of the strengths and weaknesses of Monte Carlo.
+
+\vspace{\baselineskip}
+
+Chapter \ref{chap:macdesign} discusses the design of the Monte Carlo benchmarking approach that is the core of this paper. The design is discussed in more detail under \LOref{CausalBenchmarkDesign} below. Here, I discuss the key theoretical insight that underlies this design: The idea that the single DGP used in standard Monte Carlo benchmarks is actually a `variable' that can affect the measured estimator performance. This means that all of the Monte Carlo designs discussed in Chapter \ref{chap:litreview}, should be thought of as drawing a single, potentially-biased sample from the distribution over problem instances. For robust and unbiased results, it is therefore important to sample multiple problem instances either from the whole space (support) of problem instances or from specific regions of interest. The content of this chapter effectively generalizes the core concept of Monte Carlo benchmarking to include the design space of the data generating process. This generalization requires a strong abstract understanding of how Monte Carlo methods operate in order to produce valid results.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{\textbf{Capstone \#CausalBenchmarkDesign}}
+\subsection*{\textbf{Capstone--\#CausalBenchmarkDesign}}
 \label{lo:CausalBenchmarkDesign}
 
-applied in Chapter \ref{chap:macdesign}
+\LOref{CausalBenchmarkTheory}, above, focuses on the theory behind behind methods for benchmarking causal inference algorithms. Here, the focus is on the concrete designs behind these methods.
+
+\vspace{\baselineskip}
+
+The design of a new Monte Carlo-based benchmarking method is the core contribution of this paper. This design is introduced in Chapter \ref{chap:macdesign}. The most novel aspect of this design is the mechanism (and associated parameterization) used to sample (the components of) the data generating process. This requires the ability to sample \textit{functions}, defined over externally-supplied (empirical) covariates, with functional forms that place the resultant DGP in the desired/specified region of the distributional problem space. The broad outline of the mechanism was taken from work by \textcite{Dorie2019Automated1}, who propose sampling from the class of generalized additive functions. I then extended this to allow for arbitrary empirical data and dynamic control over the desired region of the distributional problem space. Beyond this novel contribution, Chapter \ref{chap:macdesign} reflects the investment of substantial effort into producing a formal description of the Hybrid Monte Carlo benchmarking approach, which I expect to be useful in persuading other researchers of its merits.
+
+\vspace{\baselineskip}
+
+Chapter \ref{chap:macimplementation} introduces some of the important low-level components that are required to fully specify the design:
+
+\begin{itemize}
+
+    \item The \href{\RTDurl/design.html}{design page} describes the complete parameterization of the sampling procedure.
+    
+    \item The \href{\RTDurl/reference/modeling/performance-metrics.html}{performance metrics page} introduces the metrics, which are defined over the distribution of estimated values produced by an estimand, that measure different aspects of estimator quality. Different metrics are defined for different causal estimands.
+    
+\end{itemize}
+
+Finally, Chapter \ref{chap:macvalidation} performs experimentation to validate that the approach proposed in this paper works as intended and is superior to other methods (in the ways expected). Collecting and analyzing the evidence to support these conclusions requires a strong understanding of the differences between the compared Monte Carlo approaches and how these differences are expected to manifest in the benchmark output.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Benchmarking Implementation}
 
-\subsection*{\textbf{Capstone \#CodeDesign}}
+\subsection*{\textbf{Capstone--\#CodeDesign}}
 \label{lo:CodeDesign}
 
 applied in Chapter \ref{chap:macimplementation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{\textbf{Capstone \#CodeImplementation}}
+\subsection*{\textbf{Capstone--\#CodeImplementation}}
 \label{lo:CodeImplementation}
 
 applied in Chapter \ref{chap:macimplementation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{\textbf{Capstone \#CodeUsability}}
+\subsection*{\textbf{Capstone--\#CodeUsability}}
 \label{lo:CodeUsability}
 
 applied in Chapter \ref{chap:macimplementation}

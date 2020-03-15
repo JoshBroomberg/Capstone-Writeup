@@ -10,7 +10,10 @@
     \nameref{hc:sampling},
     \nameref{hc:variables}
 }{
-    None
+    \LOref{CausalInferenceTheory},
+    \LOref{CausalProblemSpace},
+    \LOref{GraphicalModels},
+    \LOref{ProbabilityTheory}
 }
 
 The previous chapter ended with the claim that many causal estimators can be constructed to target the same causal estimands and that these estimators may display varied performance under different \textit{distributional settings.} The primary goal of this chapter is to formalize the notion of a \textit{distributional setting} and motivate why the \textit{distributional setting}, as defined, affects estimator performance. In so doing, I will introduce the notion of a causal inference problem space - the space of all performance-relevant distributional settings. I also discuss techniques for measuring the location of some observed data in this space.\par
@@ -63,6 +66,7 @@ The synthesis above is, by no means, a complete picture of all the causal estima
 The \textit{distributional setting} of a particular causal inference problem collectively refers to the value of all of these performance-relevant aspects of the observed data. The goal of the next section is to formalize the notion of a distributional setting as a set of properties of the joint distribution over the observed data.
 
 \section{Distributional Settings as Joint Distributions over Observed Data}
+\label{sec:distro-setting-as-joint}
 
 \vspace{\baselineskip}
 The section above observed that different estimators target different underlying component mechanisms and that this targeting produces sensitivity to different aspects of the observed data. This section formalizes this idea by showing that the two component mechanisms outlined above can be thought of as acting together to produce a joint distribution over the observed data, with the properties of this distribution affecting estimator performance. In this framing, a \textit{distributional setting }is a joint distribution over the observed data with specific marginal/collective properties that are relevant to performance. Many joint distributions may have the same property values and therefore represent roughly the same distributional setting.\par
