@@ -6,11 +6,11 @@
 \subsection*{\textbf{Capstone--\#CausalInferenceTheory}}
 \label{lo:CausalInferenceTheory}
 
-In Chapter \ref{chap:framework}, I outline the difference between predictive inference and causal inference, while recognizing the important overlap: The two types of inference are not truly separate, they are nested with causal inference being prediction under specific settings and assumptions. This analysis utilizes and contrast the two conventional frameworks for causal inference - Rubin’s Potential Outcomes Framework and Pearl’s Structural Causal Modeling. A key takeaway is that many different modeling approaches, and inference methods premised on these models, can be used to recover the same causal estimands. This is the premise that supports the importance of benchmarking - as a tool to determine which functionally equivalent inference approach is `best'.
+In Chapter \ref{chap:framework}, I outline the difference between predictive inference and causal inference, while recognizing the important overlap: The two types of inference are not truly separate, they are nested, with causal inference essentially being predictive inference under specific restrictions and assumptions. The analysis in the chapter utilizes and contrasts the two conventional frameworks for causal inference - Rubin's Potential Outcomes Framework and Pearl's Structural Causal Modeling. A key takeaway is that many different modeling approaches, and inference methods premised on these models, can be used to recover the same causal estimands. This is the premise that supports the importance of benchmarking - as a tool to determine which functionally equivalent inference approach is `best'.
 
 \vspace{\baselineskip}
 
-Chapter \ref{chap:problemspace} also makes use of basic causal inference theory in constructing the problem space. The construction of this space depends on understanding how the relationships between the various variables, that make up a causal inference problem, affect estimator performance. See \LOref{CausalProblemSpace} below for more detail.
+Chapter \ref{chap:problemspace} also makes use of basic causal inference theory in constructing the problem space. The construction of this space depends on understanding how the relationships between the various variables that make up a causal inference problem affect estimator performance. See \LOref{CausalProblemSpace} below for more detail.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -35,7 +35,7 @@ Graphical models are used throughout the paper to represent joint probability di
     
     \item In Chapter \ref{chap:litreview}, graphical models are used to represent the prototypal, generic Data Generating Process and the derived, concrete Data Generating Processes from the literature. Here, the (often implicit) graphical model representation of the data generation models aided in comparing different models.
     
-    \item In Chapter \ref{chap:problemspace}, graphical models are used to aide the construction the problem space that (hopefully) contains all performance-relevant variants of the joint distribution over the observed variables in a causal inference problem instance. Here, the graphical models are used to guide the permutation over the different, possible functional relations between the variables.
+    \item In Chapter \ref{chap:problemspace}, graphical models are used to aide the construction of the problem space that (hopefully) contains all performance-relevant variants of the joint distribution over the observed variables in a causal inference problem instance. Here, the graphical models are used to guide the permutation over the different, possible functional relations between the variables.
     
     \item In Chapter \ref{chap:macdesign}, graphical models are used to formalize the design of the stochastic benchmarking process. Here, the graphical model is both a communication tool - communicating a complex stochastic process to the reader - and a useful aide in the later implementation - helping to identify different sources of variance in the benchmark to guide aggregation and metric calculation.
 \end{itemize}
@@ -45,15 +45,15 @@ Graphical models are used throughout the paper to represent joint probability di
 \subsection*{\textbf{CS146--\#ProbabilityTheory}}
 \label{lo:ProbabilityTheory}
 
-The rubric for this LO describes the core skill as follows: ``when provided with statements of probability, derive related statements of probability – involving marginal, conditional or joint distributions – using the sum rule, product rule and Bayes' rule''. The ability to perform these operations is demonstrated most clearly in the following places:
+The rubric for this LO describes the core skill as follows: "when provided with statements of probability, derive related statements of probability – involving marginal, conditional or joint distributions – using the sum rule, product rule, and Bayes' rule." The ability to perform these operations is demonstrated most clearly in the following places:
 
 \begin{itemize}
     \item In Chapter \ref{chap:framework} (Section \ref{sec:challenge-of-causal-inference}), I implicitly manipulate conditional distributions using known independence relations to express the treatment effect as the true treatment effect plus selection bias. I then demonstrate how the same relation can be seen directly from a graphical model (which encodes the same independence information).
     
-    \item In Chapter \ref{chap:problemspace} (Section \ref{sec:distro-setting-as-joint}), I use the product rule to construct the joint distribution over the observed data as the product of the marginal/conditional distributions  that describe the observed and unobserved variables that make up a problem instance.
+    \item In Chapter \ref{chap:problemspace} (Section \ref{sec:distro-setting-as-joint}), I use the product rule to construct the joint distribution over the observed data as the product of the marginal/conditional distributions that describe the observed and unobserved variables that make up a problem instance.
 \end{itemize}
 
-Beyond these two examples, probability theory is used extensively throughout rest of the material in Chapters \ref{chap:framework} and \ref{chap:problemspace}.
+Beyond these two examples, probability theory is used extensively throughout the rest of the material in Chapters \ref{chap:framework} and \ref{chap:problemspace}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -62,7 +62,7 @@ Beyond these two examples, probability theory is used extensively throughout res
 \subsection*{\textbf{Capstone--\#CausalBenchmarkTheory}}
 \label{lo:CausalBenchmarkTheory}
 
-Chapter \ref{chap:litreview} introduces and defines the concept of estimator quality as measured by one or more metric defined over the estimates produced by an estimator (values from the estimator's sampling distribution). It describes various strategies to calculate these metrics - analytical or asymptotic methods derive true expected values using the explicit analytical form of the estimator and input data distribution. This is only viable for data and estimators that are relatively simple. Monte Carlo methods calculate quality metrics by sampling from the estimator's sampling distribution and calculating approximate metric expectations. This is a specific application of general Monte Carlo simulation to compute approximate distributional statistics. Following this foundational work, the chapter provides an in-depth discussion of the relative pros and cons of these two approaches to benchmarking causal inference algorithms. After reaching the conclusion that Monte Carlo approaches are superior, it then compares the validity of various Monte Carlo implementations/strategies from the literature. The specific and general validity criteria developed to support this discussion demonstrate a strong understanding of the strengths and weaknesses of Monte Carlo.
+Chapter \ref{chap:litreview} introduces and defines the concept of estimator quality as measured by one or more metric defined over the estimates produced by an estimator (values from the estimator's sampling distribution). It describes various strategies to calculate these metrics - analytical or asymptotic methods derive true expected values using the explicit analytical form of the estimator and input data distribution. This is only viable for data and estimators that are relatively simple. Monte Carlo methods calculate quality metrics by sampling from the estimator's sampling distribution and calculating approximate metric expectations. This is a specific application of the general Monte Carlo simulation approach to computing approximate distributional statistics. Following this foundational work, the chapter provides an in-depth discussion of the relative pros and cons of these two approaches to benchmarking causal inference algorithms. After reaching the conclusion that Monte Carlo approaches are superior, it then compares the validity of various Monte Carlo implementations/strategies from the literature. The specific and general validity criteria developed to support this discussion demonstrate a strong understanding of the strengths and weaknesses of Monte Carlo.
 
 \vspace{\baselineskip}
 
@@ -73,7 +73,7 @@ Chapter \ref{chap:macdesign} discusses the design of the Monte Carlo benchmarkin
 \subsection*{\textbf{Capstone--\#CausalBenchmarkDesign}}
 \label{lo:CausalBenchmarkDesign}
 
-\LOref{CausalBenchmarkTheory}, above, focuses on the theory behind behind methods for benchmarking causal inference algorithms. Here, the focus is on the concrete designs behind these methods.
+\LOref{CausalBenchmarkTheory}, above, focuses on the theory behind methods for benchmarking causal inference algorithms. Here, the focus is on the concrete designs behind these methods.
 
 \vspace{\baselineskip}
 
@@ -87,7 +87,7 @@ Chapter \ref{chap:macimplementation} introduces some of the important low-level 
 
     \item The \href{\RTDurl/design.html}{design page} describes the complete parameterization of the sampling procedure.
     
-    \item The \href{\RTDurl/reference/modeling/performance-metrics.html}{performance metrics page} introduces the metrics, which are defined over the distribution of estimated values produced by an estimand, that measure different aspects of estimator quality. Different metrics are defined for different causal estimands.
+    \item The \href{\RTDurl/reference/modeling/performance-metrics.html}{performance metrics page} introduces the metrics that measure different aspects of estimator quality. These metrics are defined over the sampling distribution of estimand values produced by an estimator. Different metrics are applied for different causal estimands.
     
 \end{itemize}
 
@@ -100,32 +100,43 @@ Finally, Chapter \ref{chap:macvalidation} performs experimentation to validate t
 \subsection*{\textbf{Capstone--\#CodeDesign}}
 \label{lo:CodeDesign}
 
-The design of the Maccabee package, outlined in Chapter \ref{chap:macimplementation}, demonstrates the ability to design a large technical projects based on appropriate technical design principles. Following the rubric for this LO, I detail the use of four design principles below. It is important to note that Maccabee is designed in the object-oriented programming paradigm. This means the basic \textit{system components} are Python objects that consist of a collection of attributes (data) and methods that work together to \textit{encapsulate} logical state. This design paradigm informs the style in which the separation of concerns and abstraction principles manifest themselves.
+The design of the Maccabee package, outlined in Chapter \ref{chap:macimplementation}, demonstrates the ability to design a large technical project based on appropriate technical design principles. Following the rubric for this LO, I detail the use of four design principles below. It is important to note that Maccabee is designed in the object-oriented programming paradigm. This means the basic \textit{system components} are Python objects that consist of a collection of attributes (data) and methods that work together to \textit{encapsulate} logical state. This design paradigm informs the style in which the separation of concerns and abstraction principles manifest themselves.
 
 \begin{enumerate}
     \item \textit{\textbf{Algorithmization}: demonstrate the ability to formulate algorithmic solutions to computational problems by systematically breaking problems down into a clear, ordered set of concrete steps.}
     
     I refer the grader to the \nameref{hc:algorithms} HC tag for a description of how algorithms were applied in the package design.
     
-    \item \textit{\textbf{Separation of Concerns}: Design systems such that logically-separable tasks are handled by different system components and each system component handles conceptually similar tasks.}
+    \item \textit{\textbf{Separation of Concerns}: Design systems such that logically-separable tasks are handled by different system components, and each system component handles conceptually similar tasks.}
     
-    Maccabee uses objects and modules to divide logically-separable functions and state. The \href{\RTDurl/reference.html}{package reference index page} provides an overview of the complete module and object design. The \textbf{\lstinline{maccabee.data_generation}} demonstrates the general pattern: The module contains a series of functionally-related classes, each of which performs a specific, and well-defined task.
+    Maccabee uses objects and modules to divide logically-separable functions and state. The \href{\RTDurl/reference.html}{package reference index page} provides an overview of the complete module and object design. The \textbf{\lstinline{maccabee.data_generation}} demonstrates the general pattern: The module contains a series of functionally-related classes, each of which performs a specific, and well-defined task:
     
-    The \textbf{\texttt{Data Generating Process Sampler}} object encapsulates the DGP sampling process and produces \textbf{\texttt{Data Generating Process}} instances. In turn, the \textbf{\texttt{Data Generating Process}} class encapsulate the logic required to sample data and, after instantiation by sampling class, produces instances of the \textbf{\texttt{Generated Data Set}} class that contain the sampled data (both observed and unobserved) that is used for benchmarking. The \textit{Core Sampling Execution Flow} section of the \href{\RTDurl/design.html}{design page} describes the complete set of object relations, providing many more examples of this kind of separation.
     
-    It is worth mentioning that there are a number of instances in which objects are not used to achieve separation of concerns. This is typically because using objects would unnecessarily complicate the user interface (sacrificing the quality of abstraction, as below). For example, the core benchmarking functions are module level functions so that they can be used directly without the boilerplate required to instantiate an object instance. This is a stylistic choice made to simplify the interface and is acceptable under some use-case assumptions. In these cases, separation is still achieved at the module level.
+    \begin{displayquote}
+    The \textbf{\texttt{Data Generating Process Sampler}} object encapsulates the DGP sampling process and produces \textbf{\texttt{Data Generating Process}} instances. In turn, the \textbf{\texttt{Data Generating Process}} class encapsulate the logic required to sample data and, after instantiation by the sampling class, produces instances of the \textbf{\texttt{Generated Data Set}} class that contain the sampled data (both observed and unobserved) which is used for benchmarking. The section of the \href{\RTDurl/design.html}{design page} entitled \textit{Core Sampling Execution Flow} describes the complete set of object relations, providing many more examples of this kind of separation.
+    \end{displayquote}
     
-    It is my opinion that a design that represents a good separation of concerns should be effectively self-documenting. IE, the user should have clear idea of what each class does and how the classes fit together just from the class (and module) names. I believe that I have achieved this with Maccabee's design.
+    This separation of concerns enables the extensive customizability that is possible when using the Maccabee package. A user can supply a custom version of each of the classes in the example above, possibly inheriting and maintaining most of the default behavior, in order to change aspects of the execution flow. This customization is explained in detail in the package documentation.
+    
+    It is worth mentioning that there are a number of instances in which objects are not used to achieve separation of concerns. This is done when using objects would unnecessarily complicate the user interface (sacrificing the quality of user-interface abstraction, as below). For example, the core benchmarking functions are module-level functions so that they can be used directly without the boilerplate required to instantiate an object instance. This is a stylistic choice made to simplify the interface and is acceptable under some use-case assumptions. In these cases, separation is still achieved at the module level.
+    
+    It is my opinion that a design that represents a good separation of concerns should be effectively self-documenting. IE, the user should have a clear idea of what each class does and how the classes fit together just from the class (and module) names. I believe that I have achieved this with Maccabee's design.
     
     \item \textit{\textbf{Abstraction}: Design interfaces that are easy to use and hide much of the complexity needed for the implementation.}
     
-    Abstraction is closely related to separation of concerns, but is focused on the design of the interface between the objects. Following the same example above makes it clear that the interfaces in Maccabee hide almost all of the complexity involved in the execution flow. After instantiating a \textbf{\texttt{Data Generating Process Sampler}}, the method \textbf{\lstinline{sample_dgp}} is used to sample a DGP. This method hides a complex set of internal processes which must be executed to sample the DGP. Similarly, the function \textbf{\lstinline{generate_dataset}} is used to sample a new data set from a \textbf{\texttt{Data Generating Process}} instance. These are both examples of a simple functional interface used to take some kind of action. The \textbf{\texttt{Generated Data Set}} object provides an example of a simplified data interface. It abstracts away the complexity of the internal data structures used to store the sampled data and provides simple properties to access each of the observed and unobserved \textit{DGP variables} (as defined in Chapter \ref{chap:litreview}).
+    Abstraction is closely related to the separation of concerns, as discussed above, but is focused on the design of the interface between the objects. The same example module as used above demonstrates how the interfaces in Maccabee are designed to hide the complexity involved in the execution flow:
+    
+    \begin{displayquote}
+    After instantiating a \textbf{\texttt{Data Generating Process Sampler}}, the method \textbf{\lstinline{sample_dgp}} is used to sample a DGP. This method hides the complex set of internal processes that must be executed to sample the DGP. Similarly, the function \textbf{\lstinline{generate_dataset}} is used to sample a new data set from a \textbf{\texttt{Data Generating Process}} instance. These are both examples of a clean \textit{functional} interfaces enabling complex action. The \textbf{\texttt{Generated Data Set}} object provides an example of a clean \textit{data} interface. It abstracts away the complexity of the internal data structures used to store the sampled data and provides simple properties to access each of the observed and unobserved \textit{DGP variables} (as defined in Chapter \ref{chap:litreview}).
+    \end{displayquote}
     
     The various pages of the \href{\RTDurl/reference.html}{package reference} document the interface of all of the objects which make up the Maccabee package. They are all designed with equivalent simplicity.
     
+    One key advantage of this abstraction is the ability to implement advanced caching schemes, of the kind described in \nameref{hc:algorithms}, without increasing the complexity of downstream code. For example, there is an extensive, customizable caching scheme used in the \textbf{\texttt{Data Generating Process}} object. But this caching scheme is entirely encapsulated and is used automatically when the \textbf{\lstinline{generate_dataset}} function is called.
+    
     \item \textit{\textbf{Complexity}: Analyze the asymptotic behavior of an algorithm solution to a problem and select solutions with this complexity in mind.}
     
-    Attention was paid to complexity throughout the design process. I would like to draw attention to the complexity analysis documented \href{\RTDurl/advanced/parallelization.html}{here}. This analysis relates to the advantage of using autogenerated code compilation. Execution of raw, uncompiled sampled functions has a polynomial complexity in the number of covariates and a relatively large constant execution time per execution. Execution of compiled, sampled functions is constant in the number of covariates and has a relatively small constant execution time but comes with the penalty incurred from once-off compilation time (that is polynomial in the number of covariates). These dynamics mean that there is a covariate-count-dependent number of data samples at which point compilation is justified. Finding this point, and the optimization it enables, was only possible as a result of experimental complexity analysis. The code used to run this experimentation is available under the Process Notebooks section of the project repository (\href{https://github.com/JoshBroomberg/Maccabee/blob/master/Notebooks/Process\%20Notebooks/Code\%20Compilation\%20Validation.ipynb}{here}).
+    Attention was paid to complexity throughout the design process. I would like to draw attention to the complexity analysis documented \href{\RTDurl/advanced/parallelization.html}{here}. This analysis relates to the advantage of using autogenerated code compilation. Execution of raw, uncompiled sampled functions has a polynomial complexity in the number of covariates and a relatively large constant execution time per execution. Execution of compiled, sampled functions is constant in the number of covariates and has a relatively short constant execution time but comes with the penalty incurred from once-off compilation time (that is polynomial in the number of covariates). These dynamics mean that there is a covariate-count-dependent number of data samples at which point compilation is justified. Finding this point, and unlocking the optimization it enables, was only possible as a result of experimental complexity analysis. The code used to run this experimentation is available under the Process Notebooks section of the project repository (\href{https://github.com/JoshBroomberg/Maccabee/blob/master/Notebooks/Process\%20Notebooks/Code\%20Compilation\%20Validation.ipynb}{here}).
     
     Further considerations related to complexity are contained in the \nameref{hc:algorithms} HC tag. 
     
@@ -145,10 +156,12 @@ The actual code implementation should largely speak for itself. Below, I highlig
     
     \item Logging is used to provide optional debug logs that document the execution flow for inspection.
     
-    \item The motivation of the choice of all major data structures which appear in the code is explained in in-line comments.
+    \item The motivation of the choice of all major data structures which appear in the code is explained in inline comments.
     
-    \item As explained under \nameref{hc:algorithms} and \LOref{CodeDesign} extensive experimentation and design iteration was performed to reduce code execution complexity. I estimate that my final version runs a typically-sized benchmark in about 10\% of the time taken by the first versions. Most of the speed-up was achieved by optimizations like compilation and parallelization which changed the constant execution time rather than the big-O complexity of the benchmarking `algorithm'.
+    \item As explained under \nameref{hc:algorithms} and \LOref{CodeDesign} extensive experimentation and design iteration was performed to reduce code execution complexity. I estimate that my final version runs a typically-sized benchmark in about 10\% of the time taken by the first versions. Most of the speed-up was achieved by optimizations like compilation and parallelization, which changed the constant execution time rather than the big-O complexity of the benchmarking `algorithm.'
 \end{itemize}
+
+Beyond this aspects of the implementation, I would like to draw attention to the implementation of the code used to run the validation that appears in Chapter \ref{chap:macvalidation}. In implementing this code, I acted as a user of the Maccabee - utilizing the extensibility designed into the package to implement an advanced use case. I was able to implement the custom sampled data generating process and a static data generating process needed for the experiment with no changes to the core operational code of the package.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -158,13 +171,12 @@ The actual code implementation should largely speak for itself. Below, I highlig
 Two important steps are taken to ensure code usability:
 
 \begin{enumerate}
-    \item I authored extensive documentation and tutorials to enable users to understand and extract value from code without reading the code itself. This documentation was built using Sphinx and ReadTheDocs. This has two advantages. For the user, it means easy access to hosted docs with all of the tools required for easy consumption: search, hyper-linking, direct access to the code documented on each page etc. For the developer, it means that documentation is stored inline with the code and can be easily modified as the code is further developed. The docs are rebuilt by ReadTheDocs on each git commit.
+    \item I authored extensive documentation and tutorials to enable users to understand and extract value from code without reading the code itself. This documentation was built using Sphinx and ReadTheDocs. This has two advantages. For the user, it means easy access to hosted docs with all of the tools required for easy consumption: search, hyper-linking, direct access to the code documented on each page, etc. For the developer, it means that documentation is stored alongside the code and can be easily modified as the code is further developed. The docs are rebuilt by ReadTheDocs on each git commit.
     
-    \item I deployed the code as a Python package which can be installed with industry-standard tools (\texttt{pip}). The code is updated by an automated continuous deployment process which deploys tagged git commits. This ensures the latest (stable) code is available to users. I also built a docker image that includes all of the dependencies and allows users to quickly access the package for initial exploration. This is an emerging best-practice.
+    \item I deployed the code as a Python package that can be installed with industry-standard tools - (\texttt{pip} and \texttt{setuptools}). The code is updated by an automated continuous deployment process that deploys tagged git commits. This ensures the latest (stable) code is available to users. I also built a docker image that includes all of the dependencies and allows users to quickly access the package for initial exploration. This is an emerging best-practice.
     
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
-
