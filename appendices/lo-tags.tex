@@ -154,11 +154,13 @@ The actual code implementation should largely speak for itself. Below, I highlig
     
     \item Exceptions are thrown using custom Python exception types that provide useful guidance on the source and type of error.
     
-    \item Logging is used to provide optional debug logs that document the execution flow for inspection.
+    \item Logging is used to provide optional logs that document the execution flow for inspection.  This logging is implemented based on Python best practices and design patterns. Appropriate log levels are used for different messages. Messages of warning level or higher are output by default, using the \texttt{stderr} stream but detailed configuration is possible in user code. Loggers are configured using the package module hierarchy to allow for specific module-level control.
     
-    \item The motivation of the choice of all major data structures which appear in the code is explained in inline comments.
+    \item The motivation behind the choice of performance-relevant data structures is explained in inline comments.
     
-    \item As explained under \nameref{hc:algorithms} and \LOref{CodeDesign} extensive experimentation and design iteration was performed to reduce code execution complexity. I estimate that my final version runs a typically-sized benchmark in about 10\% of the time taken by the first versions. Most of the speed-up was achieved by optimizations like compilation and parallelization, which changed the constant execution time rather than the big-O complexity of the benchmarking `algorithm.'
+    \item Advanced python features are used to produce complex functionality without complex code. For example, a python Metaclass is used to implement the DSL that enables easy DGP specification. This provides access to the DGP class properties at class instantiation time, allowing validation and preprocessing of the DGP execution flow once per class definition.
+    
+    \item As explained under \nameref{hc:algorithms} and \LOref{CodeDesign} extensive experimentation and design iteration was performed to reduce code execution complexity and improve speed (within the same formal complexity class). I estimate that my final version runs a typical-sized benchmark in about 10\% of the time taken by the first version. Most of the speed-up was achieved by optimizations like caching, compilation, and parallelization, which improved execution time without changing the actual big-O complexity of the benchmarking `algorithm.'
 \end{itemize}
 
 Beyond this aspects of the implementation, I would like to draw attention to the implementation of the code used to run the validation that appears in Chapter \ref{chap:macvalidation}. In implementing this code, I acted as a user of the Maccabee - utilizing the extensibility designed into the package to implement an advanced use case. I was able to implement the custom sampled data generating process and a static data generating process needed for the experiment with no changes to the core operational code of the package.
