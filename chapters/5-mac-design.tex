@@ -19,7 +19,7 @@ The remainder of this paper is focused on Maccabee. Maccabee - \textbf{M}onte \t
 
 \vspace{\baselineskip}
 
-As noted at the end of Chapter \ref{chap:litreview}, the design described here builds on the theoretical design proposed in \textcite{Dorie2019Automated1}, extending it into a flexible, implementation-ready \textit{concrete} design. The concrete design is presented in four sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context that informed the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach. First, looking at the high-level approach used by \textcite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. Finally, the fourth section discusses the empirical data sets that are included in the package, as these form an important part of the 'design' of a Hybrid Monte Carlo benchmark. Taken together, the content of these four sections provides a complete picture of the design of the Maccabee package.
+As noted at the end of Chapter \ref{chap:litreview}, the design described here builds on the theoretical design proposed in \textcite{Dorie2019Automated1}, extending it into a flexible, implementation-ready \textit{concrete} design. The concrete design is presented in four sections. The first section provides a brief summary of the methods reviewed in Chapter \ref{chap:litreview}. This sets the context that informed the design proposed in this chapter. The second section outlines Maccabee's benchmarking approach. First, looking at the high-level approach used by \textcite{Dorie2019Automated1} and then at how this approach is concretized in Maccabee's DGP sampling procedure. The third section provides a formal statistical specification of a Maccabee benchmark. The fourth section outlines how Maccabee measures the location of sampled DGPs in the distributional problem space from Chapter \ref{chap:problemspace}. Finally, the fifth section discusses the empirical data sets that are included in the package, as these form an important part of the `design' of a Hybrid Monte Carlo benchmark. Taken together, the content of these four sections provides a complete picture of the design of the Maccabee package.
 
 \section{Design Goal: Better Benchmarking for Causal Inference Methods}
 \label{mac:problems}
@@ -32,7 +32,7 @@ As established in Chapter \ref{chap:litreview}, most existing approaches to benc
     \item \textbf{Synthetic methods} use covariate and outcome data generated from synthetic (hand-specified rather as opposed to observed/empirical) distributions and functions. By definition, the DGP is known. As a result, the true causal effects - both at the average and individual level - can be calculated directly and it is known if causal assumptions are met.
 \end{enumerate}
 
-While both of these approaches have strengths and weaknesses, explored in detail in Chapter \ref{chap:litreview}, they share a common flaw: their sample size is, effectively, one. In either design, a new causal inference method is tested against one or a few DGP (per targeted distributional setting). In empirical datasets, the properties of this DGP and, most importantly, its place in the distributional problem space, are unknown. The causal inference method is validated against a single DGP 'sample' from an unknown location in the problem space. In synthetic datasets, the DGP properties - and its location in problem space - are known but, again, there is usually only one or a few DGPs per distributional setting.
+While both of these approaches have strengths and weaknesses, explored in detail in Chapter \ref{chap:litreview}, they share a common flaw: their sample size is, effectively, one. In either design, a new causal inference method is tested against one or a few DGP (per targeted distributional setting). In empirical datasets, the properties of this DGP and, most importantly, its place in the distributional problem space, are unknown. The causal inference method is validated against a single DGP `sample' from an unknown location in the problem space. In synthetic datasets, the DGP properties - and its location in problem space - are known but, again, there is usually only one or a few DGPs per distributional setting.
 
 \vspace{\baselineskip}
 
@@ -198,6 +198,87 @@ With that established, the sampling procedure for each individual observation is
 
 \item Finally, and optionally, $M$ Data Metrics are calculated by combining some/all of the covariate data with the observed and oracle outcome data.
 
+\end{enumerate}
+
+\section{Measuring the Location of Sampled DGPs in the Distribution Problem Space}
+
+\textcite{Dorie2019Automated1} propose the use of \textit{metrics}, defined over the various DGP variables discussed above, to measure the location of a DGP along an axis. These metrics work by assigning a numerical `score' to data drawn from a DGP, such that this score is proportional (in some approximate way) to the property described by the target axis. Note that these metrics are, therefore, \textit{estimates} of the position along an axis for two reasons. First, the metric itself is only \textit{proportional} to the underlying axis \textit{concept} and there may be many, roughly equivalent functions that share this proportionality property but do not produce values that are absolutely comparable. Second, the metric value is calculated using data sampled from the DGP. This means there is sampling variance associated with the metric value. That said, it is not crucial that these metrics are perfectly `accurate' because there is ground truth against which the accuracy of the metric can actually be measured. The distribution problem space is a \textit{conceptual} design space. Estimators are expected to be sensitive to the location of data/DGPs in this space, but it is the region of the data in the space more than the (undefinable) exact location that matters. This means heuristic/approximate metrics, that measure relative position, are acceptable and useful. Note that throughout the package implementation and documentation, the metrics introduced here are referred to as \textit{data metrics} and the metrics used to measure performance are referred to as \textit{performance metrics}. For simplicity, the rest of this section uses \textit{data metrics} and metrics interchangeably.
+
+\vspace{\baselineskip}
+
+With this established, I proceed to describe the metrics proposed by \textcite{Dorie2019Automated1}. These metrics can be used to measure all of the axes proposed above and are implemented directly in Maccabee. As is evident from the discussion in Chapter \ref{chap:macvalidation}, there are many aspects of the metric scheme that could be improved. These improvements are left to future work. 
+
+\vspace{\baselineskip}
+
+Rather than describe each of the metrics that appear in Maccabee, I focus on the methods used to measure \textit{concepts} that are common to the metrics used for multiple axes of the problem space. For example, the linearity of some variable with respect to another where linearity is the \textit{concept}. Before doing this, I first draw a distinction between the so-called \textit{oracle} and \textit{observed} variables over which the metrics are defined as well as introducing the notion of \textit{transformed covariates}. A complete list of the metrics proposed by \textcite{Dorie2019Automated1}, and implemented in Maccabee, can be found in the supplementary material of their paper.
+
+\subsection{Observed vs Oracle Variables}
+
+Chapter \ref{chap:problemspace} established that the axes of the distributional problem space correspond to properties of the distributional setting - the joint distribution over the observed data. This implies that the position of a DGP in the distributional problem space can by determined by the properties of the (observed) data generated by the DGP. While this is true, it is clear that distributions over the unobserved data/aspects of the DGP also play a critical role in creating/defining the distributional setting of the observed data. For example, the linearity of the outcome mechanism depends on the distribution over the potential outcome without treatment - $Y0$ - conditioned on the observed covariates.
+
+\vspace{\baselineskip}
+
+Accurate measurement of the position of observed data along the axes above, therefore, requires access to both observed and unobserved data. Without this access, it is still possible to \textit{approximately} measure the location, but it may be hard to disambiguate location along related axes (for the same reason that observational causal inference is hard in the first place). For example, low linearity of the observed outcome with respect to the covariates could imply non-linearity in the untreated outcome mechanism or the treatment effect mechanism. This doesn't mean that all metrics over observed data are approximate. For example, an estimate of the linearity of treatment assignment may be accurate given that both true treatment assignment and covariates are observed.
+
+\vspace{\baselineskip}
+
+If the true DGP is known, then one has access to both observed and unobserved variables. This means that metrics including both can be calculated. To draw a distinction between (sometimes inaccurate) metrics over observed data and (usually accurate) metrics over unobserved data, \textcite{Dorie2019Automated1} refer to the former as observed metrics and the later as oracle metrics. I adopt this nomenclature in the rest of the paper when referencing these classes of metrics and the variables they rely on.
+
+\subsection{Original and Transformed Covariates}
+
+\textit{Transformed covariates} are especially useful oracle variables (see the section above) that result from the design of the sampling scheme used in Maccabee. As described in \ref{mac:approach}, the treatment and outcome functions that are the core of Maccabee's sampled DGPs are constructed as a linear combination of non-linear transformations, each of which involves one to three observed covariates. The value of these non-linear transformations can be thought of as `covariates' that are related to the treatment and outcome by simple linear functions. This perspective is useful when constructing metrics that require controlling for the functional form of the treatment/outcome functions. Examples are discussed below. The values of the non-linear terms that make up the sampled functions are referred to as the \textit{transformed covariates} throughout the package implementation and documentation.
+
+\subsection{Functions for Measuring Axes `Concepts'}
+
+While the axes introduced in Chapter \ref{chap:problemspace} each correspond to a unique property of the distributional setting, there is a smaller number of unique \textit{concepts} that appear across the axes (and, accordingly, in the metrics used to measure the position of DGPs along the axes). For example, the concept of linearity appears directly in three of the axes (and indirectly in one more). The combination of a concept and the data to which the concept is applied forms a unique axis.
+
+\vspace{\baselineskip}
+
+Metrics that measure the position of data/DGPs along each axis are built using functions that measure these concepts (applied to the relevant subset of the observed/oracle variables). Below, I describe the three \textit{concepts} that constitute/cover all of the nontrivial metrics in \textcite{Dorie2019Automated1} and outline the different functions that can be used to produce quantified (but heuristic) estimates of each concept.
+
+\begin{enumerate}
+    \item \textbf{Linearity:} the linearity of the function which relates some (potentially vector-valued) variable $A$ to a real-valued variable $B$ can be quantified using the $R^2$ value of a linear regression of $B$ on $A$. This captures how much of the variance in $B$ can be explained through a linear relation with $A$. If $B$ is categorical, the linear regression can be replaced by a logistic regression to achieve the same effect in the probability space of the relationship between $A$ and $B$. Metrics that use this approach are applied to measure the axes:
+
+    \begin{itemize}
+        \item The Nonlinearity (Modeling Complexity) of the (Untreated) Outcome Mechanism
+        \item The Nonlinearity (Modeling Complexity) of the Treatment Effect Mechanism
+        \item The Nonlinearity/Complexity of the Treatment Assignment Mechanism
+        \item The Degree of Alignment Between the Treatment Assignment and Outcome Mechanism \footnote{Measuring the correlation between the treatment and observed/oracle outcome variables can be used as a proxy for the ratio of confounding to non-confounding variables in the treatment and outcome mechanism}.
+    \end{itemize}
+    
+    Measures of linearity can also be combined with the \textit{transformed covariates} to measure more specific aspects of modeling complexity. For example, a linear regression of the outcome without treatment onto the transformed covariates measures the impact of the outcome noise on outcome predictability. This is possible because, by using the transformed covariates, the linear regression is guaranteed to be based on the correct model specification. Ergo, any prediction error is from other sources of error - with outcome noise being the only other source in this case.
+
+    \item \textbf{Distributional distance:} the distributional distance between two sets of observations of the same variables can be measured in a number of ways.
+    \vspace{\baselineskip}
+    \textbf{Mean-based Distance Measures}
+
+    \begin{itemize}
+
+        \item The L2 (vector-space) distance between the mean of variables in each set of observations. This approach summarizes each group of observations using the mean of each variable and then calculated the distance between the means. This is only useful if the mean is a good summary, and if the variables have roughly similar scales. Otherwise, a (relatively) small difference in the value of the mean of a variable with a (relatively) large scale may overwhelm all the very similar mean values of variables with small scales and produce a large overall distance.
+
+        \item The Mahalanobis distance between the group means. This is equivalent to the L2 distance with each covariate scaled by its empirical standard deviation. This accounts for the scaling problem assuming the empirical standard deviation is an appropriate scale factor.
+    \end{itemize}
+
+    \textbf{Distribution-based Distance Measures}
+
+    \begin{itemize}
+        \item Both the L2 and Mahalanobis distance can be applied to nearest-neighbor pairs across the two sets of observations - rather than the mean - with the result averaged across the data set. This produces a measure of distributional similarity that doesn't rely on the mean summary and is empirically weighted by the number of observations in each region of the domain.
+
+        \item The Wasserstein distance measures the absolute difference in the cumulative distribution function for the distribution across the domain. Conceptually, this is the amount of probability mass that would have to be moved in one of the distributions to equalize the two distributions.
+    \end{itemize}
+
+    Metrics that use the distance measures above are applied to measure the axes:
+
+    \begin{itemize}
+        \item Covariate Balance
+        \item Covariate Distribution Overlap \footnote{It is impossible to know whether the distribution of the empirical data in the treatment groups overlaps, so distance measures at the distributional level are used as a proxy}
+    \end{itemize}
+
+    \item \textbf{Relative Heterogeneity}: the heterogeneity of some variable $A$, relative to another variable $B$, can be measured using the ratio of the standard deviation of $A$ to the standard deviation of $B$. Metrics that use this approach are applied to measure the axes:
+
+    \begin{itemize}
+        \item Treatment Effect Heterogeneity \footnote{The standard deviation in the treatment effect relative to the standard deviation in the untreated outcome measures can be used as a proxy for the heterogeneity in the treatment effect.}
+    \end{itemize}
 \end{enumerate}
 
 \section{Empirical Data Sets in Maccabee}
