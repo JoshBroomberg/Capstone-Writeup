@@ -68,6 +68,8 @@ This section focuses on validating Maccabee's Hybrid Monte Carlo benchmarking ap
 
 The results collected from these three benchmarks provide a useful baseline against which results from Maccabee can be compared. With each of the three benchmarks providing insight into different aspects of Maccabee's sampled-based Hybrid Monte Carlo approach. The sections below focus on making these comparisons. In each case, I customize the operation of the Maccabee package to provide a narrow comparison that maximizes the `constants' that are kept the same between the two methods.
 
+\vspace{\baselineskip}
+
 \textit{Note: in the results below, the only estimator that is benchmarked is the Logistic Propensity Matching Estimator - the baseline estimator in \textcite{Diamond2013GeneticStudies}. Producing analogous validation results for the range of estimators that appear in the original work is left for future work.}
 
 \subsection{Sampled Synthetic DGP vs Static Synthetic DGP}
@@ -88,7 +90,7 @@ With the above established, the (compared) benchmarking procedures are as follow
 
 \subsubsection{Comparison Implementation}
 
-All of the above is done using Maccabee. The hand-specified DGP from \textcite{Diamond2013GeneticStudies} is sampled using a custom, concrete DGP, and the sampled DGPs are constructed using the default Maccabee sampler with custom parameters, a custom data source and a customized DGP class (to keep the outcome mechanism fixed) \footnote{See Chapter \ref{chap:macimplementation} for explanations of these implementation concepts.}. The case study code is available in a Notebook \href{https://github.com/JoshBroomberg/Maccabee/blob/master/Notebooks/Genmatch\%20Benchmark\%20Validation.ipynb}{here}. 
+All of the above is done using Maccabee. The hand-specified DGP from \textcite{Diamond2013GeneticStudies} is sampled using a custom, concrete DGP, and the sampled DGPs are constructed using the default Maccabee sampler with custom parameters, a custom data source and a customized DGP class (to keep the outcome mechanism fixed) \footnote{See Chapter \ref{chap:macimplementation} for explanations of these implementation concepts.}. The case study code is available in a Notebook \href{https://github.com/JoshBroomberg/Maccabee/blob/master/Notebooks/Genmatch\%20Benchmarking\%20Validation.ipynb}{here}. 
 
 \vspace{\baselineskip}
 
@@ -101,7 +103,7 @@ Table \ref{tbl:pure-synth-data-metrics-1} displays the average data metric value
 
 \begin{table}[ht!]
 \centering
-    \begin{tabular}{|l|l|m{2cm}|m{2cm}|}
+    \begin{tabular}{|l|l|m{1.5cm}|m{1.5cm}|}
     \hline
     \rowcolor[HTML]{EFEFEF} 
     Axis & Metric & Genmatch Value & Maccabee Value \\ \hline
@@ -117,9 +119,9 @@ Table \ref{tbl:pure-synth-data-metrics-1} displays the average data metric value
     Alignment & Lin r2(Y0, Treat Logit) & 0.014 & 0.096 \\ \hline
     Alignment & Log r2(Y0, T) & 0.552 & 0.612 \\ \hline
     Alignment & Log r2(Y, T) & 0.665 & 0.669 \\ \hline
-    Treatment Effect Heterogeneity & std(TE)/std(Y) & 0.0 & 0.0 \\ \hline
+    Treat Effect Heterogeneity & std(TE)/std(Y) & 0.0 & 0.0 \\ \hline
     \end{tabular}
-    \caption{Data metrics values for DGPs produced for the comparison between the Genmatch and Maccabee benchmarks based on pure, synthetic DGPs. Maccabee produces sampled DGPs with mean metric values that are close to the metric values for the original Genmatch DGP. This indicates that the concrete Genmatch DGP is a `typical' relative to the the restricted set of functions of similar form.}
+    \caption{Data metrics values for DGPs produced for the comparison between the Genmatch and Maccabee benchmarks based on pure, synthetic DGPs. Maccabee produces sampled DGPs with mean metric values that are close to the metric values for the original Genmatch DGP. This indicates that the concrete Genmatch DGP is a `typical' relative to the the restricted set of functions of similar form. For guidance on interpreting the metrics (and metric naming scheme) in this table, see Section \ref{sec:measuring-distributional-setting} of Chapter \ref{chap:macdesign}.}
     \label{tbl:pure-synth-data-metrics-1}
 \end{table}
 \FloatBarrier
@@ -165,13 +167,13 @@ Both of these points imply that sampling DGPs to capture, and then average over,
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=1\linewidth]{figures/ch7-benchmark-pure-synth-2.png}
+    \includegraphics[width=0.9\linewidth]{figures/ch7-benchmark-pure-synth-2.png}
     \caption{Pure, Synthetic benchmark performance metric plotted against the data metric values for treatment nonlinearity. Maccabee sampled DGPs are in blue with the blue dot at the mean performance and data metric value for each sampled DGP and error bars corresponding to the standard deviation of the performance metric across the sampling runs for the DGP. The concrete, Genmatch DGPs are in red with a large red dot at the the mean performance/data metric value and an individual, smaller dot for the performance/data metric value of each sampling run. It is clear that the treatment non-linearity metric is predictive of performance but only explains a small portion of the variance in the performance. It is also clear that the concrete Genmatch DGP displays performance which is typical of its treatment non-linearity.}
     \label{fig:benchmark-validation-pure-synth-2}
 \end{figure}
 \FloatBarrier
 
-Returning to the reversed-from-expectation direction of the trend in Figure \ref{{fig:benchmark-validation-pure-synth-2}}. A hypothesis that would explain this observation is that the more linear the treatment function, the more alignment there is between the treatment and outcome functions (because the outcome function is linear). As established in Chapter \ref{chap:litreview}, this would then mean there is a larger degree of confounding to reverse. This hypothesis appears to be borne out by the data presented in Figure \ref{fig:benchmark-validation-pure-synth-3}. This figure, which is directly analogous to Figure \ref{fig:benchmark-validation-pure-synth-2}, displays the MABP performance plotted against a metric that measures alignment. It shows that as alignment increases, the MABP increases. Further, there is a strong correlation between the metric used to measure treatment nonlinearity (from Figure \ref{fig:benchmark-validation-pure-synth-2}) and the metric used to measure alignment (from Figure \ref{fig:benchmark-validation-pure-synth-3}), with an $R^2$ of $0.4$ and a p-value $< 10^{-5}$ \footnote{A plot of the relation between these metrics is included in the notebook linked above}. Ironically, given the subject matter of this paper, it is hard to resolve the causality that relates these interlinked trends. It is plausible that the alignment created by increased linearity in the treatment mechanism increases the error in causal inference enough to mask/mitigate the increase in accuracy produced by the (more) correct specification of the treatment assignment model \footnote{Recall that the estimator being used matches on a linear propensity model.}.
+Returning to the reversed-from-expectation direction of the trend in Figure \ref{fig:benchmark-validation-pure-synth-2}. A hypothesis that would explain this observation is that the more linear the treatment function, the more alignment there is between the treatment and outcome functions (because the outcome function is linear). As established in Chapter \ref{chap:litreview}, this would then mean there is a larger degree of confounding to reverse. This hypothesis appears to be borne out by the data presented in Figure \ref{fig:benchmark-validation-pure-synth-3}. This figure, which is directly analogous to Figure \ref{fig:benchmark-validation-pure-synth-2}, displays the MABP performance plotted against a metric that measures alignment. It shows that as alignment increases, the MABP increases. Further, there is a strong correlation between the metric used to measure treatment nonlinearity (from Figure \ref{fig:benchmark-validation-pure-synth-2}) and the metric used to measure alignment (from Figure \ref{fig:benchmark-validation-pure-synth-3}), with an $R^2$ of $0.4$ and a p-value $< 10^{-5}$ \footnote{A plot of the relation between these metrics is included in the notebook linked above}. Ironically, given the subject matter of this paper, it is hard to resolve the causality that relates these interlinked trends. It is plausible that the alignment created by increased linearity in the treatment mechanism increases the error in causal inference enough to mask/mitigate the increase in accuracy produced by the (more) correct specification of the treatment assignment model \footnote{Recall that the estimator being used matches on a linear propensity model.}.
 
 \vspace{\baselineskip}
 
@@ -179,8 +181,8 @@ This raises another, more subtle concern with hand-specified benchmarks. Hand-sp
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=1\linewidth]{figures/ch7-benchmark-pure-synth-3.png}
-    \caption{Pure, Synthetic benchmark performance metric plotted against the data metric values for treatment-outcome alignment. As in Figure \ref{fig:benchmark-validation-pure-synth-2}, Maccabee sampled DGPs are in blue with the blue dot at the mean performance and data metric value for each sampled DGP and error bars corresponding to the standard deviation of the performance metric across the sampling runs for the DGP. The concrete, Genmatch DGPs are in red with a large red dot at the the mean performance/data metric value and an individual, smaller dot for the performance/data metric value of each sampling run. The graph displays a similar trend to the one in Figure 2.  It is also clear that the concrete Genmatch DGP displays performance which is typical of its treatment non-linearity.}
+    \includegraphics[width=0.9\linewidth]{figures/ch7-benchmark-pure-synth-3.png}
+    \caption{Pure, Synthetic benchmark performance metric plotted against the data metric values for treatment-outcome alignment. As in Figure \ref{fig:benchmark-validation-pure-synth-2}, Maccabee sampled DGPs are in blue with the blue dot at the mean performance and data metric value for each sampled DGP and error bars corresponding to the standard deviation of the performance metric across the sampling runs for the DGP. The concrete, Genmatch DGPs are in red with a large red dot at the the mean performance/data metric value and an individual, smaller dot for the performance/data metric value of each sampling run. The graph displays a similar trend to the one in Figure 2 - as alignment increases, the MABP increases. This is the expected direction of this trend given the theory outlined in Chapter \ref{chap:problemspace}. It is possible that the unexpected trend direction from Figure \ref{fig:benchmark-validation-pure-synth-2} results from the fact that, in this case, increased treatment linearity increases alignment, which could increase the difficulty of causal modeling enough to mask the gain from the treatment linearity.}
     \label{fig:benchmark-validation-pure-synth-3}
 \end{figure}
 \FloatBarrier
