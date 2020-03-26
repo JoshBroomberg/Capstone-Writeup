@@ -1,16 +1,16 @@
 \documentclass[./main.tex]{subfiles}
 \begin{document}
 
-Below, I provide explanations of how I have applied various habits of Mind and Foundational Concepts in this work. The explanations are divided into four sections.
+Below, I provide explanations of how I have applied various habits of Mind and Foundational Concepts in this work. The explanations are divided into four subappendices.
 
 \begin{enumerate}
-    \item Section \ref{hc:section-analytical} describes the HCs applied in constructing the theoretical and analytical content in this work. Largely the early chapters, which establish the theoretical foundation and guide the design of the core contribution.
+    \item Appendix \ref{hc:section-analytical} describes the HCs applied in constructing the theoretical and analytical content in this work. Largely the early chapters, which establish the theoretical foundation and guide the design of the core contribution.
     
-    \item Section \ref{hc:section-technical} describes the HCs applied in designing and constructing the technical components of the work. These are focused on statistics, code implementation, and experimental validation.
+    \item Appendix \ref{hc:section-technical} describes the HCs applied in designing and constructing the technical components of the work. These are focused on statistics, code implementation, and experimental validation.
     
-    \item Section \ref{hc:section-writing} describes the HCs applied to the writing and structuring of the paper, a level above the content itself.
+    \item Appendix \ref{hc:section-writing} describes the HCs applied to the writing and structuring of the paper, a level above the content itself.
     
-    \item Section \ref{hc:section-process} describes HCs applied to the meta-process of completing this project.
+    \item Appendix \ref{hc:section-process} describes HCs applied to the meta-process of completing this project.
 \end{enumerate}
 
 \section{Analytical HC Applications}
@@ -190,7 +190,7 @@ One of the key challenges in this work was designing a way to validate Maccabee'
     \item \textbf{Superiority:} refers to whether the design and implementation are superior to existing benchmarking methods (the theoretical conclusion reached in Chapter \ref{chap:litreview}).
 \end{enumerate}
 
-To proceed, these two aspects of design and implementation validity need to be converted in testable `hypotheses,' defined over measurable quantities, and amenable to some kind of empirical validation. This is much easier for correctness relative to superiority. In both cases, some assumptions are required.
+To proceed, these two aspects of design and implementation validity need to be converted (if possible) into testable `hypotheses', defined over measurable quantities, and amenable to some kind of empirical validation. This was much easier for correctness than for superiority. In both cases, some assumptions were required. Note that this is is `backward' from the way \nameref{hc:testability} is normally applied. In a standard applicable, a hypothesis is given and evaluated for testability. Here, hypothesis are generated with the explicit goal of ensuring testability is achieved. I believe that this still demonstrates an understanding of what makes hypotheses testable.
 
 \begin{enumerate}
     \item \textbf{Correctness:} testing correctness is relatively straight-forward. To test the correctness of targeted DGP sampling, I implicitly use the following testable hypothesis: Assuming the data metrics are a valid measure of distributional setting, changing the \textit{DGP Sampling Parameters} should produce observable changes in the data metrics for sampled DGP data, with changes in-line with the design-intent of each parameter. This hypothesis is manifestly testable, and the experiment to test it is performed in Chapter \ref{chap:macvalidation}. It is worth noting that confirming this hypothesis is not equivalent to confirming correctness. If the data metrics are invalid, then the targeting of the sampling is invalid. Further, there is no objective scale against which to evaluate the observed changes. So, even though changes are observed in the data metrics, each corresponding to a problem space axis, it is unclear if these changes span the range of the axis/cover the distributional problem space. Given the highly theoretical nature of the distributional problem space, I do not think that a more certain confirmation of targeted DGP sampling is possible.
@@ -199,6 +199,21 @@ To proceed, these two aspects of design and implementation validity need to be c
 \end{enumerate}
 
 Finally, I note that, even though the testable hypotheses above do not serve as absolute confirmation of validity, they do serve a purpose. The failure to \textbf{invalidate} the design and approach of Maccabee lends some credibility to its validity. Further tests of the same kind, which also failed to invalidate the approach, would lend further credence. This is how science works. We can never be 100\% sure of some ground-truth claim but can repeatedly fail to invalidate it.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{\#hypothesisdevelopment}}
+\label{hc:hypothesisdevelopment}
+
+\nameref{hc:testability} outlined the thinking/design behind the experimentation in Chapter \ref{chap:macvalidation}. As is clear from the description in that tag, designing a validation scheme for Maccabee required initially developing a number of testable hypotheses for what would be observed if a) the theory underpinning the benchmarking design were correct and b) the implementation of the design was correct. There were some nuances that were not mentioned above which are worth describing here. First, the experiments outlined in Chapter \ref{chap:macvalidation} have hypotheses that build on each other, using the presumptive confirmation of prior hypotheses to support the confirmation/interpretation of the next hypotheses. This speaks to the way in which hypotheses relate to the idea of a theory/model. It is usually unnecessary/hard to express a complete `theory' as a single, testable hypothesis. Rather, multiple hypotheses can be used to validate sub-components of the theory, with the results building on each other to validate the complete theory. In the case of Maccabee, the overarching `theory' is (loosely) that the core design and implementation is valid and realizes the theoretically predicted advantages. This `theory' was divided into multiple hypotheses (and associated experiments). The first two experimental cases in Chapter \ref{chap:macvalidation} were designed to validate the operation of benchmarking in a single region of the problem space. The third experiment was designed to validate benchmarking across the problem space, premised on valid benchmarking in each region. The results from this third experiment would only be meaningful in the context of successful evidence collected to confirm the hypotheses from the prior experiments.
+
+\vspace{\baselineskip}
+
+Hypothesis develop also played a less obvious role in the implementation/execution of the validation experiments. Here, the idea of the loop of hypothesize-test-hypothesize is evident: Writing the code for the experiments was non-trivial and involved solving code issues that were producing clearly degenerate results or attempting to explain unexpected results. Faced with these issues, the process of finding a solution started with developing and testing \textit{hypotheses} for the source of issue based on the observed results. An example of this is written into the text of Chapter \ref{chap:macvalidation}: Initial results for the first experiment indicated that treatment linearity was positively associated with estimation error. This was the opposite of expectation. I developed the hypothesis that the linearity was creating increased error by affecting some other aspect of distributional setting and then collected evidence to test this by looking at the correlation of linearity with the other data metrics. This process is also common practice in debugging complex code - for example, changing DGP sampling parameters one at a time until I could isolate the one parameter change that was producing invalid \texttt{NaN} results.
+
+\vspace{\baselineskip}
+
+It is important to note that there is a very fine line between the important role this kind of trouble-shooting can play in the execution of experiments and the damage that can be done by modifying the experimental setup until desired results are achieved. IE, it is crucial to avoid change the experimental design until the main experimental hypothesis is confirmed. The hypotheses I refer to above are hypotheses aimed at either explaining surprising results or fixing issues that are obviously not related to the core experiment.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -297,6 +312,13 @@ Fortunately, by this point, I had done enough initial research into the benchmar
 \vspace{\baselineskip}
 
 This pivot was executed such that I ended up with a topic that was a) still in-line with my strengths and interests while b) being in a domain without aggressive competition, where I could contribute value as an undergrad and c) resulted in minimal wasted effort as I was able to re-purpose all of my existing research. I believe this demonstrates a strong example of \#strategic thought and action.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{\textbf{\#responsibility}}
+\label{hc:responsibility}
+
+The \nameref{hc:responsibility} rubric describes responsibility as a) investing one's full effort in meeting commitments and b) not blaming others or making excuses for failure to meet these. The Capstone process can be thought of a commitment to continuous work and progress throughout senior year. I believe that the investment of my full effort towards this commitment is demonstrated by the quality of the deliverables I submitted throughout the year. The final product I am presenting here is the sum of the work invested into these individual deliverables and the quality of those deliverables is reflected in the quality of this work. There were some deliverables that fell short of the quality/scope of content that I hoped to achieve - for example, prior to the pivot discussed in \nameref{hc:strategize} above, my first deliverable in the Fall semester was sparse and poorly organized. In these cases, I provided a clear and detailed explanation of the reasons for the failure, always taking full responsibility, and improved the shortcoming in subsequent deliverables. As another example, see the Author's Note in the first hand in from the Spring Semester (\href{https://docs.google.com/document/d/1-Pn58_Kk9enxZttWxzLsHF-0_JPV4bj4pDVegOT1SkU}{here}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
