@@ -1,0 +1,47 @@
+\documentclass[../main.tex]{subfiles}
+
+\newcommand{\paperTitleText}{Hybrid Monte Carlo Benchmarks for Methods of Causal Inference}
+
+\begin{document}
+    \title{\paperTitleText}
+    \author{Josh Broomberg}
+    %\maketitle
+
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{1cm}
+                
+            \Huge
+            \textbf{\paperTitleText}
+                
+            \vspace{2cm}
+            
+            \huge
+            \textbf{Josh Broomberg}
+                
+            \vfill
+            
+            \Large
+            A Capstone Project Presented to the Faculty \\
+            of Minerva Schools at KGI
+                
+            \vspace{0.8cm}
+                
+            March 2020
+                
+        \end{center}
+    \end{titlepage}
+    
+    \thispagestyle{plain}
+    \begin{center}
+        \Large
+        \textbf{Abstract}
+        \vspace{1cm}
+    \end{center}
+    
+    The last decade has seen enormous progress in the development of methods that extract predictive information from growing stores of observational data. There has also been progress in the development of methods for causal inference - inference aimed at extracting the effect of interventions from observational data. But progress in the research and adoption of causal inference methods has been hindered by the difficulty of reliable performance evaluation (benchmarking). Unlike in predictive inference, one cannot simply construct ‘training’ and ‘test’ data by partitioning an available IID dataset. Further, methods of causal inference are often intentionally applied in distributional settings different to the ones in which they are developed, placing a greater emphasis on generalization.
+    
+    \vspace{\baselineskip}
+
+    Different solutions to this evaluation problem yield benchmarking approaches that make different trade-offs between the \textit{specific} validity of evaluation in one, typically empirical distributional setting and the \textit{general} validity of evaluation across multiple, typically synthetic distributional settings. This paper proposes a theoretical framework that formalizes this trade-off and then applies it to review the approaches that appear in the literature. Hybrid Monte Carlo benchmarking, which blends empirical covariate data and synthetic treatment and outcome mechanisms, is identified as an approach that makes a near-optimal validity trade-off. Based on this insight, this paper presents a benchmarking design and implementation, inspired by the variant of hybrid Monte Carlo proposed in \textcite{Dorie2019Automated1}, that generates benchmark data by sampling from a parameterized distribution over data generating processes defined over empirical covariates. This enables the evaluation of causal inference methods across the distributional problem space while preserving the specific validity of the evaluation in each setting. An validation study, based on the accompanying implementation, provides initial evidence of the relative superiority of the approach.
+\end{document}

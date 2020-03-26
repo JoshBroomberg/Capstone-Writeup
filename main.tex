@@ -8,7 +8,7 @@
 \frontmatter
 
 % Title
-\subfile{chapters/0-title}
+\subfile{chapters/0-front-matter}
 \clearpage
 \thispagestyle{empty}
 
@@ -60,9 +60,18 @@
 \label{chap:conclusion}
 \subfile{chapters/8-conclusion}
 
+% Back Matter and Appendices
+
+\singlespacing % switch back to single spacing
+
+% \backmatter
+\part{Back Matter}
+% Bibliography
+\subfile{appendices/bibliography}
+
 % Appendices
 \part{Appendices}
-\appendix
+\appendix % switch to appendix mode
 
 % HCs
 \chapter{Habits of Mind and Foundational Concepts}
@@ -79,8 +88,4 @@
 \label{app:package-docs}
 \subfile{appendices/package-docs}
 
-% Bibliography
-\backmatter
-\subfile{./bibliography}
- 
 \end{document}

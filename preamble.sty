@@ -32,14 +32,16 @@
 
 % Bibliography
 \usepackage[
-backend=biber,
-maxnames=2,
-maxcitenames=2,
-minnames=1,
-mincitenames=1,
-style=apa,
-sorting=nyt,
-citestyle=apa,
+    backend=biber,
+    minalphanames=1,
+    minbibnames=1,
+    mincitenames=1,
+    maxalphanames=1,
+    maxbibnames=5,
+    maxcitenames=1,
+    style=apa,
+    sorting=nyt,
+    citestyle=apa,
 ]{biblatex}
 \DeclareLanguageMapping{american}{american-apa}
 
@@ -54,7 +56,7 @@ citestyle=apa,
 \usepackage{longtable}
 \usepackage{tabularx}
 \usepackage{changepage}
-\usepackage{setspace}
+\usepackage{setspace} % for \onehalfspacing and\singlespacing macros
 \usepackage{hhline}
 \usepackage{multicol}
 \usepackage{tabto}
@@ -72,9 +74,21 @@ citestyle=apa,
     urlcolor={blue!85!black}
 }
   
-\usetikzlibrary{shapes.symbols,shapes.geometric,shadows,arrows.meta}
+\usetikzlibrary{
+    shapes.symbols,
+    shapes.geometric,
+    shadows,
+    arrows.meta}
 \tikzset{>={Latex[width=1.5mm,length=2mm]}}
 \usepackage{flowchart}
+\usepackage{xcolor}
+
+%% Text Layout
+
+% line spacing
+\onehalfspacing % "1.5" line spacing
+
+% Margings
 \usepackage[
     paperheight=11.7in,
     paperwidth=8.2in,
@@ -83,8 +97,7 @@ citestyle=apa,
     top=1.5in,
     bottom=1.5in,
     headheight=1in]{geometry}
-\usepackage{xcolor}
-
+    
 %% Subfile system
 \usepackage{subfiles}
     
@@ -94,9 +107,6 @@ citestyle=apa,
 %% Docs links
 \newcommand{\RTDurl}{https://maccabee.readthedocs.io/en/latest}
 \newcommand{\RTDlink}[1]{\href{\RTDurl}{#1}}
-
-%% Quotes
-\usepackage{setspace} % for \onehalfspacing and\singlespacing macros
 
 % HC/LO tags
 \usepackage{etoolbox}
@@ -138,12 +148,10 @@ citestyle=apa,
 % 1.1.1.1) Paragraph
 % 1.1.1.1.1) Subparagraph
 
-
-\setcounter{tocdepth}{5}
-\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{3} %display subsubsections in TOC
+\setcounter{secnumdepth}{5} %number up to subparagraph
 
  %%%%%%%%%%%%  Set Depths for Nested Lists created by \begin{enumerate}  %%%%%%%%%%%%%%
-
 
 \setlistdepth{9}
 \renewlist{enumerate}{enumerate}{9}

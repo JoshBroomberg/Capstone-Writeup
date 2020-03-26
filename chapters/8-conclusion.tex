@@ -1,12 +1,60 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\tags{
-    None
-}{
-    None
-}
+%%%%%%%%%%%%%%%%%%%%%%% Context %%%%%%%%%%%%%%%%%%%%%%%%%
 
-PENDING: this chapter will conclude.
+Interventions, of one kind or another, lie at the heart of many of the most important questions we would like to answer with society's rapidly expanding stores of observational data. Social, economic, and health policy is designed to change systems to produce better outcomes. Companies take actions that change market conditions to produce commercially-desirable outcomes. This means that methods of causal inference, which extract information on the effect of interventions from observational data, will play an increasingly important role in practical research.
+
+\vspace{\baselineskip}
+
+Recent developments in Machine Learning, briefly reviewed in Chapter \ref{chap:intro}, have resulted in a plethora of new, potentially-powerful methods of causal inference. Because these methods are often functionally equivalent, working out which method is \textit{best} is crucially important. This, in turn, requires benchmarks that are capable of accurately characterizing method performance. Simple enough, but, as always, the devil is in the detail. As established in Chapter \ref{chap:problemspace}, the \textit{best} method for a specific setting/question will depend on the \textit{distributional setting} of the observational data because the performance of estimators depends on this setting. This means that working out which method is \textit{best} requires a benchmarking approach with the ability to \textit{accurately} evaluate methods across the \textit{space} of distributional settings. These two complimentary requirements are formalized as the \textit{specific} and \textit{general} validity of a benchmarking approach.
+
+\vspace{\baselineskip}
+
+Chapter \ref{chap:litreview} established that approaches for benchmarking causal estimators tend to trade-off \textit{specific} and \textit{general} validity. Specific validity refers to the ability of a benchmarking approach to perform a \textit{realistic} evaluation of estimators in a targeted \textit{region} of the distributional problem space. General validity refers to the ability of a benchmarking approach to target different regions of distributional problem space to evaluate performance across the range of relevant distributional settings. Most popular benchmarking approaches make a sub-optimal trade-off between these two forms of validity. Appropriately, the problem with most common benchmarking approaches can be framed (heuristically) through the lens of sampling. Properly characterizing the performance of an estimator requires `samples' of performance from across the distributional problem space and, within each region, sufficient samples to average over variance in performance created by different data generating processes. In this framing, the \textit{pure} benchmarking approaches outlined in Chapter \ref{chap:litreview} tend to take only one or a few (potentially biased) `samples' from (potentially unknown) regions of the distributional problem space. Fortunately, Hybrid Monte Carlo Benchmarking approaches provide a path to addressing this problem and come close to an optimal trade-off between specific and general validity. These approaches blend empirical covariate data and synthetic treatment and outcome mechanisms to perform realistic evaluation in flexible regions of the problem space. The final nuance - proposed by \textcite{Dorie2019Automated1} - is that the synthetic treatment and outcome mechanisms can themselves be sampled. This results in Sample-Based Hybrid Monte Carlo Benchmarks\footnote{The sampling in this name refers to the sampling of the data generating process, part of the `design' of the benchmark, and not to the (performance metric value) samples drawn from the (Monte Carlo) benchmark.} - an approach capable of `sampling' estimator performance, without specification bias, from across the problem space and within each region of the space (to account for in-region performance variance).
+
+%%%%%%%%%%%%%%%%%%%%%%% Contributions %%%%%%%%%%%%%%%%%%%%%%%%%
+
+With this context in mind, this paper made four primary contributions. First, it provided the theoretical foundation required to compare and contrast the different approaches to benchmarking causal inference estimators. This foundation provided the theoretical justification for Sample-Based Hybrid Monte Carlo Benchmarks.
+
+\vspace{\baselineskip}
+
+Second, the paper integrated causal inference theory and Monte Carlo theory to provide a formal specification for a Sample-Based Hybrid Monte Carlo scheme, designed to evaluate estimators in arbitrary regions of the distributional problem space, using arbitrary empirical data. This specification was inspired by the work in \textcite{Dorie2019Automated1}, but the vast majority of the concrete design is de novo. It enables flexibility in the targeting of distributional setting, flexibility in the empirical data used, and (hearkening forward to the next contribution) the computational efficiency required to run large benchmarks.
+
+\vspace{\baselineskip}
+
+Third, this paper is accompanied by a Python-package that implements the concrete benchmarking design. This package is designed to make Sample-Based Hybrid Monte Carlo benchmarking accessible to researchers and practitioners. This means that, on top of the core implementation, it includes features that make practical, applied usage possible: Robust parallelization and dynamic code compilation to enable large benchmarks; Utilities to specify experiments made up of multiple parameterizations (targeting different regions of problem space), with customizable sample sizes for all of the major stochastic components (sources of variance); Utilities for loading/preparing external data and exports/analyzing results.
+
+\vspace{\baselineskip}
+
+Finally, the paper provides the results of an initial validation study that is designed to a) ensure the correct operation of the accompanying implementation and b) to generate evidence supporting the superiority of the implemented approach when compared to other benchmarking approaches used in the literature. The results presented in this study focus only on the importance of Sample-based benchmarking within a region of the problem space. An experiment to demonstrate the importance of sampling from regions across the problem space is proposed but not executed. The results that are presented show that standard synthetic benchmarks do not capture relevant variance in the performance of an estimator when tested using DGPs from one region of the problem space. Further, they show that data metrics that measure the location of sampled DGPs in the problem space are correlated with estimator performance, motivating benchmarking that targets/controls the location of DGPs used for benchmarking.
+
+%%%%%%%%%%%%%%%%%%%%%%% Limitations %%%%%%%%%%%%%%%%%%%%%%%%%
+
+It is worth noting that there are a number of limitations in and known weaknesses of the benchmarking design and implementation presented in this paper. Focusing initially on the design proposed in Chapter \ref{chap:macdesign}:
+
+\begin{itemize}
+    \item The function sampling scheme is constrained, perhaps unnecessarily, to sample functions from a subset of the generalized additive functions. As noted in Chapter \ref{chap:litreview}, the specific validity of Sample-Based Hybrid Monte Carlo benchmarks is premised on the domain of the function sampling distribution being representative of the functions that make up realistic DGPs. It is hard to say with any real certainty whether a given functional domain is representative in this way. From an abstract perspective, it seems reasonable that wider domains - that better encode researcher ignorance of the functions that make up causal processes - are likely to be more representative. From a concrete perspective, it seems clear that the generalized additive domain used in Maccabee will not include functions with a nested/hierarchical structure (best represented by a directed, acyclic graph) or functions with arbitrarily high complexity/nonlinearity. There is no a priori reason for these to be excluded from the function sampling domain \textit{if it is possible to sample from the resultant domain}. I chose to follow the simple scheme proposed in \textcite{Dorie2019Automated1}, but more thought should be put into the construction of the function sampling domain.
+    
+    \item In order to sample DGPs from arbitrary locations in the distributional problem space, various automatic normalization and adjustment schemes are applied to the base empirical data and the sampled functions. These schemes are relatively unsophisticated, and it is conceivable that some empirical data or sampling parameterizations could result in degenerate sampled DGPs or failure to sample DGPs from the intended location in problem space. It is generally hard to automate every aspect of any complex sampling procedure, so some level of user-dependent configuration and validation should always be expected. However, it is likely that with more time and effort, it would be possible to produce more robust schemes that would require less configuration and validation. Examples of schemes that could be improved:
+    
+    \begin{itemize}
+        \item The treatment assignment function is centered and shifted using simple linear transforms in order to shift the mean propensity score to match the targeted mean propensity score provided in the sampling parameters. This doesn't account for the shape of the propensity score distribution.
+        
+        \item The continuous empirical covariates are normalized and centered using simple mean centering and standard deviation scaling. This doesn't account for the shape of the marginal distribution of each covariate or any covariance. Tools are provided to allow users to perform their own normalization - which is a stop-gap measure for handling arbitrary empirical data.
+        
+        \item Treatment imbalance is achieved by swapping treated and control units with low/high propensity scores between the treatment groups. This can be thought of as an imbalance transform in propensity space. A scheme to adjust imbalance in covariate space - by modifying the sampled treatment function - would be more robust and easier to control but is harder to formulate.
+        
+        \item The scale (and distribution) of the outcome noise is an adjustable constant. This means that the signal-to-noise ratio of the observed outcome is dependent on the scale of the untreated outcome and treatment effect values. This is currently handled by normalization of the sampled outcomes, but it would be preferable to use the unadjusted outcomes and to dynamically scale the outcome noise to achieve the desired signal-to-noise ratio. This would ensure that the realism of the outcomes is not undermined by normalization.
+    \end{itemize}
+    
+    \item The data metrics used to measure the locations of sampled DGPs are rough/approximate. As a result, the package relies on many overlapping metrics to measure location on each axis. Fewer, more accurate metrics would be preferable.
+\end{itemize}
+
+Beyond these limitations in the benchmarking design, there are a number of possible improvements in the validation. As mentioned above, Chapter \ref{chap:macvalidation} proposes two experiments that are extensions of the experiment presented. These would, respectively, validate Maccabee on more realistic covariate data and validate the importance of sampling DGPs from across the full problem space. Beyond these extensions, it would be valuable to perform more comparison-based evaluations to generate insight into the results provided by Sample-Based Hybrid Monte Carlo in general and to reveal any weaknesses in Maccabee's implementation.
+
+\vspace{\baselineskip}
+
+Finally, assuming reasonable confidence in the method and implementation has been established, the next logical step is to apply Maccabee to benchmark cutting-edge methods of causal inference in regions of the problem space that are of practical importance. This would (hopefully) generate benchmarking results that are useful to researchers and practitioners working at the forefront of the field. Ultimately, to deliver on the promise of more accurate benchmarking, Maccabee should be used to support the development and application of more accurate methods of observational causal inference. I look forward to working to improve the theory and code presented in this paper to achieve this goal.
 
 \end{document}
